@@ -1,13 +1,13 @@
-package co.edu.ucentral.IngSoftware;
+package co.ucentral.sistemas.Citasmedicas;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class IngSoftwareApplication {
+public class CitasmedicasApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(IngSoftwareApplication.class, args);
+		SpringApplication.run(CitasmedicasApplication.class, args);
 	}
 
 }
