@@ -8,6 +8,7 @@ public class CitasmedicasApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CitasmedicasApplication.class, args);
+		System.out.println();
 	}
 
 }
