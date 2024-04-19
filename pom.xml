@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>co.ucentral.sistemas</groupId>
-	<artifactId>Citasmedicas</artifactId>
+	<artifactId>citasmedicas</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Citasmedicas</name>
 	<description>Proyecto para citas medicas</description>
