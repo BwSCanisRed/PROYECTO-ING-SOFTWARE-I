@@ -9,8 +9,8 @@
             </PatternLayout>
         </Console>
         <RollingFile name="RollingFile"
-                     fileName="/demoEquiposLog/AppDemoSpring.log"
-                     filePattern="/demoEquiposLog/AppDemoSpring-%d{yyyy-MM-dd}-%i.log.gz">
+                     fileName="/citasmedicasLog/AppSpring.log"
+                     filePattern="/citasmedicasLog/AppSpring-%d{yyyy-MM-dd}-%i.log.gz">
             <PatternLayout>
                 <pattern>%d %p %C{1.} [%t] %m%n</pattern>
             </PatternLayout>
