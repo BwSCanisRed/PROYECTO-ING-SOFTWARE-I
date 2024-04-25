@@ -1,5 +1,4 @@
 package co.ucentral.sistemas.citasmedicas.controladores;
-
 import co.ucentral.sistemas.citasmedicas.dto.MedicoDto;
 import co.ucentral.sistemas.citasmedicas.servicios.ServiciosMedico;
 import lombok.extern.log4j.Log4j2;

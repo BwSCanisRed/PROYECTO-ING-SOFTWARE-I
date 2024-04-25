@@ -18,25 +18,16 @@ public class Medico {
     @Column(name = "med_id", nullable = false)
     private int identificacion;
 
-    @Column(name = "med_tipoid", nullable = false)
-    private String tipo_identificacion;
-
     @Column(name = "med_nombre", nullable = false)
     private String nombre;
 
     @Column(name = "rol_id", nullable = false)
-    private String rol;
-
-    @Column(name = "med_celular", nullable = false)
-    private String celular;
-
-    @Column(name = "med_direccion", nullable = false)
-    private String direccion;
+    private int rol;
 
     @Column(name = "med_estado", nullable = false)
     private Boolean estado;
 
-    @Column(name = "con_id", nullable = false)
+    @Column(name = "con_id", nullable = true)
     private int id_consultorio;
 
     @Column(name = "es_id", nullable = false)
@@ -45,10 +36,7 @@ public class Medico {
     @Column(name = "sed_id", nullable = false)
     private int id_sede;
 
-    @Column(name = "med_correo", nullable = false)
-    private String correo;
-
-    @Column(name = "med_contraseña", nullable = false)
-    private String contraseña;
+    @Column(name = "reg_id", nullable = true)
+    private int id_registro;
 
 }

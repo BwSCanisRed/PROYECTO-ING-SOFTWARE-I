@@ -6,16 +6,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+public class ConsultorioDto {
 
-public class MedicoDto {
-
-    private int identificacion;
-    private String nombre;
-    private String rol;
-    private Boolean estado;
     private int id_consultorio;
-    private int id_especialidad;
+    private String nombre;
     private int id_sede;
-    private int reg_id;
-
 }
