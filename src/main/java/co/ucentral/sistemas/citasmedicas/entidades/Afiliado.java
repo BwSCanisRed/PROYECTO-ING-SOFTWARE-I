@@ -28,4 +28,8 @@ public class Afiliado {
 
     @Column(name = "reg_id", nullable = true)
     private int id_registro;
+
+    @OneToOne
+    @JoinColumn(name = "id_usuario")
+    private Registro registro;
 }

@@ -1,0 +1,52 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>EPS Nuestra Salud SAS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+    <!-- Optional theme -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+          crossorigin="anonymous">
+</head>
+<body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <h3 class="sr-only">Gestión de Citas Médicas </h3>
+            </div>
+        </div>
+    </nav>
+    <nav>
+    <div class="container">
+        <br>
+        <a class="navbar-brand" href="#" th:href="@{/cntafiliados}">Afiliados</a>
+        <a class="navbar-brand" href="#" th:href="@{/cntmedico}">Médicos</a>
+        <a class="navbar-brand" href="#" th:href="@{/cntconsultor}">Consultor</a>
+        <a class="navbar-brand" href="#" th:href="@{/cntconsultorio}">Consultorio</a>
+        <a class="navbar-brand" href="#" th:href="@{/cntespecialidad}">Especialidad</a>
+        <a class="navbar-brand" href="#" th:href="@{/cntrol}">Rol</a>
+        <a class="navbar-brand" href="#" th:href="@{/cntsede}">Sede</a>
+    </div>
+    </nav>
+
+    <h1 class="sr-only">EPS Nuestra Salud SAS</h1>
+    <br>
+    <br>
+    <div class="container">
+        <form>
+        <a class="btn btn-primary" href="iniciar_sesion.html" >Iniciar Sesión</a>
+        <a class="btn btn-primary" href="#" th:href="@{/registro/nuevo}">Registrarse</a>
+        </form>
+    </div>
+    <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+</body>
+</html>

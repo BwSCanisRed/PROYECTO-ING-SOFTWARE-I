@@ -28,7 +28,7 @@ public class ControladoresAfiliado {
         model.addAttribute("elafiliado", afiliadoDto);
         return "crear_afiliado";
     }
-    @PostMapping("/afiliado")
+    @PostMapping("/cntafiliado")
     public String registrarAfiliado(@ModelAttribute("elafiliado") AfiliadoDto afiliadoDto) {
         serviciosAfiliado.crear(afiliadoDto);
         return "redirect:/cntafiliado";

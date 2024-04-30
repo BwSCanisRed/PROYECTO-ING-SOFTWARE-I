@@ -16,6 +16,6 @@ public class MedicoDto {
     private int id_consultorio;
     private int id_especialidad;
     private int id_sede;
-    private int reg_id;
+    private int id_registro;
 
 }

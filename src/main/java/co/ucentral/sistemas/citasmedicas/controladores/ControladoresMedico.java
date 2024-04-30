@@ -28,7 +28,7 @@ public class ControladoresMedico {
         model.addAttribute("elmedico", medicoDto);
         return "crear_medico";
     }
-    @PostMapping("/medico")
+    @PostMapping("/cntmedico")
     public String registrarMedico(@ModelAttribute("elmedico") MedicoDto medicoDto) {
         serviciosMedico.crear(medicoDto);
         return "redirect:/cntmedico";

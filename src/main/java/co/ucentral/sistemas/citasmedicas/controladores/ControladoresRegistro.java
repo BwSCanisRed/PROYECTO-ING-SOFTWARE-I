@@ -28,7 +28,7 @@ public class ControladoresRegistro{
         model.addAttribute("elregistro", registroDto);
         return "crear_registro";
     }
-    @PostMapping("/registro")
+    @PostMapping("/cntregistro")
     public String registrarRegistro(@ModelAttribute("elregistro") RegistroDto registroDto) {
         serviciosRegistro.crear(registroDto);
         return "redirect:/cntregistro";
