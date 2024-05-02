@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,6 +22,9 @@ public class Especialidad {
 
     @Column(name = "es_descripcion", nullable = true)
     private String nombre;
+
+    @OneToMany(targetEntity = Medico.class, fetch = FetchType.LAZY, mappedBy =  "especialidad")
+    private List<Medico> medicos ;
 
 }
 

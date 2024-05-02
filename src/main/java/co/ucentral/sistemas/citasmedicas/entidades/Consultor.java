@@ -23,9 +23,12 @@ public class Consultor {
     @Column(name = "c_estado", nullable = false)
     private Boolean estado;
 
-    @Column(name = "rol_id", nullable = false)
-    private int id_rol;
+    @OneToOne(targetEntity = Registro.class)
+    @JoinColumn(name = "reg_id")
+    private Registro registro;
 
-    @Column(name = "reg_id", nullable = true)
-    private int id_registro;
+    @ManyToOne(targetEntity = Rol.class)
+    @JoinColumn(name = "rol_id")
+    private Rol rol;
+
 }

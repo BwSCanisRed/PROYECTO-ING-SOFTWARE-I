@@ -29,4 +29,7 @@ public class Factura {
 
     @Column(name = "fac_estado", nullable = false)
     private Boolean estado;
+
+    @OneToOne(mappedBy = "factura", cascade = CascadeType.PERSIST)
+    private Cita cita;
 }

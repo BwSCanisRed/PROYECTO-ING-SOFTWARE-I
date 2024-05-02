@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,13 +26,14 @@ public class Afiliado {
     @Column(name = "afi_estado", nullable = false)
     private Boolean estado;
 
-    @Column(name = "rol_id", nullable = false)
-    private int id_rol;
-
-    @Column(name = "reg_id", nullable = true)
-    private int id_registro;
-
-    @OneToOne
-    @JoinColumn(name = "id_usuario")
+    @OneToOne(targetEntity = Registro.class)
+    @JoinColumn(name = "reg_id")
     private Registro registro;
+
+    @ManyToOne(targetEntity = Rol.class)
+    @JoinColumn(name = "rol_id")
+    private Rol rol;
+
+    @OneToMany(mappedBy = "afiliado", fetch = FetchType.LAZY)
+    private List<Cita> cita;
 }

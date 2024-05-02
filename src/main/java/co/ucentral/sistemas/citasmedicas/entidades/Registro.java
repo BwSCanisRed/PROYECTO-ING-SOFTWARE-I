@@ -54,7 +54,13 @@ public class Registro {
     @Column(name = "reg_contraseña", nullable = false)
     private String contraseña;
 
-    @OneToOne(mappedBy = "registro")
+    @OneToOne(mappedBy = "registro", cascade = CascadeType.PERSIST)
     private Afiliado afiliado;
+
+    @OneToOne(mappedBy = "registro", cascade = CascadeType.PERSIST)
+    private Medico medico;
+
+    @OneToOne(mappedBy = "registro", cascade = CascadeType.PERSIST)
+    private Consultor consultor;
 
 }

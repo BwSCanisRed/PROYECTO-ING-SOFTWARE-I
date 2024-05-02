@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,22 +23,30 @@ public class Medico {
     @Column(name = "med_nombre", nullable = false)
     private String nombre;
 
-    @Column(name = "rol_id", nullable = false)
-    private int rol;
-
     @Column(name = "med_estado", nullable = false)
     private Boolean estado;
 
-    @Column(name = "con_id", nullable = true)
-    private int id_consultorio;
+    @OneToOne(targetEntity = Registro.class)
+    @JoinColumn(name = "reg_id")
+    private Registro registro;
 
-    @Column(name = "es_id", nullable = false)
-    private int id_especialidad;
+    @ManyToOne(targetEntity = Especialidad.class)
+    @JoinColumn(name = "es_id")
+    private Especialidad especialidad;
 
-    @Column(name = "sed_id", nullable = false)
-    private int id_sede;
+    @ManyToOne(targetEntity = Rol.class)
+    @JoinColumn(name = "rol_id")
+    private Rol rol;
 
-    @Column(name = "reg_id", nullable = true)
-    private int id_registro;
+    @ManyToOne(targetEntity = Consultorio.class)
+    @JoinColumn(name = "con_id")
+    private Consultorio consultorio;
+
+    @ManyToOne(targetEntity = Sede.class)
+    @JoinColumn(name = "sed_id")
+    private Sede sede;
+
+    @OneToMany(targetEntity = Cita.class, fetch = FetchType.LAZY, mappedBy =  "medico")
+    private List<Cita> citas;
 
 }
