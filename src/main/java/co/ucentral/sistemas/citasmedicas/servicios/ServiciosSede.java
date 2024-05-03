@@ -1,4 +1,5 @@
 package co.ucentral.sistemas.citasmedicas.servicios;
+
 import co.ucentral.sistemas.citasmedicas.dto.SedeDto;
 import co.ucentral.sistemas.citasmedicas.entidades.Sede;
 import co.ucentral.sistemas.citasmedicas.operaciones.OperacionesSede;
@@ -12,44 +13,44 @@ import java.util.List;
 
 @Service
 public class ServiciosSede implements OperacionesSede {
-    private ModelMapper modelMapper = new ModelMapper();
+
+    private final ModelMapper modelMapper;
+
     @Autowired
-    RepositorioSede repositorioSede;
+    private final RepositorioSede repositorioSede;
+
+    public ServiciosSede(ModelMapper modelMapper, RepositorioSede repositorioSede) {
+        this.modelMapper = modelMapper;
+        this.repositorioSede = repositorioSede;
+    }
 
     @Override
     public SedeDto crear(SedeDto sedeDto) {
-        if (sedeDto != null){
-            Sede sede =   repositorioSede.save(modelMapper.map(sedeDto, Sede.class));
-            return modelMapper.map(sede, SedeDto.class);
-        }
-
-        else
-            return null;
+        Sede sede = repositorioSede.save(modelMapper.map(sedeDto, Sede.class));
+        return modelMapper.map(sede, SedeDto.class);
     }
 
     @Override
     public SedeDto modificar(SedeDto sedeDto) {
-        if (this.repositorioSede.existsById(sedeDto.getId_sede()))
-            return this.crear(sedeDto);
-        else
+        if (repositorioSede.existsById(sedeDto.getId_sede())) {
+            return crear(sedeDto);
+        } else {
             return null;
+        }
     }
 
     @Override
-    public void borrar(SedeDto sedeDto) {this.repositorioSede.delete(modelMapper.map(sedeDto, Sede.class));}
-
-    @Override
-    public void borrar(Integer pkEntidad) {this.repositorioSede.deleteById(pkEntidad);}
-
+    public void borrar(SedeDto sedeDto) {
+        repositorioSede.delete(modelMapper.map(sedeDto, Sede.class));
+    }
     @Override
     public List<SedeDto> buscarTodos() {
-        TypeToken<List<SedeDto>> typeToken = new TypeToken<>() {
-        };
-        return modelMapper.map(this.repositorioSede.findAll(), typeToken.getType());
+        TypeToken<List<SedeDto>> typeToken = new TypeToken<>() {};
+        return modelMapper.map(repositorioSede.findAll(), typeToken.getType());
     }
 
     @Override
-    public SedeDto buscarID(Integer pkEntidad) {
-        return modelMapper.map(this.buscarID(pkEntidad), SedeDto.class);
+    public SedeDto buscarID(Integer pkSede) {
+        return modelMapper.map(repositorioSede.findById(pkSede).orElse(null), SedeDto.class);
     }
 }

@@ -24,21 +24,28 @@ public class Cita {
     @Column(name = "cit_fecha", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime fecha;
 
-    @Column(name = "med_id", nullable = false)
-    private int id_medico;
-
-    @Column(name = "afi_id", nullable = false)
-    private int id_afiliado;
-
     @Column(name = "es_id", nullable = false)
     private int id_especialidad;
 
     @Column(name = "sed_id", nullable = false)
     private int id_sede;
 
-    @Column(name = "factura_id", nullable = true)
-    private int id_factura;
-
     @Column(name = "cit_estado", nullable = true)
     private String estado;
+
+    @ManyToOne(targetEntity = Medico.class)
+    @JoinColumn(name = "med_id")
+    private Medico medico;
+
+    @ManyToOne(targetEntity = Afiliado.class)
+    @JoinColumn(name = "afi_id")
+    private Afiliado afiliado;
+
+    @OneToOne(targetEntity = Factura.class)
+    @JoinColumn(name = "fac_id")
+    private Factura factura;
+
+    @ManyToOne(targetEntity = Sede.class)
+    @JoinColumn(name = "Sed_id")
+    private Sede sede;
 }
