@@ -20,6 +20,9 @@ public class Consultorio {
     @Column(name = "con_descripcion", nullable = true)
     private String nombre;
 
-    @Column(name = "sed_id", nullable = false)
-    private int id_sede;
+    @ManyToOne
+    @JoinColumn(name = "sed_id")
+    private Sede sede;
 }
+
+

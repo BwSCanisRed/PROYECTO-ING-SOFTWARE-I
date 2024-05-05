@@ -4,7 +4,6 @@ import co.ucentral.sistemas.citasmedicas.entidades.Cita;
 import co.ucentral.sistemas.citasmedicas.operaciones.OperacionesCita;
 import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioCita;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -41,10 +40,8 @@ public class ServiciosCita implements OperacionesCita {
     public void borrar(Integer pkEntidad) {this.repositorioCita.deleteById(pkEntidad);}
 
     @Override
-    public List<CitaDto> buscarTodos() {
-        TypeToken<List<CitaDto>> typeToken = new TypeToken<>() {
-        };
-        return modelMapper.map(this.repositorioCita.findAll(), typeToken.getType());
+    public List<Cita> buscarTodos() {
+        return repositorioCita.findAll();
     }
 
     @Override

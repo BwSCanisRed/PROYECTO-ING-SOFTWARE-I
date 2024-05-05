@@ -27,25 +27,9 @@ public class Cita {
     @Column(name = "es_id", nullable = false)
     private int id_especialidad;
 
-    @Column(name = "sed_id", nullable = false)
-    private int id_sede;
-
     @Column(name = "cit_estado", nullable = true)
     private String estado;
-
-    @ManyToOne(targetEntity = Medico.class)
+    @ManyToOne
     @JoinColumn(name = "med_id")
     private Medico medico;
-
-    @ManyToOne(targetEntity = Afiliado.class)
-    @JoinColumn(name = "afi_id")
-    private Afiliado afiliado;
-
-    @OneToOne(targetEntity = Factura.class)
-    @JoinColumn(name = "fac_id")
-    private Factura factura;
-
-    @ManyToOne(targetEntity = Sede.class)
-    @JoinColumn(name = "Sed_id")
-    private Sede sede;
 }
