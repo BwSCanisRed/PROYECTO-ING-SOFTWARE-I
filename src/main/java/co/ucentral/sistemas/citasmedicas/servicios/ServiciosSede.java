@@ -5,7 +5,6 @@ import co.ucentral.sistemas.citasmedicas.entidades.Sede;
 import co.ucentral.sistemas.citasmedicas.operaciones.OperacionesSede;
 import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioSede;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,9 +43,8 @@ public class ServiciosSede implements OperacionesSede {
         repositorioSede.delete(modelMapper.map(sedeDto, Sede.class));
     }
     @Override
-    public List<SedeDto> buscarTodos() {
-        TypeToken<List<SedeDto>> typeToken = new TypeToken<>() {};
-        return modelMapper.map(repositorioSede.findAll(), typeToken.getType());
+    public List<Sede> buscarTodos() {
+        return repositorioSede.findAll();
     }
 
     @Override

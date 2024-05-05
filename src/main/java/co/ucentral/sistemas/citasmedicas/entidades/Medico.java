@@ -33,10 +33,12 @@ public class Medico {
     @Column(name = "es_id", nullable = false)
     private int id_especialidad;
 
-    @Column(name = "sed_id", nullable = false)
-    private int id_sede;
+    @OneToOne
+    @JoinColumn(name = "sed_id")
+    private Sede sede;
 
     @Column(name = "reg_id", nullable = true)
     private int id_registro;
+
 
 }

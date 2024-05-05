@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+    <!-- Enlace al archivo CSS personalizado -->
+    <link rel="stylesheet" href="styles.css">
 
     <!-- Optional theme -->
     <link rel="stylesheet"
@@ -32,20 +34,17 @@
             <th>Fecha</th>
             <th>Medico</th>
             <th>Direccion</th>
-            <th>Sede</th>
-
+            <th>Accion</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="dato : ${sedes}">
-            <td th:text="${dato.id_sede}">ID</td>
-            <td th:text="${dato.direccion}">Direccion</td>
-            <td th:text="${dato.nconsultorios}">Consultorio</td>
+        <tr th:each="dato : ${listaCitasT}">
+            <td th:text="${dato.fecha}">ID</td>
+            <td th:text="${dato.medico?.nombre}">Direccion</td>
+            <td th:text="${dato.medico?.sede?.direccion}">Consultorio</td>
             <td >
-                <a th:href="@{/equipos/modificar/{serial}(serial=${dato.serial})}" class="btn btn-info">Editar</a>
-                <a th:href="@{/equipos/{serial}(serial=${dato.serial})}" class="btn btn-danger">Eliminar</a>
+                <a class="btn btn-info">Agendar</a>
             </td>
-
         </tr>
         </tbody>
     </table>
