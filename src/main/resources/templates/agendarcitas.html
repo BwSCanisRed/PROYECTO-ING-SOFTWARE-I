@@ -34,14 +34,16 @@
             <th>Fecha</th>
             <th>Medico</th>
             <th>Direccion</th>
+            <th>Especialidad</th>
             <th>Accion</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="dato : ${listaCitasT}">
-            <td th:text="${dato.fecha}">ID</td>
-            <td th:text="${dato.medico?.nombre}">Direccion</td>
-            <td th:text="${dato.medico?.sede?.direccion}">Consultorio</td>
+            <td th:text="${dato.fecha}">Fecha Cita</td>
+            <td th:text="${dato.medico?.nombre}">Nombre Medico</td>
+            <td th:text="${dato.medico?.sede?.direccion}">Direccion</td>
+            <td th:text="${dato.especialidad?.nombre_especialidad}">Especialidad</td>
             <td >
                 <a class="btn btn-info">Agendar</a>
             </td>

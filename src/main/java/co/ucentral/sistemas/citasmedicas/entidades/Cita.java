@@ -24,8 +24,9 @@ public class Cita {
     @Column(name = "cit_fecha", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime fecha;
 
-    @Column(name = "es_id", nullable = false)
-    private int id_especialidad;
+    @ManyToOne
+    @JoinColumn(name = "es_id")
+    private Especialidad especialidad;
 
     @Column(name = "cit_estado", nullable = true)
     private String estado;

@@ -1,6 +1,7 @@
 package co.ucentral.sistemas.citasmedicas;
 
 import co.ucentral.sistemas.citasmedicas.entidades.Cita;
+import co.ucentral.sistemas.citasmedicas.entidades.Especialidad;
 import co.ucentral.sistemas.citasmedicas.entidades.Medico;
 import co.ucentral.sistemas.citasmedicas.entidades.Sede;
 import co.ucentral.sistemas.citasmedicas.repositorios.*;
@@ -77,6 +78,19 @@ public class CitasmedicasApplication implements CommandLineRunner {
 		repositorioMedico.save(medico2);
 		Medico medico3 = new Medico(33333,"Carlos Rodriguez",2,true,2,2,sede3,3);
 		repositorioMedico.save(medico3);
+		/*
+		 * creacion de las especialidades
+		 * */
+
+		Especialidad especialidad1 = new Especialidad(10,"Medicina General");
+		repositorioEspecialidad.save(especialidad1);
+		Especialidad especialidad2 = new Especialidad(20,"Odontologia");
+		repositorioEspecialidad.save(especialidad2);
+		Especialidad especialidad3 = new Especialidad(30,"Optometria");
+		repositorioEspecialidad.save(especialidad3);
+
+
+
 
 		// Definir el formato de fecha y hora
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -94,13 +108,13 @@ public class CitasmedicasApplication implements CommandLineRunner {
 
 			// Crear la cita y agregarla a la lista
 			if (i % 2 == 0) {
-				Cita cita = new Cita(i + 1, fechaCita, 1, "Proceso",medico1);
+				Cita cita = new Cita(i + 1, fechaCita, especialidad1, "Proceso",medico1);
 				repositorioCita.save(cita);
 			} else if (i % 3 == 0) {
-				Cita cita = new Cita(i + 1, fechaCita, 1, "Proceso",medico2);
+				Cita cita = new Cita(i + 1, fechaCita, especialidad2, "Proceso",medico2);
 				repositorioCita.save(cita);
 			}else{
-				Cita cita = new Cita(i + 1, fechaCita, 1, "Proceso",medico3);
+				Cita cita = new Cita(i + 1, fechaCita,especialidad3, "Proceso",medico3);
 				repositorioCita.save(cita);
 			}
 

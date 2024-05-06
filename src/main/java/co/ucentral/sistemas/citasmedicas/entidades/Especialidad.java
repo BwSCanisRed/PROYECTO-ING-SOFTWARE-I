@@ -18,7 +18,7 @@ public class Especialidad {
     private int id_especialidad;
 
     @Column(name = "es_descripcion", nullable = true)
-    private String nombre;
+    private String nombre_especialidad;
 
 }
 
