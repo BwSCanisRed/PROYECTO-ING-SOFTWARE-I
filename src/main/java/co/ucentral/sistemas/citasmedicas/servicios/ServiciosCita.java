@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ServiciosCita implements OperacionesCita {
@@ -45,7 +46,7 @@ public class ServiciosCita implements OperacionesCita {
     }
 
     @Override
-    public CitaDto buscarID(Integer pkEntidad) {
-        return modelMapper.map(this.buscarID(pkEntidad), CitaDto.class);
+    public Optional<Cita> buscarID(Integer pkEntidad) {
+        return repositorioCita.findById(pkEntidad);
     }
 }
