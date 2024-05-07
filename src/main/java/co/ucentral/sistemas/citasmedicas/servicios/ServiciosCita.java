@@ -1,7 +1,9 @@
 package co.ucentral.sistemas.citasmedicas.servicios;
 import co.ucentral.sistemas.citasmedicas.dto.CitaDto;
+import co.ucentral.sistemas.citasmedicas.entidades.Afiliado;
 import co.ucentral.sistemas.citasmedicas.entidades.Cita;
 import co.ucentral.sistemas.citasmedicas.operaciones.OperacionesCita;
+import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioAfiliado;
 import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioCita;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,30 @@ public class ServiciosCita implements OperacionesCita {
     private ModelMapper modelMapper = new ModelMapper();
     @Autowired
     RepositorioCita repositorioCita;
+    RepositorioAfiliado repositorioAfiliado;
+
+
+
+    public void asignarCitaAAfiliado(int idCita, int idAfiliado) {
+        // Buscar la cita por su ID
+        Optional<Cita> citaOptional = repositorioCita.findById(idCita);
+        if (citaOptional.isPresent()) {
+            Cita cita = citaOptional.get();
+            // Buscar el afiliado por su ID
+            Optional<Afiliado> afiliadoOptional = repositorioAfiliado.findById(idAfiliado);
+            if (afiliadoOptional.isPresent()) {
+                Afiliado afiliado = afiliadoOptional.get();
+                // Asignar la cita al afiliado
+                cita.setAfiliado(afiliado);
+                // Guardar la cita actualizada en la base de datos
+                repositorioCita.save(cita);
+            } else {
+                throw new RuntimeException("No se encontró el afiliado con ID: " + idAfiliado);
+            }
+        } else {
+            throw new RuntimeException("No se encontró la cita con ID: " + idCita);
+        }
+    }
 
     @Override
     public CitaDto crear(CitaDto citaDto) {

@@ -99,7 +99,7 @@ public class CitasmedicasApplication implements CommandLineRunner {
 		List<Cita> citas = new ArrayList<>();
 
 		// Definir la hora de inicio de las citas
-		LocalDateTime horaInicio = LocalDateTime.parse("2024-05-06 08:00:00", formatter);
+		LocalDateTime horaInicio = LocalDateTime.parse("2024-05-08 08:00:00", formatter);
 
 		// Crear 10 citas con 20 minutos de diferencia entre cada una
 		for (int i = 0; i < 20; i++) {

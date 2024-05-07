@@ -33,4 +33,7 @@ public class Cita {
     @ManyToOne
     @JoinColumn(name = "med_id")
     private Medico medico;
+
+    public void setAfiliado(Afiliado afiliado) {
+    }
 }
