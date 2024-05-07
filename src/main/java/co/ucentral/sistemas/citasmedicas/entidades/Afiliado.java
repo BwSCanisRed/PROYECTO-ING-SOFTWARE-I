@@ -1,9 +1,6 @@
 package co.ucentral.sistemas.citasmedicas.entidades;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
@@ -36,4 +33,6 @@ public class Afiliado {
 
     @OneToMany(mappedBy = "afiliado", fetch = FetchType.LAZY)
     private List<Cita> cita;
+
+
 }

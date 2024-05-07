@@ -1,19 +1,17 @@
 package co.ucentral.sistemas.citasmedicas.entidades;
+
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 
-@Table(name = "Registros")
+@Table(name = "Registros",uniqueConstraints = @UniqueConstraint(columnNames = {"reg_correo","reg_idusuario"}))
 @ToString
 @Entity
 public class Registro {
@@ -52,7 +50,7 @@ public class Registro {
     private String correo;
 
     @Column(name = "reg_contraseña", nullable = false)
-    private String contraseña;
+    private String contrasena;
 
     @OneToOne(mappedBy = "registro", cascade = CascadeType.PERSIST)
     private Afiliado afiliado;
@@ -62,5 +60,18 @@ public class Registro {
 
     @OneToOne(mappedBy = "registro", cascade = CascadeType.PERSIST)
     private Consultor consultor;
+
+    public Registro(int id_usuario,String contrasena) {
+        this.id_usuario = id_usuario;
+        this.contrasena = contrasena;
+    }
+
+    @Getter
+    @Column
+    private boolean enabled;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "rol_usuarios", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "rol_id"))
+    private Set<Rol> rol;
 
 }

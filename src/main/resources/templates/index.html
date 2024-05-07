@@ -25,13 +25,7 @@
     <nav>
     <div class="container">
         <br>
-        <a class="navbar-brand" href="#" th:href="@{/cntafiliados}">Afiliados</a>
-        <a class="navbar-brand" href="#" th:href="@{/cntmedico}">Médicos</a>
-        <a class="navbar-brand" href="#" th:href="@{/cntconsultor}">Consultor</a>
-        <a class="navbar-brand" href="#" th:href="@{/cntconsultorio}">Consultorio</a>
-        <a class="navbar-brand" href="#" th:href="@{/cntespecialidad}">Especialidad</a>
-        <a class="navbar-brand" href="#" th:href="@{/cntrol}">Rol</a>
-        <a class="navbar-brand" href="#" th:href="@{/cntsede}">Sede</a>
+        <a class="navbar-brand" href="#" th:href="@{/rol_consultor}">Consultor</a>
     </div>
     </nav>
 
@@ -40,7 +34,7 @@
     <br>
     <div class="container">
         <form>
-        <a class="btn btn-primary" href="iniciar_sesion.html" >Iniciar Sesión</a>
+        <a class="btn btn-primary" href="@{/inicio_sesion}" >Iniciar Sesión</a>
         <a class="btn btn-primary" href="#" th:href="@{/registro/nuevo}">Registrarse</a>
         </form>
     </div>

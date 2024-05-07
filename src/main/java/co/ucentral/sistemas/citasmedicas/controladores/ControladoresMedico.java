@@ -16,7 +16,7 @@ public class ControladoresMedico {
     @Autowired
     ServiciosMedico serviciosMedico;
 
-    @GetMapping({  "/cntmedico"})
+    @GetMapping({  "/rol_medico"})
     public String consultarTodos(Model model){
         model.addAttribute("listamedicos",this.serviciosMedico.buscarTodos());
         return "medico";
@@ -26,11 +26,11 @@ public class ControladoresMedico {
     public String mostrarFormulario(Model model){
         MedicoDto medicoDto = new MedicoDto();
         model.addAttribute("elmedico", medicoDto);
-        return "crear_medico";
+        return "form_medico";
     }
-    @PostMapping("/cntmedico")
+    @PostMapping("/crearmedico")
     public String registrarMedico(@ModelAttribute("elmedico") MedicoDto medicoDto) {
         serviciosMedico.crear(medicoDto);
-        return "redirect:/cntmedico";
+        return "redirect:/rol_medico";
     }
 }

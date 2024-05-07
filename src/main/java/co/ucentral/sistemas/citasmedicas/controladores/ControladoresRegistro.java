@@ -16,21 +16,41 @@ public class ControladoresRegistro{
     @Autowired
     ServiciosRegistro serviciosRegistro;
 
-    @GetMapping({  "/cntregistro"})
+    @GetMapping({  "/usuarios_registrados"})
     public String consultarTodos(Model model){
         model.addAttribute("listaregistro",this.serviciosRegistro.buscarTodos());
-        return "registro";
+        return "usuarios";
     }
 
     @GetMapping("/registro/nuevo")
     public String mostrarFormulario(Model model){
         RegistroDto registroDto = new RegistroDto();
         model.addAttribute("elregistro", registroDto);
-        return "crear_registro";
+        return "form_registro";
     }
-    @PostMapping("/cntregistro")
+    @PostMapping("/crearregistro")
     public String registrarRegistro(@ModelAttribute("elregistro") RegistroDto registroDto) {
         serviciosRegistro.crear(registroDto);
-        return "redirect:/cntregistro";
+        return "redirect:/usuarios";
     }
+
+    @GetMapping({  "/inicio_sesion"})
+    public String mostrarFormularioAutenticacion(Model model) {
+        RegistroDto registroDto = new RegistroDto();
+
+        return "iniciar_sesion";
+    }
+    /*@PostMapping("/iniciar_sesion")
+    public String iniciarSesion(Model model, String idUsuario, String contraseña) {
+        // Comprobar si el usuario y la contraseña son válidos
+        if (ServiciosRegistro.validarCredenciales(idUsuario, contraseña)) {
+            // Si las credenciales son válidas, redirigir a la página de inicio
+            return "redirect:/index";
+        } else {
+            // Si las credenciales no son válidas, mostrar un mensaje de error
+            model.addAttribute("error", "Usuario o contraseña incorrectos");
+            return "iniciar_sesion";
+        }
+    }*/
+
 }

@@ -22,4 +22,8 @@ public class RegistroDto {
     private String genero;
     private String correo;
     private String contraseña;
+
+    public static RegistroDto findById_usuario(Integer id_usuario) {
+        return null;
+    }
 }

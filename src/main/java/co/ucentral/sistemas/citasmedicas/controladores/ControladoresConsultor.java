@@ -16,7 +16,7 @@ public class ControladoresConsultor {
     @Autowired
     ServiciosConsultor serviciosConsultor;
 
-    @GetMapping({  "/cntconsultor"})
+    @GetMapping({  "/rol_consultor"})
     public String consultarTodos(Model model){
         model.addAttribute("listaaconsultores",this.serviciosConsultor.buscarTodos());
         return "consultor";
@@ -26,11 +26,11 @@ public class ControladoresConsultor {
     public String mostrarFormulario(Model model){
         ConsultorDto consultorDto = new ConsultorDto();
         model.addAttribute("elconsultor", consultorDto);
-        return "crear_consultor";
+        return "form_consultor";
     }
-    @PostMapping("/consultor")
+    @PostMapping("/crearconsultor")
     public String registrarConsultor(@ModelAttribute("elconsultor") ConsultorDto consultorDto) {
         serviciosConsultor.crear(consultorDto);
-        return "redirect:/cntafiliado";
+        return "redirect:/rol_consultor";
     }
 }

@@ -1,8 +1,10 @@
 package co.ucentral.sistemas.citasmedicas.repositorios;
 
+import co.ucentral.sistemas.citasmedicas.dto.RegistroDto;
 import co.ucentral.sistemas.citasmedicas.entidades.Registro;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.CrudRepository;
 
 public interface RepositorioRegistro extends CrudRepository<Registro, Integer>, JpaSpecificationExecutor<Registro> {
+
 }

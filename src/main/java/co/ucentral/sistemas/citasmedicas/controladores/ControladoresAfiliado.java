@@ -16,7 +16,7 @@ public class ControladoresAfiliado {
     @Autowired
     ServiciosAfiliado serviciosAfiliado;
 
-    @GetMapping({  "/cntafiliado"})
+    @GetMapping({  "/rol_afiliado"})
     public String consultarTodos(Model model){
         model.addAttribute("listaafiliados",this.serviciosAfiliado.buscarTodos());
         return "afiliado";
@@ -26,11 +26,11 @@ public class ControladoresAfiliado {
     public String mostrarFormulario(Model model){
         AfiliadoDto afiliadoDto = new AfiliadoDto();
         model.addAttribute("elafiliado", afiliadoDto);
-        return "crear_afiliado";
+        return "form_afiliado";
     }
-    @PostMapping("/cntafiliado")
+    @PostMapping("/crearafiliado")
     public String registrarAfiliado(@ModelAttribute("elafiliado") AfiliadoDto afiliadoDto) {
         serviciosAfiliado.crear(afiliadoDto);
-        return "redirect:/cntafiliado";
+        return "redirect:/rol_afiliado";
     }
 }

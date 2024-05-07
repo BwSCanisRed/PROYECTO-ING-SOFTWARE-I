@@ -18,28 +18,35 @@
 <form>
     <h1>EPS Nuestra Salud SAS</h1>
     <h2>Iniciar sesión</h2>
-    <form th:action="@{/registro}" method="post" th:object="${elregistro}">
+    <form th:action="@{/iniciar_sesion}" method="post" >
         <div class="form-group">
             <label class="control-label" for="id_usuario">Identificación: </label> <input
-                id="id_usuario" type="number" class="form-control" th:field="*{id_usuario}"
+                id="id_usuario" type="number" class="form-control" th:field="id_usuario"
                 required autofocus="autofocus">
         </div>
         <div class="form-group">
             <label class="control-label" for="contraseña">Contraseña : </label> <input
-                id="contraseña" type="password" class="form-control" th:field="*{contraseña}"
+                id="contraseña" type="password" class="form-control" th:field="contraseña"
                 required autofocus="autofocus">
         </div>
 
         <br>
         <div class="form-group">
-            <button type="submit" class="btn btn-success">Registrar</button>
+            <button type="submit" class="btn btn-success">Ingresar</button>
+            <p><a href="index.html">Volver</a></p>
+            <p><a href="usuarios.html">No tengo cuenta, Registrarme</a></p>
 
         </div>
     </form>
-
-    <br><input class="boton" type="submit" value="Ingresar"></br>
-    <p><a href="index.html">Volver</a></p>
-    <p><a href="registrar_usuarios.html">No tengo cuenta, Registrarme</a></p>
+    <div class="col-12 forgot">
+        <a href="#">Recordar contrasena?</a>
+    </div>
+    <div th:if="${param.error}" class="alert alert-danger" role="alert">
+        Usuario o contraseña incorrecta
+    </div>
+    <div th:if="${param.logout}" class="alert alert-success" role="alert">
+        Ha cerrado sesión correctamente
+    </div>
 </form>
 </body>
 </html>

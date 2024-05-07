@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -44,4 +45,5 @@ public class Cita {
     @OneToOne(targetEntity = Factura.class)
     @JoinColumn(name = "fac_id")
     private Factura factura;
+
 }
