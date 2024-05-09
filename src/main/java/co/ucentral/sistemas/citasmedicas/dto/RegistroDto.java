@@ -3,8 +3,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -21,7 +21,7 @@ public class RegistroDto {
     private String direccion;
     private String genero;
     private String correo;
-    private String contraseña;
+    private String contrasenia;
 
     public static RegistroDto findById_usuario(Integer id_usuario) {
         return null;

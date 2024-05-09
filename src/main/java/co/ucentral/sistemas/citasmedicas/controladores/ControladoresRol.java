@@ -16,7 +16,7 @@ public class ControladoresRol{
     @Autowired
     ServiciosRol serviciosRol;
 
-    @GetMapping({  "/cntrol"})
+    @GetMapping({  "/roles"})
     public String consultarTodos(Model model){
         model.addAttribute("listarol",this.serviciosRol.buscarTodos());
         return "rol";
@@ -26,11 +26,11 @@ public class ControladoresRol{
     public String mostrarFormulario(Model model){
         RolDto rolDto = new RolDto();
         model.addAttribute("elrol", rolDto);
-        return "crear_rol";
+        return "form_rol";
     }
     @PostMapping("/rol")
     public String registrarRol(@ModelAttribute("elrol") RolDto rolDto) {
         serviciosRol.crear(rolDto);
-        return "redirect:/cntrol";
+        return "redirect:/roles";
     }
 }

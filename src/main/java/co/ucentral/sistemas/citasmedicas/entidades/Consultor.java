@@ -31,4 +31,10 @@ public class Consultor {
     @JoinColumn(name = "rol_id")
     private Rol rol;
 
+    public Consultor(int identificacion, String nombre, Boolean estado, Rol rol1) {
+        this.identificacion = identificacion;
+        this.nombre = nombre;
+        this.estado = estado;
+        this.rol = rol1;
+    }
 }

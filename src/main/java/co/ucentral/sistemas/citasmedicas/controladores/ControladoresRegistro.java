@@ -1,5 +1,7 @@
 package co.ucentral.sistemas.citasmedicas.controladores;
+import co.ucentral.sistemas.citasmedicas.dto.AfiliadoDto;
 import co.ucentral.sistemas.citasmedicas.dto.RegistroDto;
+import co.ucentral.sistemas.citasmedicas.servicios.ServiciosAfiliado;
 import co.ucentral.sistemas.citasmedicas.servicios.ServiciosRegistro;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,18 +30,17 @@ public class ControladoresRegistro{
         model.addAttribute("elregistro", registroDto);
         return "form_registro";
     }
-    @PostMapping("/crearregistro")
+    @PostMapping("/crearegistro")
     public String registrarRegistro(@ModelAttribute("elregistro") RegistroDto registroDto) {
         serviciosRegistro.crear(registroDto);
-        return "redirect:/usuarios";
+        return "redirect:/usuarios_registrados";
     }
 
     @GetMapping({  "/inicio_sesion"})
-    public String mostrarFormularioAutenticacion(Model model) {
-        RegistroDto registroDto = new RegistroDto();
-
+    public String mostrarFormulario(){
         return "iniciar_sesion";
     }
+
     /*@PostMapping("/iniciar_sesion")
     public String iniciarSesion(Model model, String idUsuario, String contraseña) {
         // Comprobar si el usuario y la contraseña son válidos

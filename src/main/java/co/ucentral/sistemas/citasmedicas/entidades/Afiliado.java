@@ -34,5 +34,10 @@ public class Afiliado {
     @OneToMany(mappedBy = "afiliado", fetch = FetchType.LAZY)
     private List<Cita> cita;
 
-
+    public Afiliado(int identificacion, String nombre, boolean estado, Rol rol3) {
+        this.identificacion = identificacion;
+        this.nombre = nombre;
+        this.estado = estado;
+        this.rol = rol3;
+    }
 }

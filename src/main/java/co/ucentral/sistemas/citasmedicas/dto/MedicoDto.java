@@ -14,7 +14,7 @@ public class MedicoDto {
 
     private int identificacion;
     private String nombre;
-    private String rol;
+    private String id_rol;
     private Boolean estado;
     private int id_consultorio;
     private int id_especialidad;

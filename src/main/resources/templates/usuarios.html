@@ -23,6 +23,8 @@
     <table class="table table-striped table-bordered">
         <thead class="table-dark">
         <tr>
+            <th>Número de registro</th>
+            <th>Fecha</th>
             <th>Tipo de Identificación</th>
             <th>Identificación</th>
             <th>Fecha de Nacimiento</th>
@@ -37,21 +39,19 @@
         <tbody>
 
         <tr th:each="dato : ${listaregistro}">
+            <td th:text="${dato.id_registro}">Número de registro</td>
+            <td th:text="${#dates.format(dato.fecha_registro, 'yyyy-MM-ddTHH:mm:ss')}">Fecha</td>
             <td th:text="${dato.tipo_identificacion}">Tipo de Identificación</td>
             <td th:text="${dato.id_usuario}">Identificación</td>
-            <td th:text="${dato.fechaNacimiento}">Fecha de Nacimiento</td>
+            <td th:text="${#dates.format(dato.fechaNacimiento, 'yyyy-MM-dd')}">Fecha de Nacimiento</td>
             <td th:text="${dato.nombre}">Nombre Completo</td>
             <td th:text="${dato.celular}">Celular</td>
             <td th:text="${dato.direccion}">Dirección</td>
             <td th:text="${dato.genero}">Genero</td>
             <td th:text="${dato.correo}">Correo</td>
-            <td th:text="${dato.contraseña}">Contraseña</td>
-            <td >
-            </td>
-
+            <td th:text="${dato.contrasenia}">Contraseña</td>
         </tr>
         </tbody>
-
     </table>
 </div>
 </body>

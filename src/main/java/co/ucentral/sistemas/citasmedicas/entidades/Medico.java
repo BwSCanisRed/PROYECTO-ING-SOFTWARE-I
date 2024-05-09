@@ -49,4 +49,10 @@ public class Medico {
     @OneToMany(targetEntity = Cita.class, fetch = FetchType.LAZY, mappedBy =  "medico")
     private List<Cita> citas;
 
+    public Medico(int identificacion, String nombre, boolean estado, Rol rol2) {
+        this.identificacion = identificacion;
+        this.nombre = nombre;
+        this.estado = estado;
+        this.rol = rol2;
+    }
 }

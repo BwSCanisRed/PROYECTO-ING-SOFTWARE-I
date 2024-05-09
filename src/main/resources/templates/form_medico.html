@@ -30,32 +30,35 @@
                     required autofocus="autofocus">
             </div>
             <div class="form-group">
-                <label class="control-label" for="estado">Estado: </label> <input
-                    id="estado" type="text" class="form-control" th:field="*{estado}"
+                <label class="control-label" for="estado">Estado: </label>
+                <select id="estado" type="text" class="form-control" name="estado" th:field="*{estado}" required autofocus="autofocus">
+                    <option value="">Seleccione el estado</option>
+                    <option value="true">Vigente</option>
+                    <option value="false">No Vigente</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="rol">Rol : </label> <input
+                    id="rol" type="number" class="form-control" th:field="*{id_rol}"
                     required autofocus="autofocus">
             </div>
             <div class="form-group">
-                <label class="control-label" for="id_rol">Rol : </label> <input
-                    id="id_rol" type="number" class="form-control" th:field="*{rol}"
+                <label class="control-label" for="consultorio">ID Consultorio : </label> <input
+                    id="consultorio" type="number" class="form-control" th:field="*{id_consultorio}"
                     required autofocus="autofocus">
             </div>
             <div class="form-group">
-                <label class="control-label" for="id_consultorio">ID Consultorio : </label> <input
-                    id="id_consultorio" type="number" class="form-control" th:field="*{id_consultorio}"
+                <label class="control-label" for="especialidad">ID Especialidad : </label> <input
+                    id="especialidad" type="number" class="form-control" th:field="*{id_especialidad}"
+                    required autofocus="autofocus">
+            </div>
+            <div class="form-group"><label class="control-label" for="sede">ID Sede : </label> <input
+                    id="sede" type="number" class="form-control" th:field="*{id_sede}"
                     required autofocus="autofocus">
             </div>
             <div class="form-group">
-                <label class="control-label" for="id_especialidad">ID Especialidad : </label> <input
-                    id="id_especialidad" type="number" class="form-control" th:field="*{id_especialidad}"
-                    required autofocus="autofocus">
-            </div>
-            <div class="form-group"><label class="control-label" for="id_sede">ID Sede : </label> <input
-                    id="id_sede" type="number" class="form-control" th:field="*{id_sede}"
-                    required autofocus="autofocus">
-            </div>
-            <div class="form-group">
-                <label class="control-label" for="id_registro">ID Registro : </label> <input
-                    id="id_registro" type="number" class="form-control" th:field="*{id_registro}"
+                <label class="control-label" for="registro">ID Registro : </label> <input
+                    id="registro" type="number" class="form-control" th:field="*{id_registro}"
                     required autofocus="autofocus">
             </div>
             <br>

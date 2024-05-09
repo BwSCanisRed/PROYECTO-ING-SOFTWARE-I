@@ -9,5 +9,5 @@ public interface OperacionesRegistro {
     public void borrar(Integer pkEntidad);
     public List<RegistroDto> buscarTodos();
     public RegistroDto buscarID(Integer pkEntidad);
-    public RegistroDto findById_usuario(Integer id_usuario);
+
 }

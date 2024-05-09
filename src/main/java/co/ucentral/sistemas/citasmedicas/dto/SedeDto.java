@@ -11,5 +11,5 @@ public class SedeDto {
     private int id_sede;
     private String nombre;
     private String direccion;
-    private String nconsultorios;
+    private int nconsultorios;
 }

@@ -27,7 +27,7 @@ public class Sede {
     private String direccion;
 
     @Column(name = "sed_nconsultorios", nullable = false)
-    private String nconsultorios;
+    private int nconsultorios;
 
     @Column(name = "con_id", nullable = false)
     private String id_consultorios;
@@ -37,4 +37,7 @@ public class Sede {
 
     @OneToMany(targetEntity = Medico.class, fetch = FetchType.LAZY, mappedBy =  "sede")
     private List<Medico> medicos ;
+
+    public Sede(int id_sede, String nombre, String direccion, int nconsultorios) {
+    }
 }

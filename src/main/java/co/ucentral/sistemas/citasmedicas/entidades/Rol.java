@@ -34,4 +34,11 @@ public class Rol {
 
     @OneToMany(targetEntity = Consultor.class, fetch = FetchType.LAZY, mappedBy =  "rol")
     private List<Consultor> consultor ;
+
+    public Rol(int id_rol, String nombre) {
+    }
+
+    public Rol(String nombre) {
+        this.nombre = nombre;
+    }
 }
