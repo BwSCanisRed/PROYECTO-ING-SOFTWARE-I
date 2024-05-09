@@ -33,16 +33,14 @@ public class ControladoresCita {
     public String buscarCitaPorId(@PathVariable("id_cita") int idCita, Model model) {
 
         Optional<Cita> citaOptional = serviciosCita.buscarID(idCita);
-        // Verifica si se encontró la cita con el ID dado
         if (citaOptional.isPresent()) {
-            // Si se encuentra la cita, agrégala al modelo para poder mostrar la información en la vista
             Cita cita = citaOptional.get();
             model.addAttribute("cita", cita);
             System.out.println(cita);
-            return "confirmacion"; // Devuelve el nombre de la vista para mostrar la información de la cita
+            return "confirmacion";
         } else {
             // Si no se encuentra la cita, puedes redirigir a una página de error o manejarlo de otra forma
-            return "error"; // Por ejemplo, podrías tener una vista llamada "error" para mostrar un mensaje de error
+            return "error";
         }
     }
 
