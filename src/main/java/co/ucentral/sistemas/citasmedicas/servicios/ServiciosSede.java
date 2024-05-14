@@ -1,6 +1,5 @@
 package co.ucentral.sistemas.citasmedicas.servicios;
 
-import co.ucentral.sistemas.citasmedicas.dto.SedeDto;
 import co.ucentral.sistemas.citasmedicas.entidades.Sede;
 import co.ucentral.sistemas.citasmedicas.operaciones.OperacionesSede;
 import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioSede;
@@ -9,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ServiciosSede implements OperacionesSede {
@@ -24,31 +24,27 @@ public class ServiciosSede implements OperacionesSede {
     }
 
     @Override
-    public SedeDto crear(SedeDto sedeDto) {
-        Sede sede = repositorioSede.save(modelMapper.map(sedeDto, Sede.class));
-        return modelMapper.map(sede, SedeDto.class);
+    public Sede crear(Sede sede) {
+        return null;
     }
 
     @Override
-    public SedeDto modificar(SedeDto sedeDto) {
-        if (repositorioSede.existsById(sedeDto.getId_sede())) {
-            return crear(sedeDto);
-        } else {
-            return null;
-        }
+    public Sede modificar(Sede sede) {
+        return null;
     }
 
     @Override
-    public void borrar(SedeDto sedeDto) {
-        repositorioSede.delete(modelMapper.map(sedeDto, Sede.class));
+    public void borrar(Sede sede) {
+
     }
+
     @Override
     public List<Sede> buscarTodos() {
         return repositorioSede.findAll();
     }
 
     @Override
-    public SedeDto buscarID(Integer pkSede) {
-        return modelMapper.map(repositorioSede.findById(pkSede).orElse(null), SedeDto.class);
+    public Optional<Sede> buscarID(Integer pkSede) {
+        return repositorioSede.findById(pkSede);
     }
 }

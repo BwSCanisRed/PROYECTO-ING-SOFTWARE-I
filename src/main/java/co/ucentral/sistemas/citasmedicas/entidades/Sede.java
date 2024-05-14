@@ -31,4 +31,6 @@
         @Column(name = "Sed_nconsultorios", nullable = false)
         private int nconsultorios;
 
+        public void setId_sede(int i) {
+        }
     }

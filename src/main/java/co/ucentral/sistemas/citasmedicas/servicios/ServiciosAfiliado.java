@@ -17,32 +17,30 @@ public class ServiciosAfiliado implements OperacionesAfiliado {
     RepositorioAfiliado repositorioAfiliado;
 
     @Override
-    public AfiliadoDto crear(AfiliadoDto afiliadoDto) {
-        if (afiliadoDto != null){
-            Afiliado afiliado =   repositorioAfiliado.save(modelMapper.map(afiliadoDto, Afiliado.class));
-            return modelMapper.map(afiliado, AfiliadoDto.class);
+    public Afiliado crear(Afiliado afiliado) {
+        if (afiliado != null){
+            return repositorioAfiliado.save(afiliado);
         }
-
         else
             return null;
     }
 
     @Override
-    public AfiliadoDto modificar(AfiliadoDto afiliadoDto) {
-        if (this.repositorioAfiliado.existsById(afiliadoDto.getIdentificacion()))
-            return this.crear(afiliadoDto);
+    public Afiliado modificar(Afiliado afiliado) {
+        if (this.repositorioAfiliado.existsById(afiliado.getIdentificacion()))
+            return this.crear(afiliado);
         else
             return null;
     }
 
     @Override
-    public void borrar(AfiliadoDto afiliadoDto) {this.repositorioAfiliado.delete(modelMapper.map(afiliadoDto, Afiliado.class));}
+    public void borrar(Afiliado afiliado) {this.repositorioAfiliado.delete(modelMapper.map(afiliado, Afiliado.class));}
 
     @Override
     public void borrar(Integer pkEntidad) {this.repositorioAfiliado.deleteById(pkEntidad);}
 
     @Override
-    public List<AfiliadoDto> buscarTodos() {
+    public List<Afiliado> buscarTodos() {
         TypeToken<List<AfiliadoDto>> typeToken = new TypeToken<>() {
         };
         return modelMapper.map(this.repositorioAfiliado.findAll(), typeToken.getType());

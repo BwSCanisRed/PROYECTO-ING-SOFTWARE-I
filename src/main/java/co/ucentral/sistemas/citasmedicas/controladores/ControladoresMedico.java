@@ -1,5 +1,6 @@
 package co.ucentral.sistemas.citasmedicas.controladores;
 import co.ucentral.sistemas.citasmedicas.dto.MedicoDto;
+import co.ucentral.sistemas.citasmedicas.entidades.Medico;
 import co.ucentral.sistemas.citasmedicas.servicios.ServiciosMedico;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,8 @@ public class ControladoresMedico {
         return "crear_medico";
     }
     @PostMapping("/medico")
-    public String registrarMedico(@ModelAttribute("elmedico") MedicoDto medicoDto) {
-        serviciosMedico.crear(medicoDto);
+    public String registrarMedico(@ModelAttribute("elmedico") Medico medico) {
+        serviciosMedico.crear(medico);
         return "redirect:/cntmedico";
     }
 }

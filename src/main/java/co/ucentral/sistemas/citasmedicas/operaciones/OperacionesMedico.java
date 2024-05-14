@@ -1,13 +1,15 @@
 package co.ucentral.sistemas.citasmedicas.operaciones;
-import co.ucentral.sistemas.citasmedicas.dto.MedicoDto;
+import co.ucentral.sistemas.citasmedicas.entidades.Medico;
+
 import java.util.List;
+import java.util.Optional;
 
 public interface OperacionesMedico {
 
-    public MedicoDto crear(MedicoDto medicoDto);
-    public MedicoDto modificar(MedicoDto medicoDto);
-    public void borrar(MedicoDto medicoDto);
+    public Medico crear(Medico medico);
+    public Medico modificar(Medico medico);
+    public void borrar(Medico medico);
     public void borrar(Integer pkEntidad);
-    public List<MedicoDto> buscarTodos();
-    public MedicoDto buscarID(Integer pkEntidad);
+    public List<Medico> buscarTodos();
+    public Optional<Medico> buscarID(Integer pkEntidad);
 }

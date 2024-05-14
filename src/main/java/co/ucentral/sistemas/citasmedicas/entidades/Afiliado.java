@@ -28,4 +28,7 @@ public class Afiliado {
 
     @Column(name = "reg_id", nullable = true)
     private int id_registro;
+
+    public void setId(int i) {
+    }
 }

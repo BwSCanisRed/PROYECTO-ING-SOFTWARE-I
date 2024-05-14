@@ -51,27 +51,29 @@ public class ControladoresCita {
 
     @GetMapping("/Agendar/Confirmacion/{idCita}/{identificacion}")
     public String buscarCitaPorId(@PathVariable int idCita, @PathVariable int identificacion, Model model) {
-
         Optional<Cita> citaOptional = serviciosCita.buscarID(idCita);
-        Afiliado afiliado = modelMapper.map(serviciosAfiliado.buscarID(identificacion), Afiliado.class);
         if (citaOptional.isPresent()) {
             Cita cita = citaOptional.get();
-            model.addAttribute("cita", cita);
-            model.addAttribute("identificacion", identificacion);
-            model.addAttribute("afiliado", serviciosAfiliado.buscarID(identificacion));
-            System.out.println(cita);
-            System.out.println(identificacion);
-
-            cita.setEstado("Programada");
-            cita.setAfiliado(afiliado);
-            serviciosCita.modificar(cita);
-
-            return "confirmacion";
+            Optional<Afiliado> afiliadoOptional = serviciosAfiliado.buscarID(identificacion);
+            if (afiliadoOptional.isPresent()) {
+                Afiliado afiliado = afiliadoOptional.get();
+                cita.setEstado("Programada");
+                cita.setAfiliado(afiliado);
+                serviciosCita.modificar(cita);
+                model.addAttribute("cita", cita);
+                model.addAttribute("identificacion", identificacion);
+                model.addAttribute("afiliado", afiliado);
+                System.out.println(cita);
+                System.out.println(identificacion);
+                return "confirmacion";
+            } else {
+                return "error";
+            }
         } else {
-            // Si no se encuentra la cita, puedes redirigir a una página de error o manejarlo de otra forma
             return "error";
         }
     }
+
 
 /*
     @GetMapping("/Agendar/Confirmacion/{id_cita}")
