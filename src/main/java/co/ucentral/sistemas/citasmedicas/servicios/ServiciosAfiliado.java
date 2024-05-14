@@ -8,6 +8,8 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class ServiciosAfiliado implements OperacionesAfiliado {
     private ModelMapper modelMapper = new ModelMapper();
@@ -47,7 +49,7 @@ public class ServiciosAfiliado implements OperacionesAfiliado {
     }
 
     @Override
-    public AfiliadoDto buscarID(Integer pkEntidad) {
-        return modelMapper.map(this.buscarID(pkEntidad), AfiliadoDto.class);
+    public Optional<Afiliado> buscarID(Integer pkEntidad) {
+        return repositorioAfiliado.findById(pkEntidad);
     }
 }

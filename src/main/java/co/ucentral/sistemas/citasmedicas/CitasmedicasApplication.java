@@ -1,9 +1,6 @@
 package co.ucentral.sistemas.citasmedicas;
 
-import co.ucentral.sistemas.citasmedicas.entidades.Cita;
-import co.ucentral.sistemas.citasmedicas.entidades.Especialidad;
-import co.ucentral.sistemas.citasmedicas.entidades.Medico;
-import co.ucentral.sistemas.citasmedicas.entidades.Sede;
+import co.ucentral.sistemas.citasmedicas.entidades.*;
 import co.ucentral.sistemas.citasmedicas.repositorios.*;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,6 +86,8 @@ public class CitasmedicasApplication implements CommandLineRunner {
 		Especialidad especialidad3 = new Especialidad(30,"Optometria");
 		repositorioEspecialidad.save(especialidad3);
 
+		Afiliado afiliado1 = new Afiliado(1,"Nicolas Aguirre",true,2,1234);
+		repositorioAfiliado.save(afiliado1);
 
 
 
@@ -108,13 +107,13 @@ public class CitasmedicasApplication implements CommandLineRunner {
 
 			// Crear la cita y agregarla a la lista
 			if (i % 2 == 0) {
-				Cita cita = new Cita(i + 1, fechaCita, especialidad1, "Proceso",medico1);
+				Cita cita = new Cita(i + 1, fechaCita, especialidad1, "Proceso",medico1,null);
 				repositorioCita.save(cita);
 			} else if (i % 3 == 0) {
-				Cita cita = new Cita(i + 1, fechaCita, especialidad2, "Proceso",medico2);
+				Cita cita = new Cita(i + 1, fechaCita, especialidad2, "Proceso",medico2,null);
 				repositorioCita.save(cita);
 			}else{
-				Cita cita = new Cita(i + 1, fechaCita,especialidad3, "Proceso",medico3);
+				Cita cita = new Cita(i + 1, fechaCita,especialidad3, "Proceso",medico3,null);
 				repositorioCita.save(cita);
 			}
 

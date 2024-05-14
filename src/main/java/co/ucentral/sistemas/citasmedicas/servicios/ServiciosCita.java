@@ -53,12 +53,18 @@ public class ServiciosCita implements OperacionesCita {
     }
 
     @Override
-    public CitaDto modificar(CitaDto citaDto) {
-        if (this.repositorioCita.existsById(citaDto.getId_cita()))
-            return this.crear(citaDto);
-        else
+    public Cita modificar(Cita cita) {
+        // Verificar si la cita existe en el repositorio
+        Optional<Cita> citaExistente = repositorioCita.findById(cita.getId_cita());
+        if (citaExistente.isPresent()) {
+            Cita citaActualizada = citaExistente.get();
+            return repositorioCita.save(citaActualizada);
+        } else {
+            // Si la cita no existe en el repositorio, devuelve null o maneja el caso según lo necesites
             return null;
+        }
     }
+
 
     @Override
     public void borrar(CitaDto citaDto) {this.repositorioCita.delete(modelMapper.map(citaDto, Cita.class));}
@@ -75,4 +81,5 @@ public class ServiciosCita implements OperacionesCita {
     public Optional<Cita> buscarID(Integer pkEntidad) {
         return repositorioCita.findById(pkEntidad);
     }
+
 }

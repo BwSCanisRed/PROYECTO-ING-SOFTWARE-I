@@ -1,8 +1,12 @@
 package co.ucentral.sistemas.citasmedicas.controladores;
 
+import co.ucentral.sistemas.citasmedicas.dto.AfiliadoDto;
+import co.ucentral.sistemas.citasmedicas.entidades.Afiliado;
 import co.ucentral.sistemas.citasmedicas.entidades.Cita;
+import co.ucentral.sistemas.citasmedicas.servicios.ServiciosAfiliado;
 import co.ucentral.sistemas.citasmedicas.servicios.ServiciosCita;
 import lombok.extern.log4j.Log4j2;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,26 +21,51 @@ public class ControladoresCita {
 
     @Autowired
     ServiciosCita serviciosCita;
+    @Autowired
+    ServiciosAfiliado serviciosAfiliado;
+    @Autowired
+    private ModelMapper modelMapper;
 
-    @GetMapping({"/Agendar"})
-    public String listarCitas(Model model) {
-        model.addAttribute("listaCitasT", serviciosCita.buscarTodos());
-        for(Cita laCita: serviciosCita.buscarTodos()){
-            System.out.println( laCita );
+    @GetMapping("/Agendar/{identificacion}")
+    public String listarCitas(Model model, @PathVariable int identificacion) {
+        Optional<Afiliado> afiliadoOptional = serviciosAfiliado.buscarID(identificacion);
+        if (afiliadoOptional.isPresent()) {
+            Afiliado afiliado = afiliadoOptional.get();
+            for (Cita laCita : serviciosCita.buscarTodos()) {
+                System.out.println(laCita);
+            }
+            System.out.println("paso por aquí");
+            model.addAttribute("identificacion", identificacion);
+            model.addAttribute("listaCitasT", serviciosCita.buscarTodos());
+            model.addAttribute("afiliado", afiliado);
+            System.out.println(afiliado);
+            System.out.println(identificacion);
+            return "agendarcitas";
+        } else {
+            // Manejar el caso en el que no se encuentre el afiliado con el ID dado
+            return "error"; // Por ejemplo, redirigir a una página de error
         }
-        System.out.println("paso por aca");
-        return "agendarcitas";
     }
 
 
-    @GetMapping("/Agendar/Confirmacion/{id_cita}")
-    public String buscarCitaPorId(@PathVariable("id_cita") int idCita, Model model) {
+
+    @GetMapping("/Agendar/Confirmacion/{idCita}/{identificacion}")
+    public String buscarCitaPorId(@PathVariable int idCita, @PathVariable int identificacion, Model model) {
 
         Optional<Cita> citaOptional = serviciosCita.buscarID(idCita);
+        Afiliado afiliado = modelMapper.map(serviciosAfiliado.buscarID(identificacion), Afiliado.class);
         if (citaOptional.isPresent()) {
             Cita cita = citaOptional.get();
             model.addAttribute("cita", cita);
+            model.addAttribute("identificacion", identificacion);
+            model.addAttribute("afiliado", serviciosAfiliado.buscarID(identificacion));
             System.out.println(cita);
+            System.out.println(identificacion);
+
+            cita.setEstado("Programada");
+            cita.setAfiliado(afiliado);
+            serviciosCita.modificar(cita);
+
             return "confirmacion";
         } else {
             // Si no se encuentra la cita, puedes redirigir a una página de error o manejarlo de otra forma

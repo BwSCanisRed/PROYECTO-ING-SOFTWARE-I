@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface OperacionesCita {
     public CitaDto crear(CitaDto citaDto);
-    public CitaDto modificar(CitaDto citaDto);
+    public Cita modificar(Cita cita);
     public void borrar(CitaDto citaDto);
     public void borrar(Integer pkEntidad);
     public List<Cita> buscarTodos();

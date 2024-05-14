@@ -31,8 +31,12 @@ public class Cita {
     @Column(name = "cit_estado", nullable = true)
     private String estado;
     @ManyToOne
-    @JoinColumn(name = "med_id")
+    @JoinColumn(name = "med_id",nullable = true)
     private Medico medico;
+
+    @ManyToOne
+    @JoinColumn(name = "Afi_id",nullable = true)
+    private Afiliado afiliado;
 
     public void setAfiliado(Afiliado afiliado) {
     }
