@@ -1,47 +1,41 @@
 package co.ucentral.sistemas.citasmedicas.entidades;
 import jakarta.persistence.*;
-import lombok.*;
-
-import java.util.List;
-
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 
-@Table(name = "Sedes")
-@ToString
-@Entity
-public class Sede {
+    @Table(name = "Sedes")
+    @ToString
+    @Entity
+    public class Sede {
 
-    @Getter
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name = "sed_id", nullable = false)
-    private Integer id_sede;
+        @Id
+        @Column(name = "Sed_id", insertable = false, updatable = false)
+        private Integer idSede;
 
-    @Column(name = "sed_descripcion", nullable = false)
-    private String nombre;
+        @Column(name = "Sed_descripcion", nullable = false)
+        private String nombre;
 
-    @Column(name = "sed_direccion", nullable = true)
-    private String direccion;
+        @Column(name = "Sed_direccion", nullable = true)
+        private String direccion;
 
-    @Column(name = "sed_nconsultorios", nullable = true)
-    private Integer nconsultorios;
+        @Column(name = "Sed_nconsultorios", nullable = false)
+        private Integer nconsultorios;
 
-    //Quitar
-    /*@Column(name = "con_id", nullable = false)
-    private String id_consultorios;
+        public void setId_sede(int i) {
+        }
 
-    @OneToMany(targetEntity = Consultorio.class, fetch = FetchType.LAZY, mappedBy =  "sede")
-    private List<Consultorio> consultorios ;
-
-    @OneToMany(targetEntity = Medico.class, fetch = FetchType.LAZY, mappedBy =  "sede")
-    private List<Medico> medicos ;*/
+     public int getId_sede() {
+         return 0;
+     }
 
     public Sede(String nombre, String direccion, Integer nconsultorios) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.nconsultorios = nconsultorios;
     }
-
 }

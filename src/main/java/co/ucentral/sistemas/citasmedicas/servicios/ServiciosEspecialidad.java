@@ -1,9 +1,7 @@
 package co.ucentral.sistemas.citasmedicas.servicios;
 
 import co.ucentral.sistemas.citasmedicas.dto.EspecialidadDto;
-import co.ucentral.sistemas.citasmedicas.dto.MedicoDto;
 import co.ucentral.sistemas.citasmedicas.entidades.Especialidad;
-import co.ucentral.sistemas.citasmedicas.entidades.Medico;
 import co.ucentral.sistemas.citasmedicas.operaciones.OperacionesEspecialidad;
 import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioEspecialidad;
 import org.modelmapper.ModelMapper;

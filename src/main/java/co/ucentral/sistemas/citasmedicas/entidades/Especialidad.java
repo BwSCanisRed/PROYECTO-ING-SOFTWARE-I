@@ -30,4 +30,3 @@ public class Especialidad {
         this.nombre = nombre;
     }
 }
-

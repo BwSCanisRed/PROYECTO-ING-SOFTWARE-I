@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -21,8 +22,19 @@ public class ControladoresAfiliado {
 
     @Autowired
     ServiciosAfiliado serviciosAfiliado;
+    @GetMapping("/inicioAfiliado")
+    public String inicioAfiliado() {
+        return "inicioAfiliado";
+    }
 
-    @GetMapping({  "/rol_afiliado"})
+    @GetMapping({"/cliente"})
+    public String cliente(RedirectAttributes redirectAttributes) {
+        int identificacion = 1;
+        redirectAttributes.addAttribute("identificacion", identificacion);
+        return "redirect:/Agendar/{identificacion}";
+    }
+
+    @GetMapping({  "/cntafiliado"})
     public String consultarTodos(Model model){
         List<AfiliadoDto> listaafiliados =this.serviciosAfiliado.buscarTodos();
 

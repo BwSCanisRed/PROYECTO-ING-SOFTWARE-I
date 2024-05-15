@@ -19,4 +19,7 @@ public class CitaDto {
     private int id_sede;
     private int id_factura;
     private String estado;
+
+    public void setAfiliado(AfiliadoDto afiliadoDto) {
+    }
 }
