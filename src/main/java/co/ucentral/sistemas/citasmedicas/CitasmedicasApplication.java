@@ -98,9 +98,9 @@ public class CitasmedicasApplication implements CommandLineRunner {
 		Medico medico1 = new Medico(79976478,"Luis Alberto Montenegro Avila",true,especialidad1,consultorio1,sede1);
 		repositorioMedico.save(medico1);
 		Medico medico2 = new Medico(1071789472,"Luisa Castellanos",true,especialidad2,consultorio2,sede2);
-		repositorioMedico.save(medico1);
+		repositorioMedico.save(medico2);
 		Medico medico3 = new Medico(795443845,"Adolfo Martinez",true,especialidad3,consultorio3,sede3);
-		repositorioMedico.save(medico1);
+		repositorioMedico.save(medico3);
 
 		Afiliado afiliado1 = new Afiliado(54678954,"Luz Angela Lopez Aparicio",true);
 		repositorioAfiliado.save(afiliado1);
