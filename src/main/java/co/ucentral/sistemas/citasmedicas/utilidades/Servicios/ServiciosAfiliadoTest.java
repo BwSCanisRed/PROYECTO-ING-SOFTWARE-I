@@ -1,8 +1,9 @@
-package co.ucentral.sistemas.citasmedicas.servicios;
+package co.ucentral.sistemas.citasmedicas.utilidades.Servicios;
 
 import co.ucentral.sistemas.citasmedicas.dto.AfiliadoDto;
 import co.ucentral.sistemas.citasmedicas.entidades.Afiliado;
 import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioAfiliado;
+import co.ucentral.sistemas.citasmedicas.servicios.ServiciosAfiliado;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -56,7 +57,7 @@ class ServiciosAfiliadoTest {
 
         verify(repositorioAfiliado, times(1)).deleteById(1);
     }
-*/
+
     @Test
     void buscarTodosTest() {
         Afiliado afiliado1 = new Afiliado();
@@ -69,7 +70,7 @@ class ServiciosAfiliadoTest {
         verify(repositorioAfiliado, times(1)).findAll();
         assertEquals(afiliados, result);
     }
-/*
+
     @Test
     void buscarIDTest() {
         Afiliado afiliado = new Afiliado();

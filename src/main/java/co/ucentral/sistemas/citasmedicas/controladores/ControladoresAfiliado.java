@@ -34,19 +34,19 @@ public class ControladoresAfiliado {
         return "redirect:/Agendar/{identificacion}";
     }
 
-    @GetMapping({  "/cntafiliado"})
-    public String consultarTodos(Model model){
-        List<AfiliadoDto> listaafiliados =this.serviciosAfiliado.buscarTodos();
-
-        for (AfiliadoDto afiliadoDto : listaafiliados) {
-            AfiliadoDto afiliadoConRegistro = serviciosAfiliado.obtenerIdRegistro(afiliadoDto);
-            if (afiliadoConRegistro != null) {
-                afiliadoDto.setRegistro(afiliadoConRegistro.getRegistro());
-            }
-        }
-        model.addAttribute("listaafiliados",listaafiliados);
-        return "afiliado";
-    }
+//    @GetMapping({  "/cntafiliado"})
+//    public String consultarTodos(Model model){
+//        List<AfiliadoDto> listaafiliados =this.serviciosAfiliado.buscarTodos();
+//
+//        for (AfiliadoDto afiliadoDto : listaafiliados) {
+//            AfiliadoDto afiliadoConRegistro = serviciosAfiliado.obtenerIdRegistro(afiliadoDto);
+//            if (afiliadoConRegistro != null) {
+//                afiliadoDto.setRegistro(afiliadoConRegistro.getRegistro());
+//            }
+//        }
+//        model.addAttribute("listaafiliados",listaafiliados);
+//        return "afiliado";
+//    }
 
     @GetMapping("/afiliado/nuevo")
     public String mostrarFormulario(Model model){
@@ -54,9 +54,9 @@ public class ControladoresAfiliado {
         model.addAttribute("elafiliado", afiliadoDto);
         return "form_afiliado";
     }
-    @PostMapping("/crearafiliado")
-    public String registrarAfiliado(@ModelAttribute("elafiliado") AfiliadoDto afiliadoDto) {
-        serviciosAfiliado.crear(afiliadoDto);
-        return "redirect:/rol_afiliado";
-    }
+//    @PostMapping("/crearafiliado")
+//    public String registrarAfiliado(@ModelAttribute("elafiliado") AfiliadoDto afiliadoDto) {
+//        serviciosAfiliado.crear(afiliadoDto);
+//        return "redirect:/rol_afiliado";
+//    }
 }

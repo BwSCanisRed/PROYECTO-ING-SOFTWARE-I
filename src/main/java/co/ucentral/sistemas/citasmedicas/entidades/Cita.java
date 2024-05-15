@@ -39,4 +39,16 @@ public class Cita {
     @JoinColumn(name = "Afi_id",nullable = true)
     private Afiliado afiliado;
 
+    @OneToOne
+    @JoinColumn(name = "fac_id")
+    private Factura factura;
+
+    public Cita(int id_cita, LocalDateTime fecha, Especialidad especialidad, String estado, Medico medico, Factura factura) {
+        this.id_cita = id_cita;
+        this.fecha = fecha;
+        this.especialidad = especialidad;
+        this.estado = estado;
+        this.medico = medico;
+        this.factura = factura;
+    }
 }
