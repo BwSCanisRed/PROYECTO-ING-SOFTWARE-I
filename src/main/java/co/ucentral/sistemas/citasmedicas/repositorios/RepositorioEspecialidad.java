@@ -4,4 +4,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.CrudRepository;
 
 public interface RepositorioEspecialidad extends CrudRepository<Especialidad, Integer>, JpaSpecificationExecutor<Especialidad> {
+    Especialidad findByIdEspecialidad(int idEspecialidad);
 }

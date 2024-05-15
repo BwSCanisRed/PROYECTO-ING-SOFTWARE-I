@@ -16,7 +16,7 @@ public class ControladoresEspecialidad {
     @Autowired
     ServiciosEspecialidad serviciosEspecialidad;
 
-    @GetMapping({  "/cntespecialidad"})
+    @GetMapping({  "/especialidades"})
     public String consultarTodos(Model model){
         model.addAttribute("listaespecialidad",this.serviciosEspecialidad.buscarTodos());
         return "especialidad";
@@ -26,11 +26,11 @@ public class ControladoresEspecialidad {
     public String mostrarFormulario(Model model){
         EspecialidadDto especialidadDto = new EspecialidadDto();
         model.addAttribute("laespecialidad", especialidadDto);
-        return "crear_especialidad";
+        return "form_especialidad";
     }
-    @PostMapping("/especialidad")
+    @PostMapping("/crearespecialidad")
     public String registrarEspecialidad(@ModelAttribute("laespecialidad") EspecialidadDto especialidadDto) {
         serviciosEspecialidad.crear(especialidadDto);
-        return "redirect:/cntespecialidad";
+        return "redirect:/especialidades";
     }
 }

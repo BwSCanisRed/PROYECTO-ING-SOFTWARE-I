@@ -28,7 +28,7 @@ public class ControladoresRol{
         model.addAttribute("elrol", rolDto);
         return "form_rol";
     }
-    @PostMapping("/rol")
+    @PostMapping("/crearol")
     public String registrarRol(@ModelAttribute("elrol") RolDto rolDto) {
         serviciosRol.crear(rolDto);
         return "redirect:/roles";

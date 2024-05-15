@@ -9,4 +9,5 @@ public interface OperacionesConsultorio {
     public void borrar(Integer pkEntidad);
     public List<ConsultorioDto> buscarTodos();
     public ConsultorioDto buscarID(Integer pkEntidad);
+    public ConsultorioDto buscarIdConsultorio(Integer idConsultorio );
 }

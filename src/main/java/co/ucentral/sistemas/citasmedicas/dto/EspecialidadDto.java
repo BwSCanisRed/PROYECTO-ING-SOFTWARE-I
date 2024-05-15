@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class EspecialidadDto {
 
-    private int id_especialidad;
+    private Integer idEspecialidad;
     private String nombre;
 }

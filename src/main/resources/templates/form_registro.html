@@ -31,8 +31,8 @@
         </div>
 
         <div class="form-group">
-            <label class="control-label" for="id_usuario">Identificación: </label> <input
-                id="id_usuario" type="number" class="form-control" th:field="*{id_usuario}"
+            <label class="control-label" for="idUsuario">Identificación: </label> <input
+                id="idUsuario" type="number" class="form-control" th:field="*{idUsuario}"
                 required autofocus="autofocus" min="10000000" max="9999999999">
         </div>
         <div class="form-group">
@@ -43,7 +43,7 @@
         <div class="form-group">
             <label class="control-label" for="fechaNacimiento">Fecha Nacimiento: </label> <input
                 id="fechaNacimiento" type="date" class="form-control" th:field="*{fechaNacimiento}"
-                required autofocus="autofocus">
+                required autofocus="autofocus" th:max="${#dates.format(#calendars.createNow(), 'yyyy-MM-dd')}" />
         </div>
         <div class="form-group">
             <label class="control-label" for="celular">Celular : </label> <input
@@ -78,9 +78,14 @@
         <br>
         <div class="form-group">
             <button type="submit" class="btn btn-success">Registrarse</button>
-            <span>Ya estoy registrado<a th:href="@{/iniciar_sesion}">Iniciar Sesión</a></span>
+            <span>Ya estoy registrado <a th:href="@{/iniciosesion}">Iniciar Sesión</a></span>
+        </div>
+
+        <div th:if="${param.exito}">
+            <div class="alert alert info">Se ha registrado exitosamente</div>
         </div>
     </form>
+
 </div>
 </body>
 </html>

@@ -1,4 +1,5 @@
 package co.ucentral.sistemas.citasmedicas.entidades;
+import co.ucentral.sistemas.citasmedicas.dto.RolDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -34,10 +35,12 @@ public class Afiliado {
     @OneToMany(mappedBy = "afiliado", fetch = FetchType.LAZY)
     private List<Cita> cita;
 
-    public Afiliado(int identificacion, String nombre, boolean estado, Rol rol3) {
+    public Afiliado(int identificacion, String nombre, boolean estado) {
         this.identificacion = identificacion;
         this.nombre = nombre;
         this.estado = estado;
-        this.rol = rol3;
+
+        this.rol = new Rol();
+        this.rol.setId_rol(3);
     }
 }

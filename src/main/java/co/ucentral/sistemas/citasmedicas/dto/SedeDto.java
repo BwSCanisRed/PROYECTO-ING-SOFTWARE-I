@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SedeDto {
 
-    private int id_sede;
+    private Integer id_sede;
     private String nombre;
     private String direccion;
-    private int nconsultorios;
+    private Integer nconsultorios;
 }

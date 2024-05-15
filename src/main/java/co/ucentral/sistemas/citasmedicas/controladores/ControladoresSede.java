@@ -16,7 +16,7 @@ public class ControladoresSede{
     @Autowired
     ServiciosSede serviciosSede;
 
-    @GetMapping({  "/cntsede"})
+    @GetMapping({  "/sedes"})
     public String consultarTodos(Model model){
         model.addAttribute("listasede",this.serviciosSede.buscarTodos());
         return "sede";
@@ -26,11 +26,11 @@ public class ControladoresSede{
     public String mostrarFormulario(Model model){
         SedeDto sedeDto = new SedeDto();
         model.addAttribute("lasede", sedeDto);
-        return "crear_sede";
+        return "form_sede";
     }
-    @PostMapping("/sede")
+    @PostMapping("/crearsede")
     public String registrarSede(@ModelAttribute("lasede") SedeDto sedeDto) {
         serviciosSede.crear(sedeDto);
-        return "redirect:/cntsede";
+        return "redirect:/sedes";
     }
 }

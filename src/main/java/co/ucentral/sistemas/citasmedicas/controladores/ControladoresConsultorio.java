@@ -1,6 +1,10 @@
 package co.ucentral.sistemas.citasmedicas.controladores;
 import co.ucentral.sistemas.citasmedicas.dto.ConsultorioDto;
+import co.ucentral.sistemas.citasmedicas.dto.EspecialidadDto;
+import co.ucentral.sistemas.citasmedicas.dto.SedeDto;
 import co.ucentral.sistemas.citasmedicas.servicios.ServiciosConsultorio;
+import co.ucentral.sistemas.citasmedicas.servicios.ServiciosEspecialidad;
+import co.ucentral.sistemas.citasmedicas.servicios.ServiciosSede;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,14 +13,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Log4j2
 @Controller
 public class ControladoresConsultorio{
 
     @Autowired
     ServiciosConsultorio serviciosConsultorio;
+    @Autowired
+    ServiciosSede serviciosSede;
+    @Autowired
+    ServiciosEspecialidad serviciosEspecialidad;
 
-    @GetMapping({  "/cntconsultorio"})
+    @GetMapping({  "/consultorios"})
     public String consultarTodos(Model model){
         model.addAttribute("listaconsultorio",this.serviciosConsultorio.buscarTodos());
         return "consultorio";
@@ -25,12 +35,15 @@ public class ControladoresConsultorio{
     @GetMapping("/consultorio/nuevo")
     public String mostrarFormulario(Model model){
         ConsultorioDto consultorioDto = new ConsultorioDto();
+        List<SedeDto> listasede = serviciosSede.buscarTodos();
+        model.addAttribute("listasede", listasede);
+
         model.addAttribute("elconsultorio", consultorioDto);
-        return "crear_consultorio";
+        return "form_consultorio";
     }
-    @PostMapping("/consultorio")
+    @PostMapping("/crearconsultorio")
     public String registrarConsultorio(@ModelAttribute("elconsultorio") ConsultorioDto consultorioDto) {
         serviciosConsultorio.crear(consultorioDto);
-        return "redirect:/cntconsultorio";
+        return "redirect:/consultorios";
     }
 }

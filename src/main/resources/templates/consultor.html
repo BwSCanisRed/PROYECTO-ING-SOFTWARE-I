@@ -16,14 +16,13 @@
 <body>
 <div class="container" style="width : 90%">
     <br>
-    <a class="btn btn-primary"  href="#" th:href="@{/usuarios_registrados}">Usuarios registrados</a>
-    <a class="btn btn-primary" href="#" th:href="@{/consultor/nuevo}">Adicionar Consultor</a>
-    <a class="btn btn-primary" href="#" th:href="@{/afiliado/nuevo}">Adicionar Afiliado</a>
-    <a class="btn btn-primary" href="#" th:href="@{/medico/nuevo}">Adicionar Medico</a>
-    <a class="btn btn-primary" href="#" th:href="@{/cntconsultorio}">Consultorio</a>
-    <a class="btn btn-primary" href="#" th:href="@{/cntespecialidad}">Especialidad</a>
-    <a class="btn btn-primary" href="#" th:href="@{/roles}">Rol</a>
-    <a class="btn btn-primary"  href="#" th:href="@{/cntsede}">Sede</a>
+    <a class="btn btn-primary"  href="#" th:href="@{/registro}">Usuarios registrados</a>
+    <a class="btn btn-primary" href="#" th:href="@{/rol_afiliado}">Afiliados</a>
+    <a class="btn btn-primary" href="#" th:href="@{/rol_medico}">Medicos</a>
+    <a class="btn btn-primary" href="#" th:href="@{/consultorios}">Consultorios</a>
+    <a class="btn btn-primary" href="#" th:href="@{/especialidades}">Especialidades</a>
+    <a class="btn btn-primary" href="#" th:href="@{/roles}">Roles</a>
+    <a class="btn btn-primary"  href="#" th:href="@{/sedes}">Sedes</a>
     <br> <br>
 
     <table class="table table-striped table-bordered">
@@ -38,15 +37,17 @@
         </thead>
         <tbody>
 
-        <tr th:each="dato : ${listaaconsultores}">
+        <tr th:each="dato : ${listaconsultores}">
             <td th:text="${dato.identificacion}">Identificación</td>
             <td th:text="${dato.nombre}">Nombre Completo</td>
             <td th:text="${dato.estado}">Estado</td>
-            <td th:text="${dato.id_registro}">ID Registro</td>
-            <td th:text="${dato.id_rol}">ID Rol</td>
+            <td th:text="${dato.registro != null ? dato.registro.id_registro : ''}">ID Registro</td>
+            <td th:text="${dato.rol.id_rol}">ID Rol</td>
         </tr>
         </tbody>
     </table>
+    <br>
+    <div><a class="btn btn-primary" href="#" th:href="@{/consultor/nuevo}">Adicionar Consultor</a></div>
 </div>
 </body>
 </html>

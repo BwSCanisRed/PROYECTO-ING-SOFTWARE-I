@@ -1,9 +1,6 @@
 package co.ucentral.sistemas.citasmedicas.entidades;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
@@ -16,9 +13,11 @@ import java.util.List;
 @Entity
 public class Sede {
 
+    @Getter
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "sed_id", nullable = false)
-    private int id_sede;
+    private Integer id_sede;
 
     @Column(name = "sed_descripcion", nullable = false)
     private String nombre;
@@ -26,18 +25,23 @@ public class Sede {
     @Column(name = "sed_direccion", nullable = true)
     private String direccion;
 
-    @Column(name = "sed_nconsultorios", nullable = false)
-    private int nconsultorios;
+    @Column(name = "sed_nconsultorios", nullable = true)
+    private Integer nconsultorios;
 
-    @Column(name = "con_id", nullable = false)
+    //Quitar
+    /*@Column(name = "con_id", nullable = false)
     private String id_consultorios;
 
     @OneToMany(targetEntity = Consultorio.class, fetch = FetchType.LAZY, mappedBy =  "sede")
     private List<Consultorio> consultorios ;
 
     @OneToMany(targetEntity = Medico.class, fetch = FetchType.LAZY, mappedBy =  "sede")
-    private List<Medico> medicos ;
+    private List<Medico> medicos ;*/
 
-    public Sede(int id_sede, String nombre, String direccion, int nconsultorios) {
+    public Sede(String nombre, String direccion, Integer nconsultorios) {
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.nconsultorios = nconsultorios;
     }
+
 }

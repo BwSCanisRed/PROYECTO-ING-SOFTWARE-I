@@ -17,6 +17,7 @@
 <div class="container" style="width : 90%">
     <br>
     <a class="btn btn-primary" href="#" th:href="@{/medico/nuevo}">Adicionar Medico</a>
+    <a class="btn btn-primary" href="#" th:href="@{/rol_consultor}">Volver</a>
 
     <br> <br>
 
@@ -28,10 +29,11 @@
             <th>Estado</th>
             <th>Registro</th>
             <th>Rol</th>
+            <th>ID Especialidad</th>
             <th>Especialidad</th>
             <th>Consultorio</th>
+            <th>ID Sede</th>
             <th>Sede</th>
-            <th>Cita</th>
         </tr>
         </thead>
         <tbody>
@@ -40,18 +42,15 @@
             <td th:text="${dato.identificacion}">Identificación</td>
             <td th:text="${dato.nombre}">Nombre Completo</td>
             <td th:text="${dato.estado}">Estado</td>
-            <td th:text="${dato.id_registro}">ID Registro</td>
-            <td th:text="${dato.id_rol}">ID Rol</td>
-            <td th:text="${dato.id_especialidad}">ID Especialidad</td>
-            <td th:text="${dato.id_consultorio}">ID Consultorio</td>
-            <td th:text="${dato.id_sede}">ID Sede</td>
-            <td> <ul>
-                <li th:each="cita : ${dato.citas}" th:text="${dato.getCitas()}"></li>
-                </ul>
-            </td>
+            <td th:text="${dato.registro != null ? dato.registro.id_registro : ''}">ID Registro</td>
+            <td th:text="${dato.rol.id_rol}">ID Rol</td>
+            <td th:text="${dato.especialidad.idEspecialidad}">ID Especialidad</td>
+            <td th:text="${dato.especialidad.nombre}">Nombre Especialidad</td>
+            <td th:text="${dato.consultorio.idConsultorio}">ID Consultorio</td>
+            <td th:text="${dato.sede.id_sede}">ID Sede</td>
+            <td th:text="${dato.sede.nombre}">Nombre Sede</td>
         </tr>
         </tbody>
-
     </table>
 </div>
 </body>

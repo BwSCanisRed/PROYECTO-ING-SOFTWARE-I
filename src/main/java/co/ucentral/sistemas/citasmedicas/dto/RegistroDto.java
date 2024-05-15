@@ -14,7 +14,7 @@ public class RegistroDto {
     private int id_registro;
     private LocalDateTime fecha_registro;
     private String tipo_identificacion;
-    private int id_usuario;
+    private int idUsuario;
     private String nombre;
     private Date fechaNacimiento;
     private String celular;
@@ -22,8 +22,4 @@ public class RegistroDto {
     private String genero;
     private String correo;
     private String contrasenia;
-
-    public static RegistroDto findById_usuario(Integer id_usuario) {
-        return null;
-    }
 }

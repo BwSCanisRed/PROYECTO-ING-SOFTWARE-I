@@ -1,16 +1,12 @@
 package co.ucentral.sistemas.citasmedicas.entidades;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
 @Table(name = "Medicos")
 @ToString
 @Entity
@@ -18,7 +14,7 @@ public class Medico {
 
     @Id
     @Column(name = "med_id", nullable = false)
-    private int identificacion;
+    private Integer identificacion;
 
     @Column(name = "med_nombre", nullable = false)
     private String nombre;
@@ -38,7 +34,7 @@ public class Medico {
     @JoinColumn(name = "rol_id")
     private Rol rol;
 
-    @ManyToOne(targetEntity = Consultorio.class)
+    @OneToOne(targetEntity = Consultorio.class)
     @JoinColumn(name = "con_id")
     private Consultorio consultorio;
 
@@ -46,13 +42,23 @@ public class Medico {
     @JoinColumn(name = "sed_id")
     private Sede sede;
 
-    @OneToMany(targetEntity = Cita.class, fetch = FetchType.LAZY, mappedBy =  "medico")
-    private List<Cita> citas;
+    //@OneToMany(targetEntity = Cita.class, fetch = FetchType.LAZY, mappedBy =  "medico")
+    //private List<Cita> citas;
 
-    public Medico(int identificacion, String nombre, boolean estado, Rol rol2) {
+    public Medico(int identificacion, String nombre, boolean estado) {
         this.identificacion = identificacion;
         this.nombre = nombre;
         this.estado = estado;
-        this.rol = rol2;
+    }
+    public Medico(Integer identificacion, String nombre, Boolean estado, Especialidad especialidad, Consultorio consultorio, Sede sede) {
+        this.identificacion = identificacion;
+        this.nombre = nombre;
+        this.estado = estado;
+        this.especialidad = especialidad;
+        this.consultorio = consultorio;
+        this.sede = sede;
+
+        this.rol = new Rol();
+        this.rol.setId_rol(2);
     }
 }

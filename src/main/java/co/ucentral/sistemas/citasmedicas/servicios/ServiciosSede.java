@@ -1,5 +1,7 @@
 package co.ucentral.sistemas.citasmedicas.servicios;
+import co.ucentral.sistemas.citasmedicas.dto.MedicoDto;
 import co.ucentral.sistemas.citasmedicas.dto.SedeDto;
+import co.ucentral.sistemas.citasmedicas.entidades.Medico;
 import co.ucentral.sistemas.citasmedicas.entidades.Sede;
 import co.ucentral.sistemas.citasmedicas.operaciones.OperacionesSede;
 import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioSede;
@@ -50,6 +52,12 @@ public class ServiciosSede implements OperacionesSede {
 
     @Override
     public SedeDto buscarID(Integer pkEntidad) {
-        return modelMapper.map(this.buscarID(pkEntidad), SedeDto.class);
+
+        Sede sede = this.repositorioSede.findById(pkEntidad).orElse(null);
+        if (sede != null) {
+            return modelMapper.map(sede, SedeDto.class);
+        } else {
+            return null;
+        }
     }
 }

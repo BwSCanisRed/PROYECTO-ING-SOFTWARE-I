@@ -1,8 +1,14 @@
 package co.ucentral.sistemas.citasmedicas.servicios;
 import co.ucentral.sistemas.citasmedicas.dto.ConsultorDto;
+import co.ucentral.sistemas.citasmedicas.dto.RegistroDto;
+import co.ucentral.sistemas.citasmedicas.dto.RolDto;
 import co.ucentral.sistemas.citasmedicas.entidades.Consultor;
+import co.ucentral.sistemas.citasmedicas.entidades.Registro;
+import co.ucentral.sistemas.citasmedicas.entidades.Rol;
 import co.ucentral.sistemas.citasmedicas.operaciones.OperacionesConsultor;
 import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioConsultor;
+import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioRegistro;
+import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioRol;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +19,26 @@ public class ServiciosConsultor implements OperacionesConsultor {
     private ModelMapper modelMapper = new ModelMapper();
     @Autowired
     RepositorioConsultor repositorioConsultor;
+    @Autowired
+    RepositorioRegistro repositorioRegistro;
+    @Autowired
+    RepositorioRol repositorioRol;
     @Override
     public ConsultorDto crear(ConsultorDto consultorDto) {
-        if (consultorDto != null){
-            Consultor consultor =   repositorioConsultor.save(modelMapper.map(consultorDto, Consultor.class));
-            return modelMapper.map(consultor, ConsultorDto.class);
-        }
-
-        else
+        if (consultorDto == null) {
             return null;
+        }
+        Rol rol = repositorioRol.findById(2).orElse(null);
+
+        if (rol == null) {
+            return consultorDto;
+        }
+        RolDto rolDto = new RolDto();
+        rolDto.setId_rol(rol.getId_rol());
+        consultorDto.setRol(rolDto);
+
+        Consultor consultor = repositorioConsultor.save(modelMapper.map(consultorDto, Consultor.class));
+        return modelMapper.map(consultor, ConsultorDto.class);
     }
     @Override
     public ConsultorDto modificar(ConsultorDto consultorDto) {
@@ -43,5 +60,18 @@ public class ServiciosConsultor implements OperacionesConsultor {
     @Override
     public ConsultorDto buscarID(Integer pkEntidad) {
         return modelMapper.map(this.buscarID(pkEntidad), ConsultorDto.class);
+    }
+
+    public ConsultorDto obtenerIdRegistro(ConsultorDto consultorDto) {
+        Registro registro = repositorioRegistro.findByIdUsuario(consultorDto.getIdentificacion());
+
+        if (registro != null) {
+            RegistroDto registroDto = modelMapper.map(registro, RegistroDto.class);
+            consultorDto.setRegistro(registroDto);
+
+            return consultorDto;
+        } else {
+            return null;
+        }
     }
 }

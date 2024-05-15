@@ -1,7 +1,9 @@
 package co.ucentral.sistemas.citasmedicas.servicios;
 
 import co.ucentral.sistemas.citasmedicas.dto.EspecialidadDto;
+import co.ucentral.sistemas.citasmedicas.dto.MedicoDto;
 import co.ucentral.sistemas.citasmedicas.entidades.Especialidad;
+import co.ucentral.sistemas.citasmedicas.entidades.Medico;
 import co.ucentral.sistemas.citasmedicas.operaciones.OperacionesEspecialidad;
 import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioEspecialidad;
 import org.modelmapper.ModelMapper;
@@ -30,7 +32,7 @@ public class ServiciosEspecialidad implements OperacionesEspecialidad {
 
     @Override
     public EspecialidadDto modificar(EspecialidadDto especialidadDto) {
-        if (this.repositorioEspecialidad.existsById(especialidadDto.getId_especialidad()))
+        if (this.repositorioEspecialidad.existsById(especialidadDto.getIdEspecialidad()))
             return this.crear(especialidadDto);
         else
             return null;
@@ -44,13 +46,17 @@ public class ServiciosEspecialidad implements OperacionesEspecialidad {
 
     @Override
     public List<EspecialidadDto> buscarTodos() {
-        TypeToken<List<EspecialidadDto>> typeToken = new TypeToken<>() {
-        };
+        TypeToken<List<EspecialidadDto>> typeToken = new TypeToken<>() {};
         return modelMapper.map(this.repositorioEspecialidad.findAll(), typeToken.getType());
     }
 
     @Override
     public EspecialidadDto buscarID(Integer pkEntidad) {
-        return modelMapper.map(this.buscarID(pkEntidad), EspecialidadDto.class);
+        Especialidad especialidad = this.repositorioEspecialidad.findById(pkEntidad).orElse(null);
+        if (especialidad != null) {
+            return modelMapper.map(especialidad, EspecialidadDto.class);
+        } else {
+            return null;
+        }
     }
 }

@@ -1,4 +1,6 @@
 package co.ucentral.sistemas.citasmedicas.dto;
+import co.ucentral.sistemas.citasmedicas.entidades.Especialidad;
+import co.ucentral.sistemas.citasmedicas.entidades.Sede;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ConsultorioDto {
 
-    private int id_consultorio;
+    private Integer serial;
+    private Integer idConsultorio;
     private String nombre;
-    private int id_sede;
+    private Sede sede;
+
 }

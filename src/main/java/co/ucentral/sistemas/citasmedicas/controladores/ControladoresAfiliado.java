@@ -1,5 +1,9 @@
 package co.ucentral.sistemas.citasmedicas.controladores;
 import co.ucentral.sistemas.citasmedicas.dto.AfiliadoDto;
+import co.ucentral.sistemas.citasmedicas.dto.ConsultorDto;
+import co.ucentral.sistemas.citasmedicas.dto.MedicoDto;
+import co.ucentral.sistemas.citasmedicas.dto.RolDto;
+import co.ucentral.sistemas.citasmedicas.entidades.Rol;
 import co.ucentral.sistemas.citasmedicas.servicios.ServiciosAfiliado;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 @Log4j2
 @Controller
@@ -18,7 +24,15 @@ public class ControladoresAfiliado {
 
     @GetMapping({  "/rol_afiliado"})
     public String consultarTodos(Model model){
-        model.addAttribute("listaafiliados",this.serviciosAfiliado.buscarTodos());
+        List<AfiliadoDto> listaafiliados =this.serviciosAfiliado.buscarTodos();
+
+        for (AfiliadoDto afiliadoDto : listaafiliados) {
+            AfiliadoDto afiliadoConRegistro = serviciosAfiliado.obtenerIdRegistro(afiliadoDto);
+            if (afiliadoConRegistro != null) {
+                afiliadoDto.setRegistro(afiliadoConRegistro.getRegistro());
+            }
+        }
+        model.addAttribute("listaafiliados",listaafiliados);
         return "afiliado";
     }
 
