@@ -18,13 +18,16 @@ public class ControladoresAfiliado {
     @Autowired
     ServiciosAfiliado serviciosAfiliado;
 
+    @GetMapping("/inicioAfiliado")
+    public String inicioAfiliado() {
+        return "inicioAfiliado";
+    }
+
     @GetMapping({"/cliente"})
     public String cliente(RedirectAttributes redirectAttributes) {
         int identificacion = 1;
         redirectAttributes.addAttribute("identificacion", identificacion);
-
         return "redirect:/Agendar/{identificacion}";
-
     }
 
     @GetMapping({  "/cntafiliado"})

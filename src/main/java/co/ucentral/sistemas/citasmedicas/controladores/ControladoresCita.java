@@ -52,9 +52,11 @@ public class ControladoresCita {
     @GetMapping("/Agendar/Confirmacion/{idCita}/{identificacion}")
     public String buscarCitaPorId(@PathVariable int idCita, @PathVariable int identificacion, Model model) {
         Optional<Cita> citaOptional = serviciosCita.buscarID(idCita);
+
         if (citaOptional.isPresent()) {
             Cita cita = citaOptional.get();
             Optional<Afiliado> afiliadoOptional = serviciosAfiliado.buscarID(identificacion);
+
             if (afiliadoOptional.isPresent()) {
                 Afiliado afiliado = afiliadoOptional.get();
                 cita.setEstado("Programada");
@@ -64,12 +66,16 @@ public class ControladoresCita {
                 model.addAttribute("identificacion", identificacion);
                 model.addAttribute("afiliado", afiliado);
                 System.out.println(cita);
-                System.out.println(identificacion);
+                System.out.println(afiliado);
+
                 return "confirmacion";
+
             } else {
+
                 return "error";
             }
         } else {
+
             return "error";
         }
     }

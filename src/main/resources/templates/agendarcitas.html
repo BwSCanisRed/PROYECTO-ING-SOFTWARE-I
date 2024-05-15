@@ -40,7 +40,7 @@
             <td th:text="${dato.medico?.sede?.direccion}">Direccion</td>
             <td th:text="${dato.especialidad?.nombre_especialidad}">Especialidad</td>
             <td >
-                <a class="btn btn-info btn-info" th:href="@{/Agendar/Confirmacion/{id_cita}(id_cita=${dato.id_cita}, identificacion=${identificacion})}" style="transition: background-color 0.3s ease;">Agendar</a>
+                <a class="btn btn-info btn-info" th:href="@{/Agendar/Confirmacion/{idCita}/{identificacion}(idCita=${dato.id_cita}, identificacion=${identificacion})}" style="transition: background-color 0.3s ease;">Agendar</a>
             </td>
         </tr>
         </tbody>

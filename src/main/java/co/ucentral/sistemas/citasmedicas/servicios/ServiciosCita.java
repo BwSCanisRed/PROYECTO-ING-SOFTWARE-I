@@ -54,7 +54,7 @@ public class ServiciosCita implements OperacionesCita {
 
     @Override
     public Cita modificar(Cita cita) {
-        // Verificar si la cita existe en el repositorio
+
         Optional<Cita> citaExistente = repositorioCita.findById(cita.getId_cita());
         if (citaExistente.isPresent()) {
             Cita citaActualizada = citaExistente.get();

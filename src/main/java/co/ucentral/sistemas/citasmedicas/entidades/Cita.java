@@ -38,6 +38,4 @@ public class Cita {
     @JoinColumn(name = "Afi_id",nullable = true)
     private Afiliado afiliado;
 
-    public void setAfiliado(Afiliado afiliado) {
-    }
 }

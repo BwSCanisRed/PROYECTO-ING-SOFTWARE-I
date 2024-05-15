@@ -47,7 +47,7 @@ public class ServiciosAfiliado implements OperacionesAfiliado {
     }
 
     @Override
-    public Optional<Afiliado> buscarID(Integer pkEntidad) {
+    public Optional<Afiliado> buscarID(int pkEntidad) {
         return repositorioAfiliado.findById(pkEntidad);
     }
 }

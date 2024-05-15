@@ -11,5 +11,5 @@ public interface OperacionesAfiliado {
     public void borrar(Afiliado afiliadoD);
     public void borrar(Integer pkEntidad);
     public List<Afiliado> buscarTodos();
-    public Optional<Afiliado> buscarID(Integer pkEntidad);
+    public Optional<Afiliado> buscarID(int pkEntidad);
 }
