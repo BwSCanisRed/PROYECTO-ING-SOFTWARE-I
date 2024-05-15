@@ -61,7 +61,7 @@ public class ControladoresRegistro {
     }
 
     @PostMapping("/sesion")
-    public String iniciarSesion(@ModelAttribute("elregistro") RegistroDto registroDto, @RequestParam("idUsuario") int idUsuario, @RequestParam("contrasenia") String contrasenia) {
+    public String iniciarSesion(@ModelAttribute("elregistro") RegistroDto registroDto, @RequestParam("idUsuario") int idUsuario, @RequestParam("contrasenia") String contrasenia, Model model) {
 
         Registro registro = repositorioRegistro.findByIdUsuarioAndContrasenia(idUsuario, contrasenia);
 
@@ -81,11 +81,11 @@ public class ControladoresRegistro {
                     return "redirect:/rol_consultor";
                 }
             } else {
-                //model.addAttribute("error", "Usuario no encontrado");
+                model.addAttribute("error", "Usuario no encontrado");
                 return "redirect:/iniciosesion";
             }
         } else {
-            //model.addAttribute("error", "Usuario o contraseña incorrectos");
+            model.addAttribute("error", "Usuario o contraseña incorrectos");
             return "redirect:/iniciosesion";
         }
     }
