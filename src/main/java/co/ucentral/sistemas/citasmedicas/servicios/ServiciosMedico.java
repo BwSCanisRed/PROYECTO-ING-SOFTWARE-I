@@ -5,7 +5,6 @@ import co.ucentral.sistemas.citasmedicas.entidades.*;
 import co.ucentral.sistemas.citasmedicas.operaciones.OperacionesMedico;
 import co.ucentral.sistemas.citasmedicas.repositorios.*;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

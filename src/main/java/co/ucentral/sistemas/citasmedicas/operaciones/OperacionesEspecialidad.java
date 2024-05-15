@@ -9,4 +9,5 @@ public interface OperacionesEspecialidad {
     public void borrar(Integer pkEntidad);
     public List<EspecialidadDto> buscarTodos();
     public EspecialidadDto buscarID(Integer pkEntidad);
+
 }

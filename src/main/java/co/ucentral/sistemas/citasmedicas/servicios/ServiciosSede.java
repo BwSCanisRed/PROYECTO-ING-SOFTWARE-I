@@ -1,7 +1,5 @@
 package co.ucentral.sistemas.citasmedicas.servicios;
-import co.ucentral.sistemas.citasmedicas.dto.MedicoDto;
 import co.ucentral.sistemas.citasmedicas.dto.SedeDto;
-import co.ucentral.sistemas.citasmedicas.entidades.Medico;
 import co.ucentral.sistemas.citasmedicas.entidades.Sede;
 import co.ucentral.sistemas.citasmedicas.operaciones.OperacionesSede;
 import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioSede;

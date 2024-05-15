@@ -1,5 +1,7 @@
 package co.ucentral.sistemas.citasmedicas.operaciones;
 import co.ucentral.sistemas.citasmedicas.dto.MedicoDto;
+import co.ucentral.sistemas.citasmedicas.entidades.Medico;
+
 import java.util.List;
 
 public interface OperacionesMedico {
