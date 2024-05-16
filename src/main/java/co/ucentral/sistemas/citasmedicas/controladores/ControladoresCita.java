@@ -19,7 +19,7 @@ import java.util.Optional;
 @Log4j2
 @Controller
 public class ControladoresCita {
-/*
+
     @Autowired
     ServiciosCita serviciosCita;
     @Autowired
@@ -106,5 +106,5 @@ public class ControladoresCita {
     public String registrarCita(@ModelAttribute("lacita") CitaDto citaDto) {
         serviciosCita.crear(citaDto);
         return "redirect:/cntcita";
-    }*/
+    }
 }
