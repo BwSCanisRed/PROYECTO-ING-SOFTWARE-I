@@ -27,48 +27,48 @@ public class ControladoresCita {
     @Autowired
     private ModelMapper modelMapper;
 
-    @GetMapping("/Agendar/{identificacion}")
-    public String listarCitas(Model model, @PathVariable int identificacion) {
-        AfiliadoDto afiliadoDto = serviciosAfiliado.buscarID(identificacion);
-        if (afiliadoDto != null) {
-            for (Cita laCita : serviciosCita.buscarTodos()) {
-                System.out.println(laCita);
-            }
-            System.out.println("paso por aquí");
-            model.addAttribute("identificacion", identificacion);
-            model.addAttribute("listaCitasT", serviciosCita.buscarTodos());
-            model.addAttribute("afiliado", afiliadoDto);
-            System.out.println(afiliadoDto);
-            System.out.println(identificacion);
-            return "agendarcitas";
-        } else {
-            // Manejar el caso en el que no se encuentre el afiliado con el ID dado
-            return "error"; // Por ejemplo, redirigir a una página de error
-        }
-    }
+//    @GetMapping("/Agendar/{identificacion}")
+//    public String listarCitas(Model model, @PathVariable int identificacion) {
+//        AfiliadoDto afiliadoDto = serviciosAfiliado.buscarID(identificacion);
+//        if (afiliadoDto != null) {
+//            for (Cita laCita : serviciosCita.buscarTodos()) {
+//                System.out.println(laCita);
+//            }
+//            System.out.println("paso por aquí");
+//            model.addAttribute("identificacion", identificacion);
+//            model.addAttribute("listaCitasT", serviciosCita.buscarTodos());
+//            model.addAttribute("afiliado", afiliadoDto);
+//            System.out.println(afiliadoDto);
+//            System.out.println(identificacion);
+//            return "agendarcitas";
+//        } else {
+//            // Manejar el caso en el que no se encuentre el afiliado con el ID dado
+//            return "error"; // Por ejemplo, redirigir a una página de error
+//        }
+//    }
 
-    @GetMapping("/Agendar/Confirmacion/{idCita}/{identificacion}")
-    public String buscarCitaPorId(@PathVariable int idCita, @PathVariable int identificacion, Model model) {
-        CitaDto citaDto = serviciosCita.buscarID(idCita);
-
-        if (citaDto != null) {
-            AfiliadoDto afiliadoDto = serviciosAfiliado.buscarID(identificacion);
-
-            if (afiliadoDto != null) {
-                citaDto.setEstado("Programada");
-                citaDto.setAfiliado(afiliadoDto);
-                serviciosCita.modificar(modelMapper.map(citaDto, Cita.class));
-                model.addAttribute("cita", citaDto);
-                model.addAttribute("identificacion", identificacion);
-                model.addAttribute("afiliado", afiliadoDto);
-                return "confirmacion";
-            } else {
-                return "error";
-            }
-        } else {
-            return "error";
-        }
-    }
+//   @GetMapping("/Agendar/Confirmacion/{idCita}/{identificacion}")
+//    public String buscarCitaPorId(@PathVariable int idCita, @PathVariable int identificacion, Model model) {
+//        CitaDto citaDto = serviciosCita.buscarID(idCita);
+//
+//        if (citaDto != null) {
+//            AfiliadoDto afiliadoDto = serviciosAfiliado.buscarID(identificacion);
+//
+//            if (afiliadoDto != null) {
+//                citaDto.setEstado("Programada");
+//                citaDto.setAfiliado(afiliadoDto);
+//                serviciosCita.modificar(modelMapper.map(citaDto, Cita.class));
+//                model.addAttribute("cita", citaDto);
+//                model.addAttribute("identificacion", identificacion);
+//                model.addAttribute("afiliado", afiliadoDto);
+//                return "confirmacion";
+//            } else {
+//                return "error";
+//            }
+//        } else {
+//            return "error";
+//        }
+//    }
 
 
 /*

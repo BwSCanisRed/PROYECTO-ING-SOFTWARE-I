@@ -13,23 +13,24 @@ import lombok.ToString;
     @Entity
     public class Sede {
 
-        @Id
-        @Column(name = "Sed_id", insertable = false, updatable = false)
-        private Integer idSede;
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "sed_id", insertable = false, updatable = false)
+    private Integer id_sede;
 
-        @Column(name = "Sed_descripcion", nullable = false)
-        private String nombre;
+    @Column(name = "sed_descripcion", nullable = false)
+    private String nombre;
 
-        @Column(name = "Sed_direccion", nullable = true)
-        private String direccion;
+    @Column(name = "sed_direccion", nullable = true)
+    private String direccion;
 
-        @Column(name = "Sed_nconsultorios", nullable = false)
-        private Integer nconsultorios;
+    @Column(name = "sed_nconsultorios", nullable = true)
+    private Integer nconsultorios;
 
-        public void setId_sede(int i) {
-        }
+    public void setId_sede(int i) {
+    }
 
-     public int getId_sede() {
+    public int getId_sede() {
          return 0;
      }
 
