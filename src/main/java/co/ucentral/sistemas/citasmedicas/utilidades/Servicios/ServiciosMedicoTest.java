@@ -1,8 +1,9 @@
-package co.ucentral.sistemas.citasmedicas.servicios;
+package co.ucentral.sistemas.citasmedicas.utilidades.Servicios;
 
 import co.ucentral.sistemas.citasmedicas.dto.MedicoDto;
 import co.ucentral.sistemas.citasmedicas.entidades.Medico;
 import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioMedico;
+import co.ucentral.sistemas.citasmedicas.servicios.ServiciosMedico;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;

@@ -1,4 +1,4 @@
-package co.ucentral.sistemas.citasmedicas.servicios;
+package co.ucentral.sistemas.citasmedicas.utilidades.Servicios;
 
 import co.ucentral.sistemas.citasmedicas.entidades.Sede;
 import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioSede;
