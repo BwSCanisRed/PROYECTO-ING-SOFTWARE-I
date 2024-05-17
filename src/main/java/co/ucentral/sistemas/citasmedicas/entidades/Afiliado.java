@@ -1,4 +1,5 @@
 package co.ucentral.sistemas.citasmedicas.entidades;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,6 +35,7 @@ public class Afiliado {
     @JoinColumn(name = "rol_id")
     private Rol rol;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "afiliado", fetch = FetchType.LAZY)
     private List<Cita> cita;
 

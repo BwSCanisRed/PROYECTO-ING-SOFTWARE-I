@@ -12,7 +12,6 @@ import java.util.List;
 @ToString
 @Entity
 public class Medico {
-
     @Id
     @Column(name = "med_id", nullable = false)
     private Integer identificacion;
@@ -25,22 +24,27 @@ public class Medico {
 
     @OneToOne(targetEntity = Registro.class)
     @JoinColumn(name = "reg_id")
+    @ToString.Exclude
     private Registro registro;
 
     @ManyToOne(targetEntity = Especialidad.class)
     @JoinColumn(name = "es_id")
+    @ToString.Exclude
     private Especialidad especialidad;
 
     @ManyToOne(targetEntity = Rol.class)
     @JoinColumn(name = "rol_id")
+    @ToString.Exclude
     private Rol rol;
 
     @OneToOne(targetEntity = Consultorio.class)
     @JoinColumn(name = "con_id")
+    @ToString.Exclude
     private Consultorio consultorio;
 
     @ManyToOne(targetEntity = Sede.class)
     @JoinColumn(name = "sed_id")
+    @ToString.Exclude
     private Sede sede;
 
     //@OneToMany(targetEntity = Cita.class, fetch = FetchType.LAZY, mappedBy =  "medico")

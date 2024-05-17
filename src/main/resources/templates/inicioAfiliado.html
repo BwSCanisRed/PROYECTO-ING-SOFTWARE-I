@@ -17,9 +17,9 @@
                     <a class="nav-link"  th:href="@{/cliente}" style="transition: background-color 0.3s ease;">Agendar</a></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/misCitas">Mis Citas</a>
-                </li>
-                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/CitasAgendadas{identificacion}(identificacion=${identificacion})}"
+                       style="transition: background-color 0.3s ease;">Mis Citas</a>
+
                     <a class="nav-link" href="/contacto">Contacto</a>
                 </li>
             </ul>
