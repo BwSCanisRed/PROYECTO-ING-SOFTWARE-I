@@ -50,7 +50,7 @@
     </table>
 
     <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
-        <a class="btn btn-primary" href="/inicioAfiliado">Regresar al inicio</a>
+        <a class="btn btn-primary" th:href="@{/inicioAfiliado/{identificacion}(identificacion=${identificacion})}">Regresar al inicio</a>
     </div>
 </div>
 <script

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -22,21 +23,19 @@ public class ControladoresAfiliado {
 
     @Autowired
     ServiciosAfiliado serviciosAfiliado;
-    @GetMapping("/inicioAfiliado")
-    public String inicioAfiliado() {
+    @GetMapping("/inicioAfiliado/{identificacion}")
+    public String inicioAfiliado(@PathVariable int identificacion, Model model,RedirectAttributes redirectAttributes) {
+        redirectAttributes.addAttribute("identificacion", identificacion);
         return "inicioAfiliado";
     }
-
-    @GetMapping({"/cliente"})
-    public String cliente(RedirectAttributes redirectAttributes) {
-        int identificacion = 54678954;
+    @GetMapping({"/cliente/{identificacion}"})
+    public String cliente(@PathVariable int identificacion, RedirectAttributes redirectAttributes) {
         redirectAttributes.addAttribute("identificacion", identificacion);
         return "redirect:/Agendar/{identificacion}";
     }
 
-    @GetMapping({"/CitasAgendadas"})
-    public String CitasAgendadas(RedirectAttributes redirectAttributes) {
-        int identificacion = 54678954;
+    @GetMapping({"/CitasAgendadas/{identificacion}"})
+    public String CitasAgendadas(@PathVariable int identificacion, RedirectAttributes redirectAttributes) {
         redirectAttributes.addAttribute("identificacion", identificacion);
         return "redirect:/MisCitas/{identificacion}";
     }

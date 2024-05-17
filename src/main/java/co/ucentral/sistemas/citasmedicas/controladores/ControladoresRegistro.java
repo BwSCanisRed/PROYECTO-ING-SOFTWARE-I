@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Log4j2
 @Controller
@@ -61,7 +62,7 @@ public class ControladoresRegistro {
     }
 
     @PostMapping("/sesion")
-    public String iniciarSesion(@ModelAttribute("elregistro") RegistroDto registroDto, @RequestParam("idUsuario") int idUsuario, @RequestParam("contrasenia") String contrasenia) {
+    public String iniciarSesion(@ModelAttribute("elregistro") RegistroDto registroDto, @RequestParam("idUsuario") int idUsuario, @RequestParam("contrasenia") String contrasenia, RedirectAttributes redirectAttributes) {
 
         Registro registro = repositorioRegistro.findByIdUsuarioAndContrasenia(idUsuario, contrasenia);
 
@@ -76,7 +77,8 @@ public class ControladoresRegistro {
                 if (medico != null) {
                     return "redirect:/rol_medico";
                 } else if (afiliado != null) {
-                    return "redirect:/rol_afiliado";
+                    redirectAttributes.addAttribute("identificacion", idUsuario);
+                    return "redirect:/inicioAfiliado/{identificacion}";
                 } else {
                     return "redirect:/rol_consultor";
                 }

@@ -32,12 +32,12 @@ public class ControladoresCita {
    public String listarCitas(Model model, @PathVariable int identificacion) {
        Afiliado afiliado = serviciosAfiliado.buscarID(identificacion);
         if (afiliado != null) {
-          for (Cita laCita : serviciosCita.buscarTodos()) {
+          for (Cita laCita : serviciosCita.obtenerCitasDisponibles()) {
                 System.out.println(laCita);
            }
            System.out.println("paso por aquí");
             model.addAttribute("identificacion", identificacion);
-           model.addAttribute("listaCitasT", serviciosCita.buscarTodos());
+           model.addAttribute("listaCitasT", serviciosCita.obtenerCitasDisponibles());
             model.addAttribute("afiliado", afiliado);
            System.out.println(afiliado);
             System.out.println(identificacion);

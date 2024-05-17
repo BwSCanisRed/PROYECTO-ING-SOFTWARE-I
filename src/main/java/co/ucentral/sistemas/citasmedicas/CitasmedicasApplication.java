@@ -97,16 +97,24 @@ public class CitasmedicasApplication implements CommandLineRunner {
 
 		Medico medico1 = new Medico(79976478,"Luis Alberto Montenegro Avila",true,especialidad1,consultorio1,sede1);
 		repositorioMedico.save(medico1);
-		Medico medico2 = new Medico(1071789472,"Luisa Castellanos",true,especialidad2,consultorio2,sede2);
+		Medico medico2 = new Medico(11234134,"Luisa Castellanos",true,especialidad2,consultorio2,sede2);
 		repositorioMedico.save(medico2);
 		Medico medico3 = new Medico(795443845,"Adolfo Martinez",true,especialidad3,consultorio3,sede3);
 		repositorioMedico.save(medico3);
 
-		Afiliado afiliado1 = new Afiliado(54678954,"Luz Angela Lopez Aparicio",true);
+
+		Afiliado afiliado1 = new Afiliado(1071789472,"Santiago Aguirre",true);
 		repositorioAfiliado.save(afiliado1);
 
-		Registro registro1 = new Registro("Cedula de Ciudadanía ",1001346667, new Date(2015-1900, 1-1, 23),"Jennifer Lopez Vanegas","3024445556","Calle 55","Femenino","jlopezv6@ucentral.edu.co","123");
+		Afiliado afiliado2 = new Afiliado(135253949,"Vanesa Guayara",true);
+		repositorioAfiliado.save(afiliado2);
+
+
+		Registro registro1 = new Registro("Cedula de Ciudadanía ",1071789472, new Date(2015-1900, 1-2, 27),"Santiago Aguirre","3182778444","Calle 2A	","Masculino","saguirreg@ucentral.edu.co","333");
 		repositorioRegistro.save(registro1);
+
+		Registro registro2 = new Registro("Cedula de Ciudadanía ",135253949, new Date(2015-1900, 1-3, 10),"Vanesa Guayara","322523949","Calle 55 # 35 96	","Femenino","Aldia@ucentral.edu.co","222");
+		repositorioRegistro.save(registro2);
 
 		// Definir el formato de fecha y hora
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
