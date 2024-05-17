@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
 import java.util.Optional;
 
 @Log4j2
@@ -25,86 +26,64 @@ public class ControladoresCita {
     @Autowired
     ServiciosAfiliado serviciosAfiliado;
     @Autowired
-    private ModelMapper modelMapper;
+   private ModelMapper modelMapper;
 
-//    @GetMapping("/Agendar/{identificacion}")
-//    public String listarCitas(Model model, @PathVariable int identificacion) {
-//        AfiliadoDto afiliadoDto = serviciosAfiliado.buscarID(identificacion);
-//        if (afiliadoDto != null) {
-//            for (Cita laCita : serviciosCita.buscarTodos()) {
-//                System.out.println(laCita);
-//            }
-//            System.out.println("paso por aquí");
-//            model.addAttribute("identificacion", identificacion);
-//            model.addAttribute("listaCitasT", serviciosCita.buscarTodos());
-//            model.addAttribute("afiliado", afiliadoDto);
-//            System.out.println(afiliadoDto);
-//            System.out.println(identificacion);
-//            return "agendarcitas";
-//        } else {
-//            // Manejar el caso en el que no se encuentre el afiliado con el ID dado
-//            return "error"; // Por ejemplo, redirigir a una página de error
-//        }
-//    }
-
-//   @GetMapping("/Agendar/Confirmacion/{idCita}/{identificacion}")
-//    public String buscarCitaPorId(@PathVariable int idCita, @PathVariable int identificacion, Model model) {
-//        CitaDto citaDto = serviciosCita.buscarID(idCita);
-//
-//        if (citaDto != null) {
-//            AfiliadoDto afiliadoDto = serviciosAfiliado.buscarID(identificacion);
-//
-//            if (afiliadoDto != null) {
-//                citaDto.setEstado("Programada");
-//                citaDto.setAfiliado(afiliadoDto);
-//                serviciosCita.modificar(modelMapper.map(citaDto, Cita.class));
-//                model.addAttribute("cita", citaDto);
-//                model.addAttribute("identificacion", identificacion);
-//                model.addAttribute("afiliado", afiliadoDto);
-//                return "confirmacion";
-//            } else {
-//                return "error";
-//            }
-//        } else {
-//            return "error";
-//        }
-//    }
-
-
-/*
-    @GetMapping("/Agendar/Confirmacion/{id_cita}")
-    public String confirmarCita(@PathVariable("id_cita") int idCita, Model model) {
-        // Utiliza el idCita recibido para buscar la cita en el servicio
-        Optional<Cita> citaOptional = serviciosCita.buscarID(idCita);
-        // Verifica si se encontró la cita con el ID dado
-        if (citaOptional.isPresent()) {
-            // Si se encuentra la cita, asignarla al afiliado actual (asumiendo que tienes una forma de obtener el afiliado actual)
-            Afiliado afiliadoActual = obtenerAfiliadoActual(); // Implementa este método para obtener el afiliado actual
-            Cita cita = citaOptional.get();
-            cita.setAfiliado(afiliadoActual);
-            // Guardar la cita actualizada en la base de datos
-            serviciosCita.guardarCita(cita);
-
-            // Agrégala al modelo para poder mostrar la información en la vista
-            model.addAttribute("cita", cita);
-            System.out.println(cita);
-            return "confirmacion"; // Devuelve el nombre de la vista para mostrar la información de la cita
-        } else {
-            // Si no se encuentra la cita, puedes redirigir a una página de error o manejarlo de otra forma
-            return "error"; // Por ejemplo, podrías tener una vista llamada "error" para mostrar un mensaje de error
+    @GetMapping("/Agendar/{identificacion}")
+   public String listarCitas(Model model, @PathVariable int identificacion) {
+       Afiliado afiliado = serviciosAfiliado.buscarID(identificacion);
+        if (afiliado != null) {
+          for (Cita laCita : serviciosCita.buscarTodos()) {
+                System.out.println(laCita);
+           }
+           System.out.println("paso por aquí");
+            model.addAttribute("identificacion", identificacion);
+           model.addAttribute("listaCitasT", serviciosCita.buscarTodos());
+            model.addAttribute("afiliado", afiliado);
+           System.out.println(afiliado);
+            System.out.println(identificacion);
+            return "agendarcitas";
+       } else {
+           // Manejar el caso en el que no se encuentre el afiliado con el ID dado
+            return "error"; // Por ejemplo, redirigir a una página de error
         }
-    }*/
+   }
 
-/*
-    @GetMapping("/cita/nuevo")
-    public String mostrarFormulario(Model model){
-        CitaDto citaDto = new CitaDto();
-        model.addAttribute("lacita", citaDto);
-        return "crear_cita";
+  @GetMapping("/Agendar/Confirmacion/{idCita}/{identificacion}")
+    public String buscarCitaPorId(@PathVariable int idCita, @PathVariable int identificacion, Model model) {
+       Cita cita = serviciosCita.buscarID(idCita);
+
+       if (cita != null) {
+           Afiliado afiliado = serviciosAfiliado.buscarID(identificacion);
+
+           if (afiliado != null) {
+               cita.setEstado("Programada");
+               cita.setAfiliado(afiliado);
+              serviciosCita.modificar(modelMapper.map(cita, Cita.class));
+               System.out.println(cita);
+               model.addAttribute("cita", cita);
+               model.addAttribute("identificacion", identificacion);
+               model.addAttribute("afiliado", afiliado);
+               return "confirmacion";
+           } else {
+               return "error";
+           }
+        } else {
+           return "error";
+       }
     }
+
+
+    @GetMapping("/MisCitas/{identificacion}")
+    public String mostrarCitasAgendadas(@PathVariable int identificacion, Model model){
+        List<Cita> citas = serviciosCita.buscarPorAfiliado(identificacion);
+        model.addAttribute("citas", citas);
+        return "misCitas";
+    }
+
+    /*
     @PostMapping("/cita")
     public String registrarCita(@ModelAttribute("lacita") CitaDto citaDto) {
         serviciosCita.crear(citaDto);
         return "redirect:/cntcita";
-    }
+    }*/
 }

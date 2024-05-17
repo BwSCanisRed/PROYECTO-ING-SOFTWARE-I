@@ -3,7 +3,6 @@ import co.ucentral.sistemas.citasmedicas.dto.CitaDto;
 import co.ucentral.sistemas.citasmedicas.entidades.Cita;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface OperacionesCita {
     public CitaDto crear(CitaDto citaDto);
@@ -11,5 +10,5 @@ public interface OperacionesCita {
     public void borrar(CitaDto citaDto);
     public void borrar(Integer pkEntidad);
     public List<Cita> buscarTodos();
-    public Optional<Cita> buscarID(Integer pkEntidad);
+    public Cita buscarID(Integer pkEntidad);
 }

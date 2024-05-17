@@ -22,37 +22,35 @@ class ServiciosAfiliadoTest {
 
     @Mock
     RepositorioAfiliado repositorioAfiliado;
-/*
+
     @Test
     void crearTest() {
+        AfiliadoDto afiliadoDto = new AfiliadoDto();
         Afiliado afiliado = new Afiliado();
-        when(repositorioAfiliado.save(afiliado)).thenReturn(afiliado);
+        when(repositorioAfiliado.save(any(Afiliado.class))).thenReturn(afiliado);
 
-        Afiliado result = serviciosAfiliado.crear(afiliado);
+        AfiliadoDto result = serviciosAfiliado.crear(afiliadoDto);
 
-        verify(repositorioAfiliado, times(1)).save(afiliado);
-        assertEquals(afiliado, result);
-    }*/
-/*
+        verify(repositorioAfiliado, times(1)).save(any(Afiliado.class));
+        assertEquals(afiliadoDto, result);
+    }
+
     @Test
     void modificarTest() {
+        AfiliadoDto afiliadoDto = new AfiliadoDto();
+        afiliadoDto.setIdentificacion(1);
         Afiliado afiliado = new Afiliado();
-        afiliado.setId(1);
-        when(repositorioAfiliado.findById(1)).thenReturn(Optional.of(afiliado));
-        when(repositorioAfiliado.save(afiliado)).thenReturn(afiliado);
+        when(repositorioAfiliado.existsById(1)).thenReturn(true);
+        when(repositorioAfiliado.save(any(Afiliado.class))).thenReturn(afiliado);
 
-        Afiliado result = serviciosAfiliado.modificar(afiliado);
+        AfiliadoDto result = serviciosAfiliado.modificar(afiliadoDto);
 
-        verify(repositorioAfiliado, times(1)).save(afiliado);
-        assertEquals(afiliado, result);
-    }*/
-/*
+        verify(repositorioAfiliado, times(1)).save(any(Afiliado.class));
+        assertEquals(afiliadoDto, result);
+    }
+
     @Test
     void borrarTest() {
-        Afiliado afiliado = new Afiliado();
-        afiliado.setId(1);
-        when(repositorioAfiliado.findById(1)).thenReturn(Optional.of(afiliado));
-
         serviciosAfiliado.borrar(1);
 
         verify(repositorioAfiliado, times(1)).deleteById(1);
@@ -68,19 +66,19 @@ class ServiciosAfiliadoTest {
         List<AfiliadoDto> result = serviciosAfiliado.buscarTodos();
 
         verify(repositorioAfiliado, times(1)).findAll();
-        assertEquals(afiliados, result);
+        assertNotNull(result);
+        assertEquals(afiliados.size(), result.size());
     }
 
     @Test
     void buscarIDTest() {
         Afiliado afiliado = new Afiliado();
-        afiliado.setId(1);
         when(repositorioAfiliado.findById(1)).thenReturn(Optional.of(afiliado));
 
-        Optional<Afiliado> result = serviciosAfiliado.buscarID(1);
+        Afiliado result = serviciosAfiliado.buscarID(1);
 
         verify(repositorioAfiliado, times(1)).findById(1);
-        assertTrue(result.isPresent());
-        assertEquals(afiliado, result.get());
-    }*/
+        assertNotNull(result);
+        assertEquals(afiliado, result);
+    }
 }

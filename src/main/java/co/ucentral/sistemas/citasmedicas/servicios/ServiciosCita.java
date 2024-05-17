@@ -78,8 +78,18 @@ public class ServiciosCita implements OperacionesCita {
     }
 
     @Override
-    public Optional<Cita> buscarID(Integer pkEntidad) {
-        return repositorioCita.findById(pkEntidad);
+    public Cita buscarID(Integer pkEntidad) {
+        Optional<Cita> citaOptional = repositorioCita.findById(pkEntidad);
+        if (citaOptional.isPresent()) {
+            Cita cita = citaOptional.get();
+            return cita;
+        } else {
+            return null;
+        }
+    }
+
+    public List<Cita> buscarPorAfiliado(int identificacion) {
+        return repositorioCita.buscarPorAfiliado(identificacion);
     }
 
 }

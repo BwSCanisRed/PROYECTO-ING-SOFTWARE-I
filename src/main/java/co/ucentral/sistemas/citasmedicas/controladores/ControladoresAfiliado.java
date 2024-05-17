@@ -29,9 +29,16 @@ public class ControladoresAfiliado {
 
     @GetMapping({"/cliente"})
     public String cliente(RedirectAttributes redirectAttributes) {
-        int identificacion = 1;
+        int identificacion = 54678954;
         redirectAttributes.addAttribute("identificacion", identificacion);
         return "redirect:/Agendar/{identificacion}";
+    }
+
+    @GetMapping({"/CitasAgendadas"})
+    public String CitasAgendadas(RedirectAttributes redirectAttributes) {
+        int identificacion = 54678954;
+        redirectAttributes.addAttribute("identificacion", identificacion);
+        return "redirect:/MisCitas/{identificacion}";
     }
 
 //    @GetMapping({  "/cntafiliado"})
