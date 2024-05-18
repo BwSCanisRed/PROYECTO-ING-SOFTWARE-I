@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ServiciosCita implements OperacionesCita {
@@ -78,8 +79,24 @@ public class ServiciosCita implements OperacionesCita {
     }
 
     @Override
-    public Optional<Cita> buscarID(Integer pkEntidad) {
-        return repositorioCita.findById(pkEntidad);
+    public Cita buscarID(Integer pkEntidad) {
+        Optional<Cita> citaOptional = repositorioCita.findById(pkEntidad);
+        if (citaOptional.isPresent()) {
+            Cita cita = citaOptional.get();
+            return cita;
+        } else {
+            return null;
+        }
+    }
+
+    public List<Cita> buscarPorAfiliado(int identificacion) {
+        return repositorioCita.buscarPorAfiliado(identificacion);
+    }
+    public List<Cita> obtenerCitasDisponibles() {
+        List<Cita> todasLasCitas = repositorioCita.findAll();
+        return todasLasCitas.stream()
+                .filter(cita -> cita.getEstado().equals("Proceso"))
+                .collect(Collectors.toList());
     }
 
 }

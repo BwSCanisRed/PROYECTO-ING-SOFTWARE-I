@@ -1,6 +1,5 @@
 package co.ucentral.sistemas.citasmedicas.servicios;
 import co.ucentral.sistemas.citasmedicas.dto.AfiliadoDto;
-import co.ucentral.sistemas.citasmedicas.dto.ConsultorDto;
 import co.ucentral.sistemas.citasmedicas.dto.RegistroDto;
 import co.ucentral.sistemas.citasmedicas.dto.RolDto;
 import co.ucentral.sistemas.citasmedicas.entidades.Afiliado;
@@ -15,15 +14,18 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
+
 @Service
-public /*abstract*/ class ServiciosAfiliado implements OperacionesAfiliado {
-    private ModelMapper modelMapper = new ModelMapper();
-    @Autowired
-    RepositorioAfiliado repositorioAfiliado;
-    @Autowired
+public  class ServiciosAfiliado implements OperacionesAfiliado {
+   private ModelMapper modelMapper = new ModelMapper();
+  @Autowired
+   RepositorioAfiliado repositorioAfiliado;
+   @Autowired
     RepositorioRegistro repositorioRegistro;
     @Autowired
     RepositorioRol repositorioRol;
+
     @Override
     public AfiliadoDto crear(AfiliadoDto afiliadoDto) {
         if (afiliadoDto == null) {
@@ -49,6 +51,7 @@ public /*abstract*/ class ServiciosAfiliado implements OperacionesAfiliado {
         else
             return null;
     }
+
     @Override
     public void borrar(AfiliadoDto afiliadoDto) {this.repositorioAfiliado.delete(modelMapper.map(afiliadoDto, Afiliado.class));}
 
@@ -63,6 +66,17 @@ public /*abstract*/ class ServiciosAfiliado implements OperacionesAfiliado {
     }
 
     @Override
+    public Afiliado buscarID(Integer pkEntidad) {
+        Optional<Afiliado> afiliadoOptional = repositorioAfiliado.findById(pkEntidad);
+        if (afiliadoOptional.isPresent()) {
+            Afiliado afiliado = afiliadoOptional.get();
+            return afiliado;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
     public AfiliadoDto buscarID(Integer pkEntidad) {
         return modelMapper.map(this.buscarID(pkEntidad), AfiliadoDto.class);
     }
@@ -74,9 +88,9 @@ public /*abstract*/ class ServiciosAfiliado implements OperacionesAfiliado {
             RegistroDto registroDto = modelMapper.map(registro, RegistroDto.class);
             afiliadoDto.setRegistro(registroDto);
 
-            return afiliadoDto;
+           return afiliadoDto;
         } else {
             return null;
-        }
+       }
     }
 }

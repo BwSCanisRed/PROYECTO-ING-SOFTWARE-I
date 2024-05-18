@@ -14,9 +14,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
 @Table(name = "Roles")
-@ToString
 @Entity
 public class Rol {
 
@@ -29,12 +27,15 @@ public class Rol {
     private String nombre;
 
     @OneToMany(targetEntity = Afiliado.class, fetch = FetchType.LAZY, mappedBy =  "rol")
+    @ToString.Exclude
     private List<AfiliadoDto> afiliados ;
 
     @OneToMany(targetEntity = Medico.class, fetch = FetchType.LAZY, mappedBy =  "rol")
+    @ToString.Exclude
     private List<MedicoDto> medicos ;
 
     @OneToMany(targetEntity = Consultor.class, fetch = FetchType.LAZY, mappedBy =  "rol")
+    @ToString.Exclude
     private List<ConsultorDto> consultor ;
 
     public Rol(String nombre) {
