@@ -1,4 +1,4 @@
-package co.ucentral.sistemas.citasmedicas.utilidades.Servicios;
+package co.ucentral.sistemas.citasmedicas.utilidades.test;
 
 import co.ucentral.sistemas.citasmedicas.dto.MedicoDto;
 import co.ucentral.sistemas.citasmedicas.entidades.Medico;

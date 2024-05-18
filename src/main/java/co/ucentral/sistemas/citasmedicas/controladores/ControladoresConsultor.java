@@ -1,35 +1,31 @@
 package co.ucentral.sistemas.citasmedicas.controladores;
-import co.ucentral.sistemas.citasmedicas.dto.AfiliadoDto;
 import co.ucentral.sistemas.citasmedicas.dto.ConsultorDto;
-import co.ucentral.sistemas.citasmedicas.dto.RegistroDto;
-import co.ucentral.sistemas.citasmedicas.dto.RolDto;
-import co.ucentral.sistemas.citasmedicas.entidades.Registro;
-import co.ucentral.sistemas.citasmedicas.entidades.Rol;
 import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioRegistro;
 import co.ucentral.sistemas.citasmedicas.servicios.ServiciosConsultor;
 import co.ucentral.sistemas.citasmedicas.servicios.ServiciosRegistro;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import java.util.List;
 
 @Log4j2
 @Controller
 public class ControladoresConsultor {
 
-    @Autowired
     ServiciosConsultor serviciosConsultor;
-    @Autowired
     ServiciosRegistro serviciosRegistro;
-    @Autowired
     RepositorioRegistro repositorioRegistro;
 
-    @GetMapping({  "/rol_consultor"})
+    public ControladoresConsultor(ServiciosConsultor serviciosConsultor, ServiciosRegistro serviciosRegistro, RepositorioRegistro repositorioRegistro) {
+        this.serviciosConsultor = serviciosConsultor;
+        this.serviciosRegistro = serviciosRegistro;
+        this.repositorioRegistro = repositorioRegistro;
+    }
+
+    @GetMapping({  "/inicioConsultor"})
     public String consultarTodos(Model model){
         List<ConsultorDto> listaconsultores = this.serviciosConsultor.buscarTodos();
 
@@ -54,6 +50,6 @@ public class ControladoresConsultor {
     @PostMapping("/crearconsultor")
     public String registrarConsultor(@ModelAttribute("elconsultor") ConsultorDto consultorDto) {
         serviciosConsultor.crear(consultorDto);
-        return "redirect:/rol_consultor";
+        return "redirect:/inicioConsultor";
     }
 }

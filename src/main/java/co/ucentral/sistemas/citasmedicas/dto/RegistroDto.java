@@ -11,10 +11,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class RegistroDto {
 
-    private int id_registro;
-    private LocalDateTime fecha_registro;
-    private String tipo_identificacion;
-    private int idUsuario;
+    private int idRegistro;
+    private LocalDateTime fechaRegistro;
+    private String tipoIdentificacion;
+    private Integer idUsuario;
     private String nombre;
     private Date fechaNacimiento;
     private String celular;

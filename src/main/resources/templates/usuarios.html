@@ -16,7 +16,7 @@
 <body>
 <div class="container" style="width : 90%">
     <br>
-    <a class="btn btn-primary" href="#" th:href="@{/rol_consultor}">Volver</a>
+    <a class="btn btn-primary" href="#" th:href="@{/inicioConsultor}">Volver</a>
     <br> <br>
 
     <table class="table table-striped table-bordered">
@@ -36,11 +36,10 @@
         </tr>
         </thead>
         <tbody>
-
         <tr th:each="dato : ${listaregistro}">
-            <td th:text="${dato.id_registro}">Número de registro</td>
-            <td th:text="${#dates.format(dato.getFecha_registro(), 'yyyy-MM-ddTHH:mm:ss')}">Fecha</td>
-            <td th:text="${dato.tipo_identificacion}">Tipo de Identificación</td>
+            <td th:text="${dato.idRegistro}">Número de registro</td>
+            <td th:text="${#dates.format(dato.getFechaRegistro(), 'yyyy-MM-ddTHH:mm:ss')}">Fecha</td>
+            <td th:text="${dato.tipoIdentificacion}">Tipo de Identificación</td>
             <td th:text="${dato.idUsuario}">Identificación</td>
             <td th:text="${#dates.format(dato.fechaNacimiento, 'yyyy-MM-dd')}">Fecha de Nacimiento</td>
             <td th:text="${dato.nombre}">Nombre Completo</td>
@@ -48,10 +47,23 @@
             <td th:text="${dato.direccion}">Dirección</td>
             <td th:text="${dato.genero}">Genero</td>
             <td th:text="${dato.correo}">Correo</td>
-            <td th:text="${dato.contrasenia}">Contraseña</td>
+            <td>
+                <button class="password" th:attr="data-password=${dato.contrasenia}" onclick="togglePasswordVisibility(this)" aria-label="*********">
+                </button>
+            </td>
         </tr>
         </tbody>
     </table>
 </div>
+<script>
+    function togglePasswordVisibility(span) {
+        const password = span.getAttribute('data-password');
+        if (span.textContent === "*********") {
+            span.textContent = password;
+        } else {
+            span.textContent = "*********";
+        }
+    }
+</script>
 </body>
 </html>

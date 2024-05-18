@@ -17,7 +17,7 @@
 <div class="container" style="width : 90%">
     <br>
     <a class="btn btn-primary" href="#" th:href="@{/medico/nuevo}">Adicionar Medico</a>
-    <a class="btn btn-primary" href="#" th:href="@{/rol_consultor}">Volver</a>
+    <a class="btn btn-primary" href="#" th:href="@{/inicioConsultor}">Volver</a>
 
     <br> <br>
 
@@ -42,7 +42,7 @@
             <td th:text="${dato.identificacion}">Identificación</td>
             <td th:text="${dato.nombre}">Nombre Completo</td>
             <td th:text="${dato.estado}">Estado</td>
-            <td th:text="${dato.registro != null ? dato.registro.id_registro : ''}">ID Registro</td>
+            <td th:text="${dato.registro != null ? dato.registro.idRegistro : ''}">ID Registro</td>
             <td th:text="${dato.rol.id_rol}">ID Rol</td>
             <td th:text="${dato.especialidad.idEspecialidad}">ID Especialidad</td>
             <td th:text="${dato.especialidad.nombre}">Nombre Especialidad</td>

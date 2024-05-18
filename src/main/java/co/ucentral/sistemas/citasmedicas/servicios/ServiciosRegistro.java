@@ -1,40 +1,45 @@
 package co.ucentral.sistemas.citasmedicas.servicios;
-
 import co.ucentral.sistemas.citasmedicas.dto.RegistroDto;
-import co.ucentral.sistemas.citasmedicas.entidades.*;
+import co.ucentral.sistemas.citasmedicas.entidades.Afiliado;
+import co.ucentral.sistemas.citasmedicas.entidades.Consultor;
+import co.ucentral.sistemas.citasmedicas.entidades.Medico;
+import co.ucentral.sistemas.citasmedicas.entidades.Registro;
 import co.ucentral.sistemas.citasmedicas.operaciones.OperacionesRegistro;
 import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioAfiliado;
 import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioConsultor;
 import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioMedico;
 import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioRegistro;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class ServiciosRegistro implements OperacionesRegistro {
-
-    private ModelMapper modelMapper = new ModelMapper();
-    private RepositorioRegistro RepositorioRegistro;
-
-    @Autowired
+    ModelMapper modelMapper;
     RepositorioRegistro repositorioRegistro;
-    @Autowired
     RepositorioConsultor repositorioConsultor;
-    @Autowired
     RepositorioMedico repositorioMedico;
-    @Autowired
     RepositorioAfiliado repositorioAfiliado;
-    public ServiciosRegistro(RepositorioRegistro repositorioRegistro) {
+
+    @Autowired
+    public ServiciosRegistro(ModelMapper modelMapper, RepositorioRegistro repositorioRegistro, RepositorioConsultor repositorioConsultor, RepositorioMedico repositorioMedico, RepositorioAfiliado repositorioAfiliado) {
+        this.modelMapper = modelMapper;
         this.repositorioRegistro = repositorioRegistro;
+        this.repositorioConsultor = repositorioConsultor;
+        this.repositorioMedico = repositorioMedico;
+        this.repositorioAfiliado = repositorioAfiliado;
     }
 
     @Override
     public RegistroDto crear(RegistroDto registroDto) {
+
+        if(registroDto.getFechaRegistro() != null){
+            registroDto.setFechaRegistro(LocalDateTime.now());
+        }
+
         Consultor consultor = repositorioConsultor.findByIdentificacionAndNombre(registroDto.getIdUsuario(), registroDto.getNombre());
         Medico medico = repositorioMedico.findByIdentificacionAndNombre(registroDto.getIdUsuario(), registroDto.getNombre());
         Afiliado afiliado = repositorioAfiliado.findByIdentificacionAndNombre(registroDto.getIdUsuario(), registroDto.getNombre());
@@ -52,7 +57,7 @@ public class ServiciosRegistro implements OperacionesRegistro {
     }
     @Override
     public RegistroDto modificar(RegistroDto registroDto) {
-        if (this.repositorioRegistro.existsById(registroDto.getId_registro()))
+        if (this.repositorioRegistro.existsById(registroDto.getIdRegistro()))
             return this.crear(registroDto);
         else
             return null;
@@ -80,15 +85,4 @@ public class ServiciosRegistro implements OperacionesRegistro {
         Registro registro = repositorioRegistro.findByIdUsuarioAndContrasenia(idUsuario, contrasenia);
         return registro != null;
     }
-
-    /*@Override
-    public Registro guardar(RegistroDto registroDto){
-        Registro registro= new Registro(registroDto.getId_registro(),registroDto.getFecha_registro(),
-                registroDto.getTipo_identificacion(), registroDto.getNombre(),
-                registroDto.getFechaNacimiento(),registroDto.getCelular(), registroDto.getDireccion(),
-                registroDto.getGenero(),registroDto.getCorreo(),registroDto.getContrasenia(), List.of(new Rol("Consultor")));
-        return RepositorioRegistro.save(registro);
-    }*/
-
-
 }

@@ -1,39 +1,37 @@
 package co.ucentral.sistemas.citasmedicas.controladores;
-import co.ucentral.sistemas.citasmedicas.dto.AfiliadoDto;
-import co.ucentral.sistemas.citasmedicas.dto.MedicoDto;
 import co.ucentral.sistemas.citasmedicas.dto.RegistroDto;
 import co.ucentral.sistemas.citasmedicas.entidades.Afiliado;
 import co.ucentral.sistemas.citasmedicas.entidades.Consultor;
 import co.ucentral.sistemas.citasmedicas.entidades.Medico;
 import co.ucentral.sistemas.citasmedicas.entidades.Registro;
 import co.ucentral.sistemas.citasmedicas.repositorios.*;
-import co.ucentral.sistemas.citasmedicas.servicios.ServiciosAfiliado;
-import co.ucentral.sistemas.citasmedicas.servicios.ServiciosConsultor;
-import co.ucentral.sistemas.citasmedicas.servicios.ServiciosMedico;
 import co.ucentral.sistemas.citasmedicas.servicios.ServiciosRegistro;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import java.time.LocalDateTime;
 
 @Log4j2
 @Controller
 public class ControladoresRegistro {
 
-    @Autowired
     ServiciosRegistro serviciosRegistro;
-    @Autowired
     RepositorioMedico repositorioMedico;
-    @Autowired
     RepositorioConsultor repositorioConsultor;
-    @Autowired
     RepositorioAfiliado repositorioAfiliado;
-    @Autowired
     RepositorioRegistro repositorioRegistro;
+
+    public ControladoresRegistro(ServiciosRegistro serviciosRegistro, RepositorioMedico repositorioMedico, RepositorioConsultor repositorioConsultor, RepositorioAfiliado repositorioAfiliado, RepositorioRegistro repositorioRegistro) {
+        this.serviciosRegistro = serviciosRegistro;
+        this.repositorioMedico = repositorioMedico;
+        this.repositorioConsultor = repositorioConsultor;
+        this.repositorioAfiliado = repositorioAfiliado;
+        this.repositorioRegistro = repositorioRegistro;
+    }
 
     @GetMapping({"/registro"})
     public String consultarTodos(Model model) {
@@ -50,8 +48,21 @@ public class ControladoresRegistro {
 
     @PostMapping("/crearegistro")
     public String registrarRegistro(@ModelAttribute("elregistro") RegistroDto registroDto) {
-        serviciosRegistro.crear(registroDto);
-        return "redirect:/registro";
+        registroDto.setFechaRegistro(LocalDateTime.now());
+        Consultor consultor = repositorioConsultor.findByIdentificacionAndNombre(registroDto.getIdUsuario(), registroDto.getNombre());
+        Medico medico = repositorioMedico.findByIdentificacionAndNombre(registroDto.getIdUsuario(), registroDto.getNombre());
+        Afiliado afiliado = repositorioAfiliado.findByIdentificacionAndNombre(registroDto.getIdUsuario(), registroDto.getNombre());
+
+        if (consultor != null || medico != null || afiliado != null) {
+            if (repositorioRegistro.existsByIdUsuario(registroDto.getIdUsuario())) {
+                return "redirect:/registro/nuevo?errorRegistro";
+            } else {
+                serviciosRegistro.crear(registroDto);
+                return "redirect:/registro/nuevo?exito";
+            }
+        } else {
+            return "redirect:/registro/nuevo?error";
+        }
     }
 
     @GetMapping("/iniciosesion")
@@ -61,32 +72,30 @@ public class ControladoresRegistro {
     }
 
     @PostMapping("/sesion")
-    public String iniciarSesion(@ModelAttribute("elregistro") RegistroDto registroDto, @RequestParam("idUsuario") int idUsuario, @RequestParam("contrasenia") String contrasenia, Model model) {
+    public String iniciarSesion(@ModelAttribute("elregistro") RegistroDto registroDto, @RequestParam("idUsuario") int idUsuario, @RequestParam("contrasenia") String contrasenia) {
 
-        Registro registro = repositorioRegistro.findByIdUsuarioAndContrasenia(idUsuario, contrasenia);
+        Registro registro = repositorioRegistro.findByIdUsuario(idUsuario);
 
-        if (registro != null && serviciosRegistro.validarCredenciales(idUsuario,contrasenia)) {
+        if (registro == null) {
+            return "redirect:/iniciosesion?error";
+        }
 
+        if (serviciosRegistro.validarCredenciales(idUsuario, contrasenia)) {
             Medico medico = repositorioMedico.findByIdentificacion(idUsuario);
             Consultor consultor = repositorioConsultor.findByIdentificacion(idUsuario);
             Afiliado afiliado = repositorioAfiliado.findByIdentificacion(idUsuario);
 
-            if (medico != null || afiliado != null || consultor != null) {
-
-                if (medico != null) {
-                    return "redirect:/rol_medico";
-                } else if (afiliado != null) {
-                    return "redirect:/rol_afiliado";
-                } else {
-                    return "redirect:/rol_consultor";
-                }
+            if (medico != null) {
+                return "redirect:/inicioMedico";
+            } else if (afiliado != null) {
+                return "redirect:/inicioAfiliado";
+            } else if (consultor != null) {
+                return "redirect:/inicioConsultor";
             } else {
-                model.addAttribute("error", "Usuario no encontrado");
-                return "redirect:/iniciosesion";
+                return "redirect:/iniciosesion?error";
             }
         } else {
-            model.addAttribute("error", "Usuario o contraseña incorrectos");
-            return "redirect:/iniciosesion";
+            return "redirect:/iniciosesion?errorUsuario";
         }
     }
 }
