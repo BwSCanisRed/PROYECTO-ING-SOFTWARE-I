@@ -13,9 +13,13 @@ import java.util.List;
 
 @Service
 public class ServiciosEspecialidad implements OperacionesEspecialidad {
-    private ModelMapper modelMapper = new ModelMapper();
-    @Autowired
+    ModelMapper modelMapper;
     RepositorioEspecialidad repositorioEspecialidad;
+
+    public ServiciosEspecialidad(ModelMapper modelMapper, RepositorioEspecialidad repositorioEspecialidad) {
+        this.modelMapper = modelMapper;
+        this.repositorioEspecialidad = repositorioEspecialidad;
+    }
 
     @Override
     public EspecialidadDto crear(EspecialidadDto especialidadDto) {

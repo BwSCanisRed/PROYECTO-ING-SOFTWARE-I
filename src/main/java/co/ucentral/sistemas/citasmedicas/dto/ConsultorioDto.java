@@ -1,5 +1,4 @@
 package co.ucentral.sistemas.citasmedicas.dto;
-import co.ucentral.sistemas.citasmedicas.entidades.Especialidad;
 import co.ucentral.sistemas.citasmedicas.entidades.Sede;
 import lombok.AllArgsConstructor;
 import lombok.Data;

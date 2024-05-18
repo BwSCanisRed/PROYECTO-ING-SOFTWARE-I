@@ -21,7 +21,7 @@ public class Rol {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "rol_id", nullable = false)
-    private int id_rol;
+    private int idRol;
 
     @Column(name = "rol_nombre", nullable = false)
     private String nombre;

@@ -12,9 +12,13 @@ import java.util.List;
 
 @Service
 public class ServiciosSede implements OperacionesSede {
-    private ModelMapper modelMapper = new ModelMapper();
-    @Autowired
+    ModelMapper modelMapper;
     RepositorioSede repositorioSede;
+
+    public ServiciosSede(ModelMapper modelMapper, RepositorioSede repositorioSede) {
+        this.modelMapper = modelMapper;
+        this.repositorioSede = repositorioSede;
+    }
 
     @Override
     public SedeDto crear(SedeDto sedeDto) {
@@ -29,7 +33,7 @@ public class ServiciosSede implements OperacionesSede {
 
     @Override
     public SedeDto modificar(SedeDto sedeDto) {
-        if (this.repositorioSede.existsById(sedeDto.getId_sede()))
+        if (this.repositorioSede.existsById(sedeDto.getIdSede()))
             return this.crear(sedeDto);
         else
             return null;

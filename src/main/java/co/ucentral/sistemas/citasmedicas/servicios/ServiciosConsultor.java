@@ -11,18 +11,22 @@ import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioRegistro;
 import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioRol;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public class ServiciosConsultor implements OperacionesConsultor {
-    private ModelMapper modelMapper = new ModelMapper();
-    @Autowired
+    ModelMapper modelMapper;
     RepositorioConsultor repositorioConsultor;
-    @Autowired
     RepositorioRegistro repositorioRegistro;
-    @Autowired
     RepositorioRol repositorioRol;
+
+    public ServiciosConsultor(ModelMapper modelMapper, RepositorioConsultor repositorioConsultor, RepositorioRegistro repositorioRegistro, RepositorioRol repositorioRol) {
+        this.modelMapper = modelMapper;
+        this.repositorioConsultor = repositorioConsultor;
+        this.repositorioRegistro = repositorioRegistro;
+        this.repositorioRol = repositorioRol;
+    }
+
     @Override
     public ConsultorDto crear(ConsultorDto consultorDto) {
         if (consultorDto == null) {
@@ -34,7 +38,7 @@ public class ServiciosConsultor implements OperacionesConsultor {
             return consultorDto;
         }
         RolDto rolDto = new RolDto();
-        rolDto.setId_rol(rol.getId_rol());
+        rolDto.setIdRol(rol.getIdRol());
         consultorDto.setRol(rolDto);
 
         Consultor consultor = repositorioConsultor.save(modelMapper.map(consultorDto, Consultor.class));

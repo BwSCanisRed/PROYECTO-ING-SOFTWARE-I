@@ -1,9 +1,6 @@
 package co.ucentral.sistemas.citasmedicas.servicios;
 import co.ucentral.sistemas.citasmedicas.dto.ConsultorioDto;
-import co.ucentral.sistemas.citasmedicas.dto.MedicoDto;
 import co.ucentral.sistemas.citasmedicas.entidades.Consultorio;
-import co.ucentral.sistemas.citasmedicas.entidades.Especialidad;
-import co.ucentral.sistemas.citasmedicas.entidades.Medico;
 import co.ucentral.sistemas.citasmedicas.entidades.Sede;
 import co.ucentral.sistemas.citasmedicas.operaciones.OperacionesConsultorio;
 import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioConsultorio;
@@ -13,23 +10,26 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
 public class ServiciosConsultorio implements OperacionesConsultorio {
-    private ModelMapper modelMapper = new ModelMapper();
-    @Autowired
+    ModelMapper modelMapper;
     RepositorioConsultorio repositorioConsultorio;
-    @Autowired
     RepositorioSede repositorioSede;
-    @Autowired
     RepositorioEspecialidad repositorioEspecialidad;
+
+    public ServiciosConsultorio(ModelMapper modelMapper, RepositorioConsultorio repositorioConsultorio, RepositorioSede repositorioSede, RepositorioEspecialidad repositorioEspecialidad) {
+        this.modelMapper = modelMapper;
+        this.repositorioConsultorio = repositorioConsultorio;
+        this.repositorioSede = repositorioSede;
+        this.repositorioEspecialidad = repositorioEspecialidad;
+    }
 
     @Override
     public ConsultorioDto crear(ConsultorioDto consultorioDto) {
 
-        Sede sede = repositorioSede.findById(consultorioDto.getSede().getId_sede()).orElse(new Sede());
+        Sede sede = repositorioSede.findById(consultorioDto.getSede().getIdSede()).orElse(new Sede());
         if (sede != null){
             Consultorio consultorio = repositorioConsultorio.save(modelMapper.map(consultorioDto, Consultorio.class));
             return modelMapper.map(consultorio, ConsultorioDto.class);

@@ -2,8 +2,6 @@ package co.ucentral.sistemas.citasmedicas.entidades;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -64,6 +62,6 @@ public class Medico {
         this.sede = sede;
 
         this.rol = new Rol();
-        this.rol.setId_rol(2);
+        this.rol.setIdRol(2);
     }
 }

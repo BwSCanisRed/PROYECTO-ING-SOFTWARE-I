@@ -5,16 +5,19 @@ import co.ucentral.sistemas.citasmedicas.operaciones.OperacionesFactura;
 import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioFactura;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class ServiciosFactura implements OperacionesFactura {
-    private ModelMapper modelMapper = new ModelMapper();
-    @Autowired
+    ModelMapper modelMapper;
     RepositorioFactura repositorioFactura;
+
+    public ServiciosFactura(ModelMapper modelMapper, RepositorioFactura repositorioFactura) {
+        this.modelMapper = modelMapper;
+        this.repositorioFactura = repositorioFactura;
+    }
 
     @Override
     public FacturaDto crear(FacturaDto facturaDto) {

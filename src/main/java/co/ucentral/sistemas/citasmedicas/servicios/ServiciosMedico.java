@@ -5,7 +5,6 @@ import co.ucentral.sistemas.citasmedicas.entidades.*;
 import co.ucentral.sistemas.citasmedicas.operaciones.OperacionesMedico;
 import co.ucentral.sistemas.citasmedicas.repositorios.*;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,25 +12,30 @@ import java.util.List;
 
 @Service
 public class ServiciosMedico implements OperacionesMedico {
-    private ModelMapper modelMapper = new ModelMapper();
-    @Autowired
+    ModelMapper modelMapper;
     RepositorioMedico repositorioMedico;
-    @Autowired
     RepositorioRegistro repositorioRegistro;
-    @Autowired
     RepositorioEspecialidad repositorioEspecialidad;
-    @Autowired
     RepositorioSede repositorioSede;
-    @Autowired
     RepositorioConsultorio repositorioConsultorio;
-    @Autowired
     RepositorioRol repositorioRol;
+
+    public ServiciosMedico(ModelMapper modelMapper, RepositorioMedico repositorioMedico, RepositorioRegistro repositorioRegistro, RepositorioEspecialidad repositorioEspecialidad, RepositorioSede repositorioSede, RepositorioConsultorio repositorioConsultorio, RepositorioRol repositorioRol) {
+        this.modelMapper = modelMapper;
+        this.repositorioMedico = repositorioMedico;
+        this.repositorioRegistro = repositorioRegistro;
+        this.repositorioEspecialidad = repositorioEspecialidad;
+        this.repositorioSede = repositorioSede;
+        this.repositorioConsultorio = repositorioConsultorio;
+        this.repositorioRol = repositorioRol;
+    }
+
     @Override
     public MedicoDto crear(MedicoDto medicoDto) {
 
         Consultorio consultorio = repositorioConsultorio.findByIdConsultorio(medicoDto.getConsultorio().getIdConsultorio());
         Especialidad especialidad = repositorioEspecialidad.findById(medicoDto.getEspecialidad().getIdEspecialidad()).orElse(null);
-        Sede sede = repositorioSede.findById(medicoDto.getSede().getId_sede()).orElse(null);
+        Sede sede = repositorioSede.findById(medicoDto.getSede().getIdSede()).orElse(null);
 
         if(consultorio !=null && especialidad !=null && sede !=null){
             if (repositorioMedico.existsById(medicoDto.getIdentificacion())) {
@@ -82,10 +86,10 @@ public class ServiciosMedico implements OperacionesMedico {
 
             medicoDto.setEspecialidad(especialidadDto);
 
-            Sede sede = repositorioSede.findById(medico.getSede().getId_sede()).orElse(null);
+            Sede sede = repositorioSede.findById(medico.getSede().getIdSede()).orElse(null);
             SedeDto sedeDto = new SedeDto();
             assert sede != null;
-            sedeDto.setId_sede(sede.getId_sede());
+            sedeDto.setIdSede(sede.getIdSede());
             sedeDto.setNombre(sede.getNombre());
 
             medicoDto.setSede(sedeDto);
@@ -95,7 +99,7 @@ public class ServiciosMedico implements OperacionesMedico {
                 return medicosDto;
             }
             RolDto rolDto = new RolDto();
-            rolDto.setId_rol(rol.getId_rol());
+            rolDto.setIdRol(rol.getIdRol());
             medicoDto.setRol(rolDto);
 
             MedicoDto medicoConRegistro = obtenerIdRegistro(medicoDto);

@@ -18,13 +18,17 @@ import java.util.Optional;
 
 @Service
 public  class ServiciosAfiliado implements OperacionesAfiliado {
-   private ModelMapper modelMapper = new ModelMapper();
-  @Autowired
-   RepositorioAfiliado repositorioAfiliado;
-   @Autowired
+    ModelMapper modelMapper;
+    RepositorioAfiliado repositorioAfiliado;
     RepositorioRegistro repositorioRegistro;
-    @Autowired
     RepositorioRol repositorioRol;
+
+    public ServiciosAfiliado(ModelMapper modelMapper, RepositorioAfiliado repositorioAfiliado, RepositorioRegistro repositorioRegistro, RepositorioRol repositorioRol) {
+        this.modelMapper = modelMapper;
+        this.repositorioAfiliado = repositorioAfiliado;
+        this.repositorioRegistro = repositorioRegistro;
+        this.repositorioRol = repositorioRol;
+    }
 
     @Override
     public AfiliadoDto crear(AfiliadoDto afiliadoDto) {
@@ -37,7 +41,7 @@ public  class ServiciosAfiliado implements OperacionesAfiliado {
             return afiliadoDto;
         }
         RolDto rolDto = new RolDto();
-        rolDto.setId_rol(rol.getId_rol());
+        rolDto.setIdRol(rol.getIdRol());
         afiliadoDto.setRol(rolDto);
 
         Afiliado afiliado =   repositorioAfiliado.save(modelMapper.map(afiliadoDto, Afiliado.class));
@@ -74,11 +78,6 @@ public  class ServiciosAfiliado implements OperacionesAfiliado {
         } else {
             return null;
         }
-    }
-
-    @Override
-    public AfiliadoDto buscarID(Integer pkEntidad) {
-        return modelMapper.map(this.buscarID(pkEntidad), AfiliadoDto.class);
     }
 
     public AfiliadoDto obtenerIdRegistro(AfiliadoDto afiliadoDto) {

@@ -5,15 +5,18 @@ import co.ucentral.sistemas.citasmedicas.operaciones.OperacionesRol;
 import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioRol;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
 public class ServiciosRol implements OperacionesRol {
-    private ModelMapper modelMapper = new ModelMapper();
-    @Autowired
+    ModelMapper modelMapper;
     RepositorioRol repositorioRol;
+
+    public ServiciosRol(ModelMapper modelMapper, RepositorioRol repositorioRol) {
+        this.modelMapper = modelMapper;
+        this.repositorioRol = repositorioRol;
+    }
 
     @Override
     public RolDto crear(RolDto rolDto) {
@@ -28,7 +31,7 @@ public class ServiciosRol implements OperacionesRol {
 
     @Override
     public RolDto modificar(RolDto rolDto) {
-        if (this.repositorioRol.existsById(rolDto.getId_rol()))
+        if (this.repositorioRol.existsById(rolDto.getIdRol()))
             return this.crear(rolDto);
         else
             return null;

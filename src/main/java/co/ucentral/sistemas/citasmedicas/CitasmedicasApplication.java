@@ -122,22 +122,27 @@ public class CitasmedicasApplication implements CommandLineRunner {
         Date date2 = Date.valueOf(Date.valueOf(LocalDate.of(1980,3,24)).toLocalDate());
         Date date3 = Date.valueOf(Date.valueOf(LocalDate.of(1999,12,8)).toLocalDate());
         Date date4 = Date.valueOf(Date.valueOf(LocalDate.of(2010,1,1)).toLocalDate());
+		Date date5 = Date.valueOf(Date.valueOf(LocalDate.of(2004,9,5)).toLocalDate());
+		Date date6 = Date.valueOf(Date.valueOf(LocalDate.of(2002,4,28)).toLocalDate());
 
-		Registro registro1 = new Registro("Cedula de Ciudadanía ",1071789472, new Date(2015-1900, 1-2, 27),"Santiago Aguirre","3182778444","Calle 2A	","Masculino","saguirreg@ucentral.edu.co","333");
+		final String M = "Masculino";
+		final String F = "Femenino";
+
+		Registro registro1 = new Registro(CC,1071789472,date5,"Santiago Aguirre","3182778444","Calle 2A",M,"saguirreg@ucentral.edu.co","333");
 		repositorioRegistro.save(registro1);
-		Registro registro2 = new Registro("Cedula de Ciudadanía ",135253949, new Date(2015-1900, 1-3, 10),"Vanesa Guayara","322523949","Calle 55 # 35 96	","Femenino","Aldia@ucentral.edu.co","222");
+		Registro registro2 = new Registro(CC,135253949,date6,"Vanesa Guayara","322523949","Calle 55 # 35 96",F,"Aldia@ucentral.edu.co","222");
 		repositorioRegistro.save(registro2);
         //Consultor
-        Registro registro1 = new Registro(CC,1001346667, date1,"Jennifer Lopez Vanegas","3024445556","Calle 55","Femenino","jlopezv6@ucentral.edu.co","123");
-        repositorioRegistro.save(registro1);
-        //Afiliado
-        Registro registro2 = new Registro(CE,54678954,date2,"Luz Angela Lopez Aparicio","3081234589","Calle 88","Femenino","luz123@gmail.com","123");
-        repositorioRegistro.save(registro2);
-        Registro registro3 = new Registro(TI,1000000000,date4,"Miguel Angel Sandoval Alvarado","3081234589","Calle 88","Masculino","miguelito@gmail.com","miguelito*");
+        Registro registro3 = new Registro(CC,1001346667,date1,"Jennifer Lopez Vanegas","3024445556","Calle 55",F,"jlopezv6@ucentral.edu.co","123");
         repositorioRegistro.save(registro3);
-        //Medico
-        Registro registro4 = new Registro(CC,79976478, date3,"Luis Alberto Montenegro Avila","3154257892","Barrio Bosa","Masculino","luisalver@gmail.com","Luis50.*");
+        //Afiliados
+        Registro registro4 = new Registro(CE,54678954,date2,"Luz Angela Lopez Aparicio","3081234589","Calle 88",F,"luz123@gmail.com","123");
         repositorioRegistro.save(registro4);
+        Registro registro5 = new Registro(TI,1000000000,date4,"Miguel Angel Sandoval Alvarado","3081234589","Calle 88",M,"miguelito@gmail.com","miguelito*");
+        repositorioRegistro.save(registro5);
+        //Medicos
+        Registro registro6 = new Registro(CC,79976478, date3,"Luis Alberto Montenegro Avila","3154257892","Barrio Bosa",M,"luisalver@gmail.com","Luis50.*");
+        repositorioRegistro.save(registro6);
 
 		// Definir el formato de fecha y hora
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

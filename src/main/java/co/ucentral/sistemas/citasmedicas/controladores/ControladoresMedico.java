@@ -1,9 +1,8 @@
 package co.ucentral.sistemas.citasmedicas.controladores;
-import co.ucentral.sistemas.citasmedicas.dto.*;
-import co.ucentral.sistemas.citasmedicas.entidades.Consultorio;
-import co.ucentral.sistemas.citasmedicas.entidades.Especialidad;
-import co.ucentral.sistemas.citasmedicas.entidades.Medico;
-import co.ucentral.sistemas.citasmedicas.entidades.Rol;
+import co.ucentral.sistemas.citasmedicas.dto.ConsultorioDto;
+import co.ucentral.sistemas.citasmedicas.dto.EspecialidadDto;
+import co.ucentral.sistemas.citasmedicas.dto.MedicoDto;
+import co.ucentral.sistemas.citasmedicas.dto.SedeDto;
 import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioConsultorio;
 import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioMedico;
 import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioRegistro;
@@ -11,12 +10,9 @@ import co.ucentral.sistemas.citasmedicas.servicios.ServiciosConsultorio;
 import co.ucentral.sistemas.citasmedicas.servicios.ServiciosEspecialidad;
 import co.ucentral.sistemas.citasmedicas.servicios.ServiciosMedico;
 import co.ucentral.sistemas.citasmedicas.servicios.ServiciosSede;
-import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,20 +22,23 @@ import java.util.List;
 @Controller
 public class ControladoresMedico {
 
-    @Autowired
     ServiciosMedico serviciosMedico;
-    @Autowired
     ServiciosEspecialidad serviciosEspecialidad;
-    @Autowired
     ServiciosSede serviciosSede;
-    @Autowired
     ServiciosConsultorio serviciosConsultorio;
-    @Autowired
     RepositorioRegistro repositorioRegistro;
-    @Autowired
     RepositorioConsultorio repositorioConsultorio;
-    @Autowired
     RepositorioMedico repositorioMedico;
+
+    public ControladoresMedico(ServiciosMedico serviciosMedico, ServiciosEspecialidad serviciosEspecialidad, ServiciosSede serviciosSede, ServiciosConsultorio serviciosConsultorio, RepositorioRegistro repositorioRegistro, RepositorioConsultorio repositorioConsultorio, RepositorioMedico repositorioMedico) {
+        this.serviciosMedico = serviciosMedico;
+        this.serviciosEspecialidad = serviciosEspecialidad;
+        this.serviciosSede = serviciosSede;
+        this.serviciosConsultorio = serviciosConsultorio;
+        this.repositorioRegistro = repositorioRegistro;
+        this.repositorioConsultorio = repositorioConsultorio;
+        this.repositorioMedico = repositorioMedico;
+    }
 
     @GetMapping({  "/rol_medico"})
     public String consultarTodos(Model model){
@@ -70,10 +69,10 @@ public class ControladoresMedico {
         EspecialidadDto especialidad = medicoDto.getEspecialidad();
 
         if (consultorio != null && consultorio.getIdConsultorio() != null &&
-                sede != null && sede.getId_sede() != null && especialidad != null && especialidad.getIdEspecialidad() != null) {
+                sede != null && sede.getIdSede() != null && especialidad != null && especialidad.getIdEspecialidad() != null) {
 
             ConsultorioDto consultorioExistente = serviciosConsultorio.buscarIdConsultorio(consultorio.getIdConsultorio());
-            SedeDto sedeExistente = serviciosSede.buscarID(sede.getId_sede());
+            SedeDto sedeExistente = serviciosSede.buscarID(sede.getIdSede());
             EspecialidadDto especialidadExistente = serviciosEspecialidad.buscarID(especialidad.getIdEspecialidad());
 
             if (consultorioExistente != null && sedeExistente != null && especialidadExistente != null) {

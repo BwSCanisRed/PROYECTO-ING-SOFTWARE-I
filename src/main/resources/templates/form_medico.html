@@ -53,9 +53,9 @@
             </div>
             <div class="form-group">
                 <label class="control-label" for="id_sede">Sede : </label>
-                <select id="id_sede" class="form-control" name="id_sede" th:field="*{sede.id_sede}" required autofocus="autofocus">
+                <select id="id_sede" class="form-control" name="id_sede" th:field="*{sede.idSede}" required autofocus="autofocus">
                     <option value="">Seleccione la sede</option>
-                    <option th:each="dato : ${listasede}" th:value="${dato.id_sede}" th:text="${dato.nombre}"></option>
+                    <option th:each="dato : ${listasede}" th:value="${dato.idSede}" th:text="${dato.nombre}"></option>
                 </select>
             </div>
             <br>

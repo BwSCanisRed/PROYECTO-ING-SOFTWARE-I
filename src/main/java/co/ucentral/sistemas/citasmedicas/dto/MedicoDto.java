@@ -1,5 +1,5 @@
 package co.ucentral.sistemas.citasmedicas.dto;
-import co.ucentral.sistemas.citasmedicas.entidades.*;
+import co.ucentral.sistemas.citasmedicas.entidades.Cita;
 import lombok.*;
 
 import java.util.List;
@@ -18,6 +18,6 @@ public class MedicoDto {
     private EspecialidadDto especialidad;
     private SedeDto sede;
     private RegistroDto registro;
-    //private List<Cita> citas;
+    private List<Cita> citas;
 
 }

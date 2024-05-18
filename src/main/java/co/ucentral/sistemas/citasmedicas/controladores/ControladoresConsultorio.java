@@ -1,30 +1,30 @@
 package co.ucentral.sistemas.citasmedicas.controladores;
 import co.ucentral.sistemas.citasmedicas.dto.ConsultorioDto;
-import co.ucentral.sistemas.citasmedicas.dto.EspecialidadDto;
 import co.ucentral.sistemas.citasmedicas.dto.SedeDto;
 import co.ucentral.sistemas.citasmedicas.servicios.ServiciosConsultorio;
 import co.ucentral.sistemas.citasmedicas.servicios.ServiciosEspecialidad;
 import co.ucentral.sistemas.citasmedicas.servicios.ServiciosSede;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import java.util.List;
 
 @Log4j2
 @Controller
 public class ControladoresConsultorio{
 
-    @Autowired
     ServiciosConsultorio serviciosConsultorio;
-    @Autowired
     ServiciosSede serviciosSede;
-    @Autowired
     ServiciosEspecialidad serviciosEspecialidad;
+
+    public ControladoresConsultorio(ServiciosConsultorio serviciosConsultorio, ServiciosSede serviciosSede, ServiciosEspecialidad serviciosEspecialidad) {
+        this.serviciosConsultorio = serviciosConsultorio;
+        this.serviciosSede = serviciosSede;
+        this.serviciosEspecialidad = serviciosEspecialidad;
+    }
 
     @GetMapping({  "/consultorios"})
     public String consultarTodos(Model model){

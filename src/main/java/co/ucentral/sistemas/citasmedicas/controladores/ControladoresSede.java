@@ -2,7 +2,6 @@ package co.ucentral.sistemas.citasmedicas.controladores;
 import co.ucentral.sistemas.citasmedicas.dto.SedeDto;
 import co.ucentral.sistemas.citasmedicas.servicios.ServiciosSede;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,9 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Log4j2
 @Controller
 public class ControladoresSede{
-
-    @Autowired
     ServiciosSede serviciosSede;
+
+    public ControladoresSede(ServiciosSede serviciosSede) {
+        this.serviciosSede = serviciosSede;
+    }
 
     @GetMapping({  "/sedes"})
     public String consultarTodos(Model model){

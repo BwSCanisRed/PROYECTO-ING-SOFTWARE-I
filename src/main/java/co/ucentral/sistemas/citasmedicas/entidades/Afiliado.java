@@ -45,6 +45,6 @@ public class Afiliado {
         this.estado = estado;
 
         this.rol = new Rol();
-        this.rol.setId_rol(3);
+        this.rol.setIdRol(3);
     }
 }
