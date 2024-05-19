@@ -32,5 +32,6 @@ public class ControladoresFactura{
     public String registrarFactura(@ModelAttribute("lafactura") FacturaDto facturaDto) {
         serviciosFactura.crear(facturaDto);
         return "redirect:/cntfactura";
+
     }
 }

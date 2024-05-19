@@ -22,7 +22,7 @@
 </head>
 <body class="margen" style="padding-top: 150px;">
 
-<nav class="navbar fixed-top" style="background-color: #0037B6; padding-left: 30px;">
+<nav class="navbar fixed-top" style="background-color: #802ce8; padding-left: 30px;">
     <div class="container-fluid" style="padding-right: 40px;">
         <a class="navbar-brand" style="color:white; padding: 1rem 1rem;">EPS Nuestra Salud SAS</a>
         <button class="navbar-toggler"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation" style="color: white;">
@@ -56,7 +56,7 @@
     <h2 style="text-align: center; font-size: 30px; color: #0037B6; padding: 20px">Iniciar sesión</h2>
 
     <div th:if="${param.error}">
-        <div class="alert alert-warning" role="alert">Este usuario no se encuentra registrado, por favor <span><a style="color: #0037B6;" th:href="@{/registro/nuevo}">Registrese aquí</a></span></div>
+        <div class="alert alert-warning" role="alert">Este usuario no se encuentra registrado, por favor <span><a style="color: #802ce8;" th:href="@{/registro/nuevo}">Registrese aquí</a></span></div>
     </div>
     <div th:if="${param.errorUsuario}">
         <div class="alert alert-warning" role="alert">Usuario o contraseña incorrectos</div>
