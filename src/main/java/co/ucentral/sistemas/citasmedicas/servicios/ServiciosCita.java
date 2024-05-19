@@ -99,4 +99,7 @@ public class ServiciosCita implements OperacionesCita {
                 .collect(Collectors.toList());
     }
 
+    public List<Cita> buscarPorMedico(int medicoId) {
+        return repositorioCita.buscarPorMedico(medicoId);
+    }
 }
