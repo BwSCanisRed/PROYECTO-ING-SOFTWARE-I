@@ -7,6 +7,21 @@
 
     <!-- Enlace al archivo CSS personalizado -->
 </head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $("td").each(function() {
+            var cellValue = $(this).text();
+            if (cellValue == "Cancelada") {
+                $(this).css("background-color", "#FF7F7F"); // Rojo pastel
+            } else if (cellValue == "Programada") {
+                $(this).css("background-color", "#90EE90"); // Verde pastel
+            }else if (cellValue == "Proceso") {
+                $(this).css("background-color", "#af7dfb"); // Verde pastel
+            }
+        });
+    });
+</script>
 <body>
 <nav class="navbar fixed-top" style="background-color: #af7dfb; padding-left: 30px;">
     <div class="container">
@@ -23,6 +38,7 @@
             <th>Fecha</th>
             <th>Afiliado</th>
             <th>Direccion</th>
+            <th>Estado</th>
             <th>Especialidad</th>
         </tr>
         </thead>
@@ -31,6 +47,7 @@
             <td th:text="${dato.fecha}">Fecha Cita</td>
             <td th:text="${dato.afiliado?.nombre}">Nombre Paciente</td>
             <td th:text="${dato.medico?.sede?.direccion}">Direccion</td>
+            <td th:text="${dato.estado}">Estado</td>
             <td th:text="${dato.especialidad?.nombre}">Especialidad</td>
         </tr>
         </tbody>
