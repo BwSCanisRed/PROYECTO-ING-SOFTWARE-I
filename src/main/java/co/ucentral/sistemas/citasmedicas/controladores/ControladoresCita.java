@@ -80,10 +80,24 @@ public class ControladoresCita {
         return "misCitas";
     }
 
-    /*
-    @PostMapping("/cita")
-    public String registrarCita(@ModelAttribute("lacita") CitaDto citaDto) {
-        serviciosCita.crear(citaDto);
-        return "redirect:/cntcita";
-    }*/
+    @GetMapping("/MisCitasMedico/{identificacion}")
+    public String mostrarCitasAgendadasMedico(@PathVariable int identificacion, Model model){
+        List<Cita> citas = serviciosCita.buscarPorMedico(identificacion);
+        model.addAttribute("citas", citas);
+        return "misCitasMedico";
+    }
+
+
+    @GetMapping("/CancelarCita/{idCita}")
+    public String cancelarCita(@PathVariable int idCita, Model model){
+        Cita cita = serviciosCita.buscarID(idCita);
+        if (cita != null) {
+            cita.setEstado("Cancelada");
+            serviciosCita.modificar(cita);
+            return "redirect:/MisCitas/" + cita.getAfiliado().getIdentificacion();
+        } else {
+            // Manejar el caso en el que no se encuentre la cita con el ID dado
+            return "error"; // Por ejemplo, redirigir a una página de error
+        }
+    }
 }

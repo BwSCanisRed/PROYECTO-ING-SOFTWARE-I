@@ -87,7 +87,8 @@ public class ControladoresRegistro {
             Afiliado afiliado = repositorioAfiliado.findByIdentificacion(idUsuario);
 
                 if (medico != null) {
-                    return "redirect:/inicioMedico";
+                    redirectAttributes.addAttribute("identificacion", idUsuario);
+                    return "redirect:/inicioMedico/{identificacion}";
                 } else if (afiliado != null) {
                     redirectAttributes.addAttribute("identificacion", idUsuario);
                     return "redirect:/inicioAfiliado/{identificacion}";

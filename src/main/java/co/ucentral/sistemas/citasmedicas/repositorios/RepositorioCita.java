@@ -13,4 +13,7 @@ public interface RepositorioCita extends JpaRepository<Cita,Integer> {
 
     @Query("SELECT c FROM Cita c WHERE c.afiliado.identificacion = :identificacion")
     List<Cita> buscarPorAfiliado(@Param("identificacion") int identificacion);
+
+    @Query("SELECT c FROM Cita c WHERE c.medico.identificacion = :medicoId")
+    List<Cita> buscarPorMedico(@Param("medicoId") int medicoId);
 }
