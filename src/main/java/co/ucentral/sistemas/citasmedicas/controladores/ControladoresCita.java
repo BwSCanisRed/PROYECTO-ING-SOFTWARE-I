@@ -80,9 +80,11 @@ public class ControladoresCita {
         return "misCitas";
     }
 
-    @GetMapping("/MisCitasMedico/{identificacion}")
-    public String mostrarCitasAgendadasMedico(@PathVariable int identificacion, Model model){
-        List<Cita> citas = serviciosCita.buscarPorMedico(identificacion);
+
+
+    @GetMapping("/GenerarInforme")
+    public String mostrarCitasAgendadasMedico(Model model){
+        List<Cita> citas = serviciosCita.buscarTodos();
         model.addAttribute("citas", citas);
         return "misCitasMedico";
     }

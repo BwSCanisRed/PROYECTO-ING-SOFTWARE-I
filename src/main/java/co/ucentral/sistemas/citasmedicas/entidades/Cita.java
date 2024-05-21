@@ -31,6 +31,10 @@ public class Cita {
 
     @Column(name = "cit_estado", nullable = true)
     private String estado;
+
+    @Column(name = "cit_Observacion", nullable = true)
+    private String observacion;
+
     @ManyToOne
     @JoinColumn(name = "med_id",nullable = true)
     private Medico medico;

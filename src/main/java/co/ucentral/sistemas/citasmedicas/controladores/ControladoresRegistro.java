@@ -93,7 +93,8 @@ public class ControladoresRegistro {
                     redirectAttributes.addAttribute("identificacion", idUsuario);
                     return "redirect:/inicioAfiliado/{identificacion}";
                 } else if (consultor != null) {
-                    return "redirect:/inicioConsultor";
+                    redirectAttributes.addAttribute("identificacion", idUsuario);
+                    return "redirect:/inicioConsultor/{identificacion}r";
                 } else {
                     return "redirect:/iniciosesion?error";
                 }

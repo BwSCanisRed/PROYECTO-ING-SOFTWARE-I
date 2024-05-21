@@ -8,7 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.util.List;
 
 @Log4j2
@@ -25,21 +28,18 @@ public class ControladoresConsultor {
         this.repositorioRegistro = repositorioRegistro;
     }
 
-    @GetMapping({  "/inicioConsultor"})
-    public String consultarTodos(Model model){
-        List<ConsultorDto> listaconsultores = this.serviciosConsultor.buscarTodos();
-
-        for (ConsultorDto consultorDto : listaconsultores) {
-            ConsultorDto consultorConRegistro = serviciosConsultor.obtenerIdRegistro(consultorDto);
-            if (consultorConRegistro != null) {
-                consultorDto.setRegistro(consultorConRegistro.getRegistro());
-            }else{
-                consultorDto.setRegistro(null);
-            }
-        }
-        model.addAttribute("listaconsultores",listaconsultores);
-        return "consultor";
+    @GetMapping("/inicioMedico/{identificacion}")
+    public String iniciioConsultor(@PathVariable int identificacion, Model model, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addAttribute("identificacion", identificacion);
+        return "inicioConsultor";
     }
+
+    @GetMapping({"/AgendaMedico/{identificacion}"})
+    public String GenerarInforme(@PathVariable int identificacion, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addAttribute("identificacion", identificacion);
+        return "redirect:/GenerarInforme/{identificacion}";
+    }
+
 
     @GetMapping("/consultor/nuevo")
     public String mostrarFormulario(Model model){
