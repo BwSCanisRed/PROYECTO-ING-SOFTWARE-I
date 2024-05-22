@@ -100,7 +100,7 @@ public class ControladoresCita {
             return "redirect:/MisCitas/" + cita.getAfiliado().getIdentificacion();
         } else {
             // Manejar el caso en el que no se encuentre la cita con el ID dado
-            return "error"; // Por ejemplo, redirigir a una página de error
+            return "redirect:/MisCitas/" + cita.getAfiliado().getIdentificacion(); // Por ejemplo, redirigir a una página de error
         }
     }
 
