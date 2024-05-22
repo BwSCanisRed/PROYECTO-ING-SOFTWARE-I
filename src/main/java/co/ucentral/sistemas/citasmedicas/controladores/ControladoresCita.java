@@ -13,6 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -91,7 +94,7 @@ public class ControladoresCita {
     @GetMapping("/CancelarCita/{idCita}")
     public String cancelarCita(@PathVariable int idCita, Model model){
         Cita cita = serviciosCita.buscarID(idCita);
-        if (cita != null) {
+        if (cita.getObservacion().equals("Finalizada")) {
             cita.setEstado("Cancelada");
             serviciosCita.modificar(cita);
             return "redirect:/MisCitas/" + cita.getAfiliado().getIdentificacion();
@@ -99,5 +102,23 @@ public class ControladoresCita {
             // Manejar el caso en el que no se encuentre la cita con el ID dado
             return "error"; // Por ejemplo, redirigir a una página de error
         }
+    }
+
+    @PostMapping("/citas/{idCita}/observacion")
+    public String agregarObservacion(@PathVariable int idCita, @RequestParam String observacion, RedirectAttributes redirectAttributes) {
+
+        Cita cita = serviciosCita.buscarID(idCita);
+        if (cita != null) {
+            if (!cita.getEstado().equals("Finalizada")) {
+                cita.setObservacion(observacion);
+                cita.setEstado("Finalizada");
+                serviciosCita.modificar(cita);
+            } else {
+                // Si la cita ya está finalizada, agrega un mensaje de error
+                redirectAttributes.addFlashAttribute("error", "No se puede agregar una observación a una cita que ya está finalizada.");
+            }
+        }
+        // Redirige al usuario a la página de citas
+        return "redirect:/MisCitasMedico/" + cita.getMedico().getIdentificacion();
     }
 }
