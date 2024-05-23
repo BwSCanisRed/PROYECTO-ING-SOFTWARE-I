@@ -47,7 +47,7 @@
         </thead>
         <tbody>
         <tr th:each="dato : ${citas}">
-            <td th:text="${dato.fecha}">Fecha Cita</td>
+            <td th:text="${dato.fecha}">Fecha_Cita</td>
             <td th:text="${dato.afiliado?.nombre}">Nombre Paciente</td>
             <td th:text="${dato.medico?.sede?.direccion}">Direccion</td>
             <td th:text="${dato.estado}">Estado</td>
