@@ -172,10 +172,7 @@ public class CitasmedicasApplication implements CommandLineRunner {
 
 		}
 
-		// Imprimir las citas
-		for (Cita cita : citas) {
 
-		}
 	}
 }
 

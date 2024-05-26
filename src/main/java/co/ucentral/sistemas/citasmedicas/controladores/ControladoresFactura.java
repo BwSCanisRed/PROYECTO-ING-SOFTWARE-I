@@ -13,8 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class ControladoresFactura{
 
-    @Autowired
+
     ServiciosFactura serviciosFactura;
+
+    @Autowired
+    public ControladoresFactura(ServiciosFactura serviciosCita) {
+        this.serviciosFactura = serviciosCita;
+    }
 
     @GetMapping({  "/cntfactura"})
     public String consultarTodos(Model model){
