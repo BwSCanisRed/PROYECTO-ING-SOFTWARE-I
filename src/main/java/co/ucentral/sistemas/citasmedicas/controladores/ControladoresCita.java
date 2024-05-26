@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Log4j2
 @Controller
@@ -86,7 +87,10 @@ public class ControladoresCita {
     @GetMapping("/MisCitasMedico/{identificacion}")
     public String mostrarCitasAgendadasMedico(@PathVariable int identificacion, Model model){
         List<Cita> citas = serviciosCita.buscarPorMedico(identificacion);
-        model.addAttribute("citas", citas);
+        List<Cita> citasConAfiliado = citas.stream()
+                .filter(cita -> cita.getAfiliado() != null)
+                .collect(Collectors.toList());
+        model.addAttribute("citas", citasConAfiliado);
         return "misCitasMedico";
     }
 
@@ -94,13 +98,14 @@ public class ControladoresCita {
     @GetMapping("/CancelarCita/{idCita}")
     public String cancelarCita(@PathVariable int idCita, Model model){
         Cita cita = serviciosCita.buscarID(idCita);
-        if (cita.getObservacion().equals("Finalizada")) {
+        if (cita.getEstado().equals("Programada")) {
             cita.setEstado("Cancelada");
             serviciosCita.modificar(cita);
             return "redirect:/MisCitas/" + cita.getAfiliado().getIdentificacion();
         } else {
-            // Manejar el caso en el que no se encuentre la cita con el ID dado
-            return "redirect:/MisCitas/" + cita.getAfiliado().getIdentificacion(); // Por ejemplo, redirigir a una página de error
+            // Si la cita no está en estado "Programada", agrega un mensaje de error
+            model.addAttribute("error", "No se puede cancelar una cita que no está programada.");
+            return "redirect:/MisCitas/" + cita.getAfiliado().getIdentificacion();
         }
     }
 
@@ -108,16 +113,15 @@ public class ControladoresCita {
     public String agregarObservacion(@PathVariable int idCita, @RequestParam String observacion, RedirectAttributes redirectAttributes) {
 
         Cita cita = serviciosCita.buscarID(idCita);
-        if (cita != null) {
             if (!cita.getEstado().equals("Finalizada")) {
                 cita.setObservacion(observacion);
                 cita.setEstado("Finalizada");
                 serviciosCita.modificar(cita);
+                System.out.println(cita);
             } else {
                 // Si la cita ya está finalizada, agrega un mensaje de error
                 redirectAttributes.addFlashAttribute("error", "No se puede agregar una observación a una cita que ya está finalizada.");
             }
-        }
         // Redirige al usuario a la página de citas
         return "redirect:/MisCitasMedico/" + cita.getMedico().getIdentificacion();
     }
