@@ -33,7 +33,7 @@ public class ControladoresAfiliado {
     }
 
     @GetMapping({"/CitasAgendadas/{identificacion}"})
-    public String CitasAgendadas(@PathVariable int identificacion, RedirectAttributes redirectAttributes) {
+    public String citasAgendadas(@PathVariable int identificacion, RedirectAttributes redirectAttributes) {
         redirectAttributes.addAttribute("identificacion", identificacion);
         return "redirect:/MisCitas/{identificacion}";
     }

@@ -1,7 +1,5 @@
 package co.ucentral.sistemas.citasmedicas.controladores;
 
-import co.ucentral.sistemas.citasmedicas.dto.AfiliadoDto;
-import co.ucentral.sistemas.citasmedicas.dto.CitaDto;
 import co.ucentral.sistemas.citasmedicas.entidades.Afiliado;
 import co.ucentral.sistemas.citasmedicas.entidades.Cita;
 import co.ucentral.sistemas.citasmedicas.servicios.ServiciosAfiliado;
@@ -18,33 +16,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Log4j2
 @Controller
 public class ControladoresCita {
 
+    private final ServiciosCita serviciosCita;
+    private final ServiciosAfiliado serviciosAfiliado;
+    private final ModelMapper modelMapper;
     @Autowired
-    ServiciosCita serviciosCita;
-    @Autowired
-    ServiciosAfiliado serviciosAfiliado;
-    @Autowired
-   private ModelMapper modelMapper;
+    public ControladoresCita(ServiciosCita serviciosCita, ServiciosAfiliado serviciosAfiliado, ModelMapper modelMapper) {
+        this.serviciosCita = serviciosCita;
+        this.serviciosAfiliado = serviciosAfiliado;
+        this.modelMapper = modelMapper;
+    }
 
     @GetMapping("/Agendar/{identificacion}")
    public String listarCitas(Model model, @PathVariable int identificacion) {
        Afiliado afiliado = serviciosAfiliado.buscarID(identificacion);
         if (afiliado != null) {
-          for (Cita laCita : serviciosCita.obtenerCitasDisponibles()) {
-                System.out.println(laCita);
-           }
-           System.out.println("paso por aquí");
             model.addAttribute("identificacion", identificacion);
            model.addAttribute("listaCitasT", serviciosCita.obtenerCitasDisponibles());
             model.addAttribute("afiliado", afiliado);
-           System.out.println(afiliado);
-            System.out.println(identificacion);
             return "agendarcitas";
        } else {
            // Manejar el caso en el que no se encuentre el afiliado con el ID dado
@@ -63,7 +56,6 @@ public class ControladoresCita {
                cita.setEstado("Programada");
                cita.setAfiliado(afiliado);
               serviciosCita.modificar(modelMapper.map(cita, Cita.class));
-               System.out.println(cita);
                model.addAttribute("cita", cita);
                model.addAttribute("identificacion", identificacion);
                model.addAttribute("afiliado", afiliado);
@@ -89,7 +81,7 @@ public class ControladoresCita {
         List<Cita> citas = serviciosCita.buscarPorMedico(identificacion);
         List<Cita> citasConAfiliado = citas.stream()
                 .filter(cita -> cita.getAfiliado() != null)
-                .collect(Collectors.toList());
+                .toList();
         model.addAttribute("citas", citasConAfiliado);
         return "misCitasMedico";
     }
@@ -117,7 +109,6 @@ public class ControladoresCita {
                 cita.setObservacion(observacion);
                 cita.setEstado("Finalizada");
                 serviciosCita.modificar(cita);
-                System.out.println(cita);
             } else {
                 // Si la cita ya está finalizada, agrega un mensaje de error
                 redirectAttributes.addFlashAttribute("error", "No se puede agregar una observación a una cita que ya está finalizada.");

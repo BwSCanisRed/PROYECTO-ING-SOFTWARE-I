@@ -11,7 +11,6 @@ import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioRegistro;
 import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioRol;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -73,8 +72,7 @@ public  class ServiciosAfiliado implements OperacionesAfiliado {
     public Afiliado buscarID(Integer pkEntidad) {
         Optional<Afiliado> afiliadoOptional = repositorioAfiliado.findById(pkEntidad);
         if (afiliadoOptional.isPresent()) {
-            Afiliado afiliado = afiliadoOptional.get();
-            return afiliado;
+            return afiliadoOptional.get();
         } else {
             return null;
         }

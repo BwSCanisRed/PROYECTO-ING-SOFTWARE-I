@@ -39,7 +39,7 @@ public class ControladoresConsultor {
     }
 
     @GetMapping({"/GenerarInforme/{identificacion}"})
-    public String GenerarInforme( Model model,@PathVariable int identificacion,  RedirectAttributes redirectAttributes) {
+    public String generarInforme( Model model,@PathVariable int identificacion,  RedirectAttributes redirectAttributes) {
         List<Cita> citas = serviciosCita.buscarTodos();
         redirectAttributes.addAttribute("identificacion", identificacion);
         model.addAttribute("citas", citas);

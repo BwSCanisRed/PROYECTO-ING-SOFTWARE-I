@@ -10,14 +10,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
 
 @Service
 public class ServiciosCita implements OperacionesCita {
     private ModelMapper modelMapper = new ModelMapper();
+    private final RepositorioCita repositorioCita;
+    private final RepositorioAfiliado repositorioAfiliado;
+
     @Autowired
-    RepositorioCita repositorioCita;
-    RepositorioAfiliado repositorioAfiliado;
+    public ServiciosCita(RepositorioCita repositorioCita, RepositorioAfiliado repositorioAfiliado) {
+        this.repositorioCita = repositorioCita;
+        this.repositorioAfiliado = repositorioAfiliado;
+    }
 
 
 
@@ -82,8 +87,7 @@ public class ServiciosCita implements OperacionesCita {
     public Cita buscarID(Integer pkEntidad) {
         Optional<Cita> citaOptional = repositorioCita.findById(pkEntidad);
         if (citaOptional.isPresent()) {
-            Cita cita = citaOptional.get();
-            return cita;
+            return citaOptional.get();
         } else {
             return null;
         }
@@ -92,11 +96,12 @@ public class ServiciosCita implements OperacionesCita {
     public List<Cita> buscarPorAfiliado(int identificacion) {
         return repositorioCita.buscarPorAfiliado(identificacion);
     }
+
     public List<Cita> obtenerCitasDisponibles() {
         List<Cita> todasLasCitas = repositorioCita.findAll();
         return todasLasCitas.stream()
                 .filter(cita -> cita.getEstado().equals("Proceso"))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public List<Cita> buscarPorMedico(int medicoId) {
