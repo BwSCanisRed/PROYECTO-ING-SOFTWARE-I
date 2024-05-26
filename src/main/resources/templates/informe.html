@@ -43,7 +43,8 @@
       <th>Direccion</th>
       <th>Estado</th>
       <th>Especialidad</th>
-      <th>Dato</th>
+      <th>Afiliado</th>
+      <th>Observacion</th>
     </tr>
     </thead>
     <tbody>
@@ -51,9 +52,10 @@
       <td th:text="${dato.fecha}">Fecha Cita</td>
       <td th:text="${dato.medico?.nombre}">Nombre Medico</td>
       <td th:text="${dato.medico?.sede?.direccion}">Direccion</td>
-      <td th:text="${dato.estado}">programada</td>
+      <td th:text="${dato.estado}">Estado</td>
       <td th:text="${dato.especialidad?.nombre}">Especialidad</td>
-
+      <td th:text="${dato.afiliado?.nombre}">Afiliado</td>
+      <td th:text="${dato.observacion}">Observacion</td>
     </tr>
     </tbody>
   </table>
