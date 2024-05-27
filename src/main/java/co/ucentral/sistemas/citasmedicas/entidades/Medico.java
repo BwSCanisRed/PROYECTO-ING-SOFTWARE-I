@@ -45,8 +45,7 @@ public class Medico {
     @ToString.Exclude
     private Sede sede;
 
-    //@OneToMany(targetEntity = Cita.class, fetch = FetchType.LAZY, mappedBy =  "medico")
-    //private List<Cita> citas;
+
 
     public Medico(int identificacion, String nombre, boolean estado) {
         this.identificacion = identificacion;
