@@ -85,8 +85,7 @@ public  class ServiciosAfiliado implements OperacionesAfiliado {
     public Afiliado buscarID(Integer pkEntidad) {
         Optional<Afiliado> afiliadoOptional = repositorioAfiliado.findById(pkEntidad);
         if (afiliadoOptional.isPresent()) {
-            Afiliado afiliado = afiliadoOptional.get();
-            return afiliado;
+            return afiliadoOptional.get();
         } else {
             return null;
         }

@@ -1,7 +1,5 @@
 package co.ucentral.sistemas.citasmedicas.controladores;
 
-import co.ucentral.sistemas.citasmedicas.dto.AfiliadoDto;
-import co.ucentral.sistemas.citasmedicas.dto.CitaDto;
 import co.ucentral.sistemas.citasmedicas.entidades.Afiliado;
 import co.ucentral.sistemas.citasmedicas.entidades.Cita;
 import co.ucentral.sistemas.citasmedicas.servicios.ServiciosAfiliado;
@@ -13,34 +11,33 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
-import java.util.Optional;
 
 @Log4j2
 @Controller
 public class ControladoresCita {
 
+    private final ServiciosCita serviciosCita;
+    private final ServiciosAfiliado serviciosAfiliado;
+    private final ModelMapper modelMapper;
     @Autowired
-    ServiciosCita serviciosCita;
-    @Autowired
-    ServiciosAfiliado serviciosAfiliado;
-    @Autowired
-   private ModelMapper modelMapper;
+    public ControladoresCita(ServiciosCita serviciosCita, ServiciosAfiliado serviciosAfiliado, ModelMapper modelMapper) {
+        this.serviciosCita = serviciosCita;
+        this.serviciosAfiliado = serviciosAfiliado;
+        this.modelMapper = modelMapper;
+    }
 
     @GetMapping("/Agendar/{identificacion}")
    public String listarCitas(Model model, @PathVariable int identificacion) {
        Afiliado afiliado = serviciosAfiliado.buscarID(identificacion);
         if (afiliado != null) {
-          for (Cita laCita : serviciosCita.obtenerCitasDisponibles()) {
-                System.out.println(laCita);
-           }
-           System.out.println("paso por aquí");
             model.addAttribute("identificacion", identificacion);
            model.addAttribute("listaCitasT", serviciosCita.obtenerCitasDisponibles());
             model.addAttribute("afiliado", afiliado);
-           System.out.println(afiliado);
-            System.out.println(identificacion);
             return "agendarcitas";
        } else {
            // Manejar el caso en el que no se encuentre el afiliado con el ID dado
@@ -59,7 +56,6 @@ public class ControladoresCita {
                cita.setEstado("Programada");
                cita.setAfiliado(afiliado);
               serviciosCita.modificar(modelMapper.map(cita, Cita.class));
-               System.out.println(cita);
                model.addAttribute("cita", cita);
                model.addAttribute("identificacion", identificacion);
                model.addAttribute("afiliado", afiliado);
@@ -83,7 +79,10 @@ public class ControladoresCita {
     @GetMapping("/MisCitasMedico/{identificacion}")
     public String mostrarCitasAgendadasMedico(@PathVariable int identificacion, Model model){
         List<Cita> citas = serviciosCita.buscarPorMedico(identificacion);
-        model.addAttribute("citas", citas);
+        List<Cita> citasConAfiliado = citas.stream()
+                .filter(cita -> cita.getAfiliado() != null)
+                .toList();
+        model.addAttribute("citas", citasConAfiliado);
         return "misCitasMedico";
     }
 
@@ -91,13 +90,30 @@ public class ControladoresCita {
     @GetMapping("/CancelarCita/{idCita}")
     public String cancelarCita(@PathVariable int idCita, Model model){
         Cita cita = serviciosCita.buscarID(idCita);
-        if (cita != null) {
+        if (cita.getEstado().equals("Programada")) {
             cita.setEstado("Cancelada");
             serviciosCita.modificar(cita);
             return "redirect:/MisCitas/" + cita.getAfiliado().getIdentificacion();
         } else {
-            // Manejar el caso en el que no se encuentre la cita con el ID dado
-            return "error"; // Por ejemplo, redirigir a una página de error
+            // Si la cita no está en estado "Programada", agrega un mensaje de error
+            model.addAttribute("error", "No se puede cancelar una cita que no está programada.");
+            return "redirect:/MisCitas/" + cita.getAfiliado().getIdentificacion();
         }
+    }
+
+    @PostMapping("/citas/{idCita}/observacion")
+    public String agregarObservacion(@PathVariable int idCita, @RequestParam String observacion, RedirectAttributes redirectAttributes) {
+
+        Cita cita = serviciosCita.buscarID(idCita);
+            if (!cita.getEstado().equals("Finalizada")) {
+                cita.setObservacion(observacion);
+                cita.setEstado("Finalizada");
+                serviciosCita.modificar(cita);
+            } else {
+                // Si la cita ya está finalizada, agrega un mensaje de error
+                redirectAttributes.addFlashAttribute("error", "No se puede agregar una observación a una cita que ya está finalizada.");
+            }
+        // Redirige al usuario a la página de citas
+        return "redirect:/MisCitasMedico/" + cita.getMedico().getIdentificacion();
     }
 }

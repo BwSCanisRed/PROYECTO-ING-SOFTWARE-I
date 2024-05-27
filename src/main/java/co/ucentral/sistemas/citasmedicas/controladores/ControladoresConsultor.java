@@ -1,6 +1,8 @@
 package co.ucentral.sistemas.citasmedicas.controladores;
 import co.ucentral.sistemas.citasmedicas.dto.ConsultorDto;
+import co.ucentral.sistemas.citasmedicas.entidades.Cita;
 import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioRegistro;
+import co.ucentral.sistemas.citasmedicas.servicios.ServiciosCita;
 import co.ucentral.sistemas.citasmedicas.servicios.ServiciosConsultor;
 import co.ucentral.sistemas.citasmedicas.servicios.ServiciosRegistro;
 import lombok.extern.log4j.Log4j2;
@@ -18,17 +20,33 @@ import java.util.List;
 @Controller
 public class ControladoresConsultor {
 
+    private final ServiciosCita serviciosCita;
     ServiciosConsultor serviciosConsultor;
     ServiciosRegistro serviciosRegistro;
     RepositorioRegistro repositorioRegistro;
 
-    public ControladoresConsultor(ServiciosConsultor serviciosConsultor, ServiciosRegistro serviciosRegistro, RepositorioRegistro repositorioRegistro) {
+    public ControladoresConsultor(ServiciosConsultor serviciosConsultor, ServiciosRegistro serviciosRegistro, RepositorioRegistro repositorioRegistro, ServiciosCita serviciosCita) {
         this.serviciosConsultor = serviciosConsultor;
         this.serviciosRegistro = serviciosRegistro;
         this.repositorioRegistro = repositorioRegistro;
+        this.serviciosCita = serviciosCita;
     }
 
-    @GetMapping({  "/consultor/{identificacion}"})
+    @GetMapping("/inicioConsultor/{identificacion}")
+    public String iniciioConsultor(@PathVariable int identificacion, Model model, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addAttribute("identificacion", identificacion);
+        return "inicioConsultor";
+    }
+
+    @GetMapping({"/GenerarInforme/{identificacion}"})
+    public String generarInforme( Model model,@PathVariable int identificacion,  RedirectAttributes redirectAttributes) {
+        List<Cita> citas = serviciosCita.buscarTodos();
+        redirectAttributes.addAttribute("identificacion", identificacion);
+        model.addAttribute("citas", citas);
+        return "Informe";
+    }
+
+    @GetMapping({"/consultor/{identificacion}"})
     public String consultarTodos(Model model, @PathVariable int identificacion) {
         model.addAttribute("identificacion", identificacion);
         List<ConsultorDto> listaconsultores = this.serviciosConsultor.buscarTodos();
@@ -55,12 +73,6 @@ public class ControladoresConsultor {
     public String registrarConsultor(@ModelAttribute("elconsultor") ConsultorDto consultorDto) {
         serviciosConsultor.crear(consultorDto);
         return "redirect:/consultores";
-    }
-
-    @GetMapping("/inicioConsultor/{identificacion}")
-    public String inicioConsultor(@PathVariable int identificacion, RedirectAttributes redirectAttributes) {
-        redirectAttributes.addAttribute("identificacion", identificacion);
-        return "inicioConsultor";
     }
 
     @GetMapping({"/afiliaciones/{identificacion}"})

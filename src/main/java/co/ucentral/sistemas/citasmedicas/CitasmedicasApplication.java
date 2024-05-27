@@ -156,7 +156,7 @@ public class CitasmedicasApplication implements CommandLineRunner {
 		List<Cita> citas = new ArrayList<>();
 
 		// Definir la hora de inicio de las citas
-		LocalDateTime horaInicio = LocalDateTime.parse("2024-05-15 08:00:00", formatter);
+		LocalDateTime horaInicio = LocalDateTime.parse("2024-05-29 08:00:00", formatter);
 
 		// Crear 10 citas con 20 minutos de diferencia entre cada una
 		for (int i = 0; i < 20; i++) {
@@ -186,6 +186,7 @@ public class CitasmedicasApplication implements CommandLineRunner {
 		repositorioAfiliacion.save(afiliacion1);
 		Afiliacion afiliacion2 = new Afiliacion("Pensionado",CC,54789641,"Camila Acuña Soler","3133336202","xami@gmail.com","Calle 12","Nuevo",1010101010);
 		repositorioAfiliacion.save(afiliacion2);
+
 	}
 }
 

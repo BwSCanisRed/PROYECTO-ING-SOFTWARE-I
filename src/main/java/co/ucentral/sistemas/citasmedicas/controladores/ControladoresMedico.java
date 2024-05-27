@@ -102,7 +102,7 @@ public class ControladoresMedico {
     }
 
     @GetMapping({"/AgendaMedico/{identificacion}"})
-    public String AgendaDeMedico(@PathVariable int identificacion, RedirectAttributes redirectAttributes) {
+    public String agendaDeMedico(@PathVariable int identificacion, RedirectAttributes redirectAttributes) {
         redirectAttributes.addAttribute("identificacion", identificacion);
         return "redirect:/MisCitasMedico/{identificacion}";
     }

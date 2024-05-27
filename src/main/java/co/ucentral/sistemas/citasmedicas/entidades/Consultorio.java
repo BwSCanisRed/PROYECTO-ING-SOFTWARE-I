@@ -26,8 +26,6 @@ public class Consultorio {
     @Column(name = "con_nombre")
     private String nombre;
 
-    //@OneToMany(targetEntity = Medico.class, fetch = FetchType.LAZY, mappedBy =  "consultorio")
-    //private List<Medico> medicos;
 
     @ManyToOne(targetEntity = Sede.class)
     @JoinColumn(name = "sed_id")

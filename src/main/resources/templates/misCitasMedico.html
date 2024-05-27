@@ -17,7 +17,9 @@
             } else if (cellValue == "Programada") {
                 $(this).css("background-color", "#90EE90"); // Verde pastel
             }else if (cellValue == "Proceso") {
-                $(this).css("background-color", "#af7dfb"); // Verde pastel
+                $(this).css("background-color", "#5ef6fb"); // Verde pastel
+            }else if (cellValue == "Finalizada") {
+                $(this).css("background-color", "#e0cdf6"); // Verde pastel
             }
         });
     });
@@ -40,15 +42,22 @@
             <th>Direccion</th>
             <th>Estado</th>
             <th>Especialidad</th>
+            <th>Accion</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="dato : ${citas}">
-            <td th:text="${dato.fecha}">Fecha Cita</td>
+            <td th:text="${dato.fecha}">Fecha_Cita</td>
             <td th:text="${dato.afiliado?.nombre}">Nombre Paciente</td>
             <td th:text="${dato.medico?.sede?.direccion}">Direccion</td>
             <td th:text="${dato.estado}">Estado</td>
             <td th:text="${dato.especialidad?.nombre}">Especialidad</td>
+            <td>
+                <form th:action="@{/citas/{idCita}/observacion(idCita=${dato.id_cita})}" method="post">
+                    <input type="text" name="observacion" placeholder="Ingrese la observación">
+                    <input type="submit" value="Añadir Observacion">
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
