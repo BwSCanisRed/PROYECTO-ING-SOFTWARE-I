@@ -17,4 +17,6 @@ public class AfiliadoDto {
     private RolDto rol;
     private RegistroDto registro;
     private List<Cita> cita;
+    private AfiliacionDto afiliacion;
+    private String motivo;
 }

@@ -43,8 +43,9 @@ public class ControladoresMedico {
         this.repositorioMedico = repositorioMedico;
     }
 
-    @GetMapping({  "/rol_medico"})
-    public String consultarTodos(Model model){
+    @GetMapping({  "/medico/{identificacion}"})
+    public String consultarTodos(Model model, @PathVariable int identificacion) {
+        model.addAttribute("identificacion", identificacion);
         List<MedicoDto> listamedicos = this.serviciosMedico.buscarTodos();
         model.addAttribute("listamedicos", listamedicos);
         return "medico";
@@ -85,7 +86,7 @@ public class ControladoresMedico {
                 medicoDto.setSede(sedeExistente);
 
                 serviciosMedico.crear(medicoDto);
-                return "redirect:/rol_medico";
+                return "redirect:/medicos";
             } else {
                 return null;
             }

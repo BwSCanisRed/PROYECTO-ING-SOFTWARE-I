@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Log4j2
@@ -17,8 +18,9 @@ public class ControladoresSede{
         this.serviciosSede = serviciosSede;
     }
 
-    @GetMapping({  "/sedes"})
-    public String consultarTodos(Model model){
+    @GetMapping({  "/sede/{identificacion}"})
+    public String consultarTodos(Model model, @PathVariable int identificacion) {
+        model.addAttribute("identificacion", identificacion);
         model.addAttribute("listasede",this.serviciosSede.buscarTodos());
         return "sede";
     }

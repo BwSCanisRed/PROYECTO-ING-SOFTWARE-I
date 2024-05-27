@@ -14,6 +14,6 @@ public class ConsultorDto {
     private Boolean estado;
     private RolDto rol;
     private RegistroDto registro;
-
+    private AfiliacionDto afiliacion;
 
 }

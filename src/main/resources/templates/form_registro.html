@@ -59,7 +59,7 @@
         <div class="alert alert-info">Se ha registrado exitosamente</div>
     </div>
     <div th:if="${param.error}">
-        <div class="alert alert-warning">Datos no encontrados, debe <a style="color: #0037B6;" th:href="@{/afiliación}">Solicitar la afiliacion a la EPS</a></div>
+        <div class="alert alert-warning">Datos no encontrados, debe <a style="color: #0037B6;" th:href="@{/solicitud/afiliaciones}">Solicitar la afiliacion a la EPS</a></div>
     </div>
     <div th:if="${param.errorRegistro}">
         <div class="alert alert-warning">Este usuario ya existe, por favor <a style="color: #0037B6;" th:href="@{/iniciosesion}">Inicie Sesión</a></div>

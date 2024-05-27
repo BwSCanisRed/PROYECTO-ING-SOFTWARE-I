@@ -16,14 +16,8 @@
 <body>
 <div class="container" style="width : 90%">
     <br>
-    <a class="btn btn-primary"  href="#" th:href="@{/registro}">Usuarios registrados</a>
-    <a class="btn btn-primary" href="#" th:href="@{/rol_afiliado}">Afiliados</a>
-    <a class="btn btn-primary" href="#" th:href="@{/rol_medico}">Medicos</a>
-    <a class="btn btn-primary" href="#" th:href="@{/consultorios}">Consultorios</a>
-    <a class="btn btn-primary" href="#" th:href="@{/especialidades}">Especialidades</a>
-    <a class="btn btn-primary" href="#" th:href="@{/roles}">Roles</a>
-    <a class="btn btn-primary"  href="#" th:href="@{/sedes}">Sedes</a>
-    <a class="btn btn-second"  href="#" th:href="@{/iniciosesion}">Cerrar sesión</a>
+    <a class="btn btn-primary" href="#" th:href="@{/consultor/nuevo}">Adicionar Consultor</a>
+    <a class="btn btn-primary" href="#" th:href="@{/inicioConsultor/{identificacion}(identificacion=${identificacion})}">Volver</a>
     <br> <br>
 
     <table class="table table-striped table-bordered">
@@ -48,7 +42,6 @@
         </tbody>
     </table>
     <br>
-    <div><a class="btn btn-primary" href="#" th:href="@{/consultor/nuevo}">Adicionar Consultor</a></div>
 </div>
 </body>
 </html>

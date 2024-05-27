@@ -1,17 +1,20 @@
 package co.ucentral.sistemas.citasmedicas.servicios;
+
+import co.ucentral.sistemas.citasmedicas.dto.AfiliacionDto;
 import co.ucentral.sistemas.citasmedicas.dto.AfiliadoDto;
 import co.ucentral.sistemas.citasmedicas.dto.RegistroDto;
 import co.ucentral.sistemas.citasmedicas.dto.RolDto;
+import co.ucentral.sistemas.citasmedicas.entidades.Afiliacion;
 import co.ucentral.sistemas.citasmedicas.entidades.Afiliado;
 import co.ucentral.sistemas.citasmedicas.entidades.Registro;
 import co.ucentral.sistemas.citasmedicas.entidades.Rol;
 import co.ucentral.sistemas.citasmedicas.operaciones.OperacionesAfiliado;
+import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioAfiliacion;
 import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioAfiliado;
 import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioRegistro;
 import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioRol;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -22,12 +25,14 @@ public  class ServiciosAfiliado implements OperacionesAfiliado {
     RepositorioAfiliado repositorioAfiliado;
     RepositorioRegistro repositorioRegistro;
     RepositorioRol repositorioRol;
+    RepositorioAfiliacion repositorioAfiliacion;
 
-    public ServiciosAfiliado(ModelMapper modelMapper, RepositorioAfiliado repositorioAfiliado, RepositorioRegistro repositorioRegistro, RepositorioRol repositorioRol) {
+    public ServiciosAfiliado(ModelMapper modelMapper, RepositorioAfiliado repositorioAfiliado, RepositorioRegistro repositorioRegistro, RepositorioRol repositorioRol, RepositorioAfiliacion repositorioAfiliacion) {
         this.modelMapper = modelMapper;
         this.repositorioAfiliado = repositorioAfiliado;
         this.repositorioRegistro = repositorioRegistro;
         this.repositorioRol = repositorioRol;
+        this.repositorioAfiliacion = repositorioAfiliacion;
     }
 
     @Override
@@ -43,6 +48,13 @@ public  class ServiciosAfiliado implements OperacionesAfiliado {
         RolDto rolDto = new RolDto();
         rolDto.setIdRol(rol.getIdRol());
         afiliadoDto.setRol(rolDto);
+
+        Afiliacion afiliacion = repositorioAfiliacion.findByIdAfiliado(afiliadoDto.getIdentificacion());
+        if(afiliacion == null){
+            afiliadoDto.setMotivo("Traslado");
+        }else{
+            afiliadoDto.setMotivo("Afiliación");
+        }
 
         Afiliado afiliado =   repositorioAfiliado.save(modelMapper.map(afiliadoDto, Afiliado.class));
         return modelMapper.map(afiliado, AfiliadoDto.class);
@@ -91,5 +103,18 @@ public  class ServiciosAfiliado implements OperacionesAfiliado {
         } else {
             return null;
        }
+    }
+
+    public AfiliadoDto obtenerIdAfiliacion(AfiliadoDto afiliadoDto) {
+        Afiliacion afiliacion = repositorioAfiliacion.findByIdAfiliado(afiliadoDto.getIdentificacion());
+
+        if (afiliacion != null) {
+            AfiliacionDto afiliacionDto = modelMapper.map(afiliacion, AfiliacionDto.class);
+            afiliadoDto.setAfiliacion(afiliacionDto);
+
+            return afiliadoDto;
+        } else {
+            return null;
+        }
     }
 }

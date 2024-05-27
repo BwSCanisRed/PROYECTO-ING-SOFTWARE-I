@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
@@ -26,8 +27,9 @@ public class ControladoresConsultorio{
         this.serviciosEspecialidad = serviciosEspecialidad;
     }
 
-    @GetMapping({  "/consultorios"})
-    public String consultarTodos(Model model){
+    @GetMapping({  "/consultorio/{identificacion}"})
+    public String consultarTodos(Model model, @PathVariable int identificacion) {
+        model.addAttribute("identificacion", identificacion);
         model.addAttribute("listaconsultorio",this.serviciosConsultorio.buscarTodos());
         return "consultorio";
     }

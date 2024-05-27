@@ -38,14 +38,19 @@ public class ControladoresAfiliado {
         return "redirect:/MisCitas/{identificacion}";
     }
 
-    @GetMapping({"/rol_afiliado"})
-    public String consultarTodos(Model model){
+    @GetMapping({"/afiliado/{identificacion}"})
+    public String consultarTodos(Model model, @PathVariable int identificacion) {
+        model.addAttribute("identificacion", identificacion);
         List<AfiliadoDto> listaafiliados =this.serviciosAfiliado.buscarTodos();
 
         for (AfiliadoDto afiliadoDto : listaafiliados) {
             AfiliadoDto afiliadoConRegistro = serviciosAfiliado.obtenerIdRegistro(afiliadoDto);
+            AfiliadoDto afiliadoConAfiliacion = serviciosAfiliado.obtenerIdAfiliacion(afiliadoDto);
             if (afiliadoConRegistro != null) {
                 afiliadoDto.setRegistro(afiliadoConRegistro.getRegistro());
+            }
+            if(afiliadoConAfiliacion != null){
+                afiliadoDto.setAfiliacion(afiliadoConAfiliacion.getAfiliacion());
             }
         }
         model.addAttribute("listaafiliados",listaafiliados);
@@ -60,6 +65,6 @@ public class ControladoresAfiliado {
     @PostMapping("/crearafiliado")
     public String registrarAfiliado(@ModelAttribute("elafiliado") AfiliadoDto afiliadoDto) {
         serviciosAfiliado.crear(afiliadoDto);
-        return "redirect:/rol_afiliado";
+        return "redirect:/afiliados";
     }
 }

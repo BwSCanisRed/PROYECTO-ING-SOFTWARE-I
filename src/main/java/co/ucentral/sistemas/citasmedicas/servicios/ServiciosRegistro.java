@@ -36,7 +36,7 @@ public class ServiciosRegistro implements OperacionesRegistro {
     @Override
     public RegistroDto crear(RegistroDto registroDto) {
 
-        if(registroDto.getFechaRegistro() != null){
+        if(registroDto.getFechaRegistro() == null){
             registroDto.setFechaRegistro(LocalDateTime.now());
         }
 

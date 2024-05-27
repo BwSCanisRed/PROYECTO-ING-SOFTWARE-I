@@ -9,10 +9,8 @@ import co.ucentral.sistemas.citasmedicas.servicios.ServiciosRegistro;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
 import java.time.LocalDateTime;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -34,8 +32,9 @@ public class ControladoresRegistro {
         this.repositorioRegistro = repositorioRegistro;
     }
 
-    @GetMapping({"/registro"})
-    public String consultarTodos(Model model) {
+    @GetMapping({"/usuarios/{identificacion}"})
+    public String consultarTodos(Model model, @PathVariable int identificacion) {
+        model.addAttribute("identificacion", identificacion);
         model.addAttribute("listaregistro", this.serviciosRegistro.buscarTodos());
         return "usuarios";
     }
@@ -87,13 +86,14 @@ public class ControladoresRegistro {
             Afiliado afiliado = repositorioAfiliado.findByIdentificacion(idUsuario);
 
                 if (medico != null) {
-                    redirectAttributes.addAttribute("identificacion", idUsuario);
+                   redirectAttributes.addAttribute("identificacion", idUsuario);
                     return "redirect:/inicioMedico/{identificacion}";
                 } else if (afiliado != null) {
                     redirectAttributes.addAttribute("identificacion", idUsuario);
                     return "redirect:/inicioAfiliado/{identificacion}";
                 } else if (consultor != null) {
-                    return "redirect:/inicioConsultor";
+                    redirectAttributes.addAttribute("identificacion", idUsuario);
+                    return "redirect:/inicioConsultor/{identificacion}";
                 } else {
                     return "redirect:/iniciosesion?error";
                 }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Log4j2
@@ -18,8 +19,9 @@ public class ControladoresEspecialidad {
         this.serviciosEspecialidad = serviciosEspecialidad;
     }
 
-    @GetMapping({  "/especialidades"})
-    public String consultarTodos(Model model){
+    @GetMapping({  "/especialidad/{identificacion}"})
+    public String consultarTodos(Model model, @PathVariable int identificacion) {
+        model.addAttribute("identificacion", identificacion);
         model.addAttribute("listaespecialidad",this.serviciosEspecialidad.buscarTodos());
         return "especialidad";
     }

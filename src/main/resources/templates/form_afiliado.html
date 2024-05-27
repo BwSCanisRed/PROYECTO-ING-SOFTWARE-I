@@ -40,9 +40,14 @@
         <br>
         <div class="form-group">
             <button type="submit" class="btn btn-success">Registrar</button>
-            <a class="btn btn-primary" href="#" th:href="@{/rol_afiliado}">Volver</a>
+            <a class="btn btn-primary" href="#" th:href="@{/afiliados}">Volver</a>
         </div>
     </form>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('identificacion').value = '';
+    });
+</script>
 </body>
 </html>

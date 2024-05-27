@@ -1,13 +1,10 @@
 package co.ucentral.sistemas.citasmedicas;
-
 import co.ucentral.sistemas.citasmedicas.entidades.*;
 import co.ucentral.sistemas.citasmedicas.repositorios.*;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -33,8 +30,9 @@ public class CitasmedicasApplication implements CommandLineRunner {
 	RepositorioEspecialidad repositorioEspecialidad;
 	RepositorioConsultorio repositorioConsultorio;
 	RepositorioCita repositorioCita;
+	RepositorioAfiliacion repositorioAfiliacion;
 
-	public CitasmedicasApplication(RepositorioRol repositorioRol, RepositorioConsultor repositorioConsultor, RepositorioMedico repositorioMedico, RepositorioAfiliado repositorioAfiliado, RepositorioRegistro repositorioRegistro, RepositorioSede repositorioSede, RepositorioEspecialidad repositorioEspecialidad, RepositorioConsultorio repositorioConsultorio, RepositorioCita repositorioCita) {
+	public CitasmedicasApplication(RepositorioRol repositorioRol, RepositorioConsultor repositorioConsultor, RepositorioMedico repositorioMedico, RepositorioAfiliado repositorioAfiliado, RepositorioRegistro repositorioRegistro, RepositorioSede repositorioSede, RepositorioEspecialidad repositorioEspecialidad, RepositorioConsultorio repositorioConsultorio, RepositorioCita repositorioCita, RepositorioAfiliacion repositorioAfiliacion) {
 		this.repositorioRol = repositorioRol;
 		this.repositorioConsultor = repositorioConsultor;
 		this.repositorioMedico = repositorioMedico;
@@ -44,6 +42,7 @@ public class CitasmedicasApplication implements CommandLineRunner {
 		this.repositorioEspecialidad = repositorioEspecialidad;
 		this.repositorioConsultorio = repositorioConsultorio;
 		this.repositorioCita = repositorioCita;
+		this.repositorioAfiliacion = repositorioAfiliacion;
 	}
 
 	@Override
@@ -97,6 +96,8 @@ public class CitasmedicasApplication implements CommandLineRunner {
 
 		Consultor consultor1 = new Consultor(1001346667,"Jennifer Lopez Vanegas",true);
 		repositorioConsultor.save(consultor1);
+		Consultor consultor2 = new Consultor(1010101010,"Camilo Andres Garcia",true);
+		repositorioConsultor.save(consultor2);
 
 		Medico medico1 = new Medico(79976478,"Luis Alberto Montenegro Avila",true,especialidad1,consultorio1,sede1);
 		repositorioMedico.save(medico1);
@@ -105,13 +106,14 @@ public class CitasmedicasApplication implements CommandLineRunner {
         Medico medico3 = new Medico(795443845,"Adolfo Martinez",true,especialidad3,consultorio3,sede3);
 		repositorioMedico.save(medico3);
 
-        Afiliado afiliado1 = new Afiliado(1071789472,"Santiago Aguirre",true);
+		final String Traslado = "Traslado";
+		Afiliado afiliado1 = new Afiliado(1071789472,"Santiago Aguirre",true,Traslado);
         repositorioAfiliado.save(afiliado1);
-        Afiliado afiliado2 = new Afiliado(135253949,"Vanesa Guayara",true);
+        Afiliado afiliado2 = new Afiliado(135253949,"Vanesa Guayara",true,Traslado);
         repositorioAfiliado.save(afiliado2);
-        Afiliado afiliado3 = new Afiliado(54678954,"Luz Angela Lopez Aparicio",true);
+        Afiliado afiliado3 = new Afiliado(54678954,"Luz Angela Lopez Aparicio",true,Traslado);
 		repositorioAfiliado.save(afiliado3);
-		Afiliado afiliado4 = new Afiliado(1000000000,"Miguel Angel Sandoval Alvarado",true);
+		Afiliado afiliado4 = new Afiliado(1000000000,"Miguel Angel Sandoval Alvarado",true,Traslado);
 		repositorioAfiliado.save(afiliado4);
 
         final String CC = "Cédula de Ciudadanía";
@@ -124,6 +126,7 @@ public class CitasmedicasApplication implements CommandLineRunner {
         Date date4 = Date.valueOf(Date.valueOf(LocalDate.of(2010,1,1)).toLocalDate());
 		Date date5 = Date.valueOf(Date.valueOf(LocalDate.of(2004,9,5)).toLocalDate());
 		Date date6 = Date.valueOf(Date.valueOf(LocalDate.of(2002,4,28)).toLocalDate());
+		Date date7 = Date.valueOf(Date.valueOf(LocalDate.of(1980,6,20)).toLocalDate());
 
 		final String M = "Masculino";
 		final String F = "Femenino";
@@ -143,6 +146,8 @@ public class CitasmedicasApplication implements CommandLineRunner {
         //Medicos
         Registro registro6 = new Registro(CC,79976478, date3,"Luis Alberto Montenegro Avila","3154257892","Barrio Bosa",M,"luisalver@gmail.com","Luis50.*");
         repositorioRegistro.save(registro6);
+		Registro registro7 = new Registro(CC,1010101010, date7,"Camilo Andres Garcia","3104257892","Barrio Bosa",M,"camilo@gmail.com","camilo");
+		repositorioRegistro.save(registro7);
 
 		// Definir el formato de fecha y hora
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -176,6 +181,11 @@ public class CitasmedicasApplication implements CommandLineRunner {
 		for (Cita cita : citas) {
 			System.out.println(cita);
 		}
+
+		Afiliacion afiliacion1 = new Afiliacion("Pensionado",CC,78945612,"Alvaro Castañeda","3114785622","alvaro@gmail.com","Calle 102","Nuevo",1010101010);
+		repositorioAfiliacion.save(afiliacion1);
+		Afiliacion afiliacion2 = new Afiliacion("Pensionado",CC,54789641,"Camila Acuña Soler","3133336202","xami@gmail.com","Calle 12","Nuevo",1010101010);
+		repositorioAfiliacion.save(afiliacion2);
 	}
 }
 

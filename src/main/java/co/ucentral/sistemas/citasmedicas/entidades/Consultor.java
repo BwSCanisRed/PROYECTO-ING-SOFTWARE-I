@@ -31,6 +31,10 @@ public class Consultor {
     @JoinColumn(name = "rol_id")
     private Rol rol;
 
+    @ManyToOne(targetEntity = Afiliacion.class)
+    @JoinColumn(name = "afili_id")
+    private Afiliacion afiliacion;
+
     public Consultor(int identificacion, String nombre, Boolean estado) {
         this.identificacion = identificacion;
         this.nombre = nombre;
