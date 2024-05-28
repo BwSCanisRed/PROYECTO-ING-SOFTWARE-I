@@ -18,7 +18,7 @@
 <div class="card-body">
     <h1>EPS Nuestra Salud SAS</h1>
     <h2>Registro de Sedes</h2>
-    <form th:action="@{/crearsede}" method="post" th:object="${lasede}">
+    <form th:action="@{/crearsede/{identificacion}(identificacion=${identificacion})}" method="post" th:object="${lasede}">
         <div class="form-group">
             <label class="control-label" for="nombre">Nombre: </label> <input
                 id="nombre" type="text" class="form-control" th:field="*{nombre}"
@@ -37,7 +37,7 @@
         <br>
         <div class="form-group">
             <button type="submit" class="btn btn-success">Registrar</button>
-            <a class="btn btn-primary" href="#" th:href="@{/sedes}">Volver</a>
+            <a class="btn btn-primary" href="#" th:href="@{/sede/{identificacion}(identificacion=${identificacion})}">Volver</a>
         </div>
     </form>
 </div>

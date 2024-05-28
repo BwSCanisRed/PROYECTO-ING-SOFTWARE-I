@@ -2,13 +2,9 @@ package co.ucentral.sistemas.citasmedicas.servicios;
 import co.ucentral.sistemas.citasmedicas.dto.ConsultorDto;
 import co.ucentral.sistemas.citasmedicas.dto.RegistroDto;
 import co.ucentral.sistemas.citasmedicas.dto.RolDto;
-import co.ucentral.sistemas.citasmedicas.entidades.Consultor;
-import co.ucentral.sistemas.citasmedicas.entidades.Registro;
-import co.ucentral.sistemas.citasmedicas.entidades.Rol;
+import co.ucentral.sistemas.citasmedicas.entidades.*;
 import co.ucentral.sistemas.citasmedicas.operaciones.OperacionesConsultor;
-import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioConsultor;
-import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioRegistro;
-import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioRol;
+import co.ucentral.sistemas.citasmedicas.repositorios.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
@@ -19,20 +15,32 @@ public class ServiciosConsultor implements OperacionesConsultor {
     RepositorioConsultor repositorioConsultor;
     RepositorioRegistro repositorioRegistro;
     RepositorioRol repositorioRol;
+    RepositorioAfiliado repositorioAfiliado;
+    RepositorioMedico repositorioMedico;
 
-    public ServiciosConsultor(ModelMapper modelMapper, RepositorioConsultor repositorioConsultor, RepositorioRegistro repositorioRegistro, RepositorioRol repositorioRol) {
+    public ServiciosConsultor(ModelMapper modelMapper, RepositorioConsultor repositorioConsultor, RepositorioRegistro repositorioRegistro, RepositorioRol repositorioRol, RepositorioAfiliado repositorioAfiliado, RepositorioMedico repositorioMedico) {
         this.modelMapper = modelMapper;
         this.repositorioConsultor = repositorioConsultor;
         this.repositorioRegistro = repositorioRegistro;
         this.repositorioRol = repositorioRol;
+        this.repositorioAfiliado = repositorioAfiliado;
+        this.repositorioMedico = repositorioMedico;
     }
 
     @Override
     public ConsultorDto crear(ConsultorDto consultorDto) {
+
         if (consultorDto == null) {
             return null;
         }
-        Rol rol = repositorioRol.findById(2).orElse(null);
+
+        Medico medico = repositorioMedico.findByIdentificacion(consultorDto.getIdentificacion());
+        Afiliado afiliado = repositorioAfiliado.findByIdentificacion(consultorDto.getIdentificacion());
+
+        if (medico != null || afiliado != null) {
+            return null;
+        }
+        Rol rol = repositorioRol.findById(1).orElse(null);
 
         if (rol == null) {
             return consultorDto;
@@ -40,6 +48,10 @@ public class ServiciosConsultor implements OperacionesConsultor {
         RolDto rolDto = new RolDto();
         rolDto.setIdRol(rol.getIdRol());
         consultorDto.setRol(rolDto);
+
+        if (repositorioConsultor.existsByIdentificacion(consultorDto.getIdentificacion())) {
+            return null;
+        }
 
         Consultor consultor = repositorioConsultor.save(modelMapper.map(consultorDto, Consultor.class));
         return modelMapper.map(consultor, ConsultorDto.class);

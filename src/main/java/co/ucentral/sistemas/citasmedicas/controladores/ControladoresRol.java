@@ -26,15 +26,17 @@ public class ControladoresRol{
         return "rol";
     }
 
-    @GetMapping("/rol/nuevo")
-    public String mostrarFormulario(Model model){
+    @GetMapping("/rol/nuevo/{identificacion}")
+    public String mostrarFormulario(Model model, @PathVariable int identificacion) {
+        model.addAttribute("identificacion", identificacion);
         RolDto rolDto = new RolDto();
         model.addAttribute("elrol", rolDto);
         return "form_rol";
     }
-    @PostMapping("/crearol")
-    public String registrarRol(@ModelAttribute("elrol") RolDto rolDto) {
+    @PostMapping("/crearol/{identificacion}")
+    public String registrarRol(@ModelAttribute("elrol") RolDto rolDto, Model model, @PathVariable int identificacion) {
+        model.addAttribute("identificacion", identificacion);
         serviciosRol.crear(rolDto);
-        return "redirect:/roles";
+        return "redirect:/rol/{identificacion}";
     }
 }

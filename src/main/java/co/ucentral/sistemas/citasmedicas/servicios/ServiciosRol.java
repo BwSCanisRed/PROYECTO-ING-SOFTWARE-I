@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import static co.ucentral.sistemas.citasmedicas.servicios.ServiciosEspecialidad.normalizar;
 
 @Service
 public class ServiciosRol implements OperacionesRol {
@@ -20,13 +21,27 @@ public class ServiciosRol implements OperacionesRol {
 
     @Override
     public RolDto crear(RolDto rolDto) {
-        if (rolDto != null){
-            Rol rol =   repositorioRol.save(modelMapper.map(rolDto, Rol.class));
-            return modelMapper.map(rol, RolDto.class);
+
+        if (rolDto.getNombre() == null || rolDto.getNombre().trim().isEmpty()) {
+            throw new IllegalArgumentException("El nombre del rol no puede ser nulo o vacío");
+        }
+        String normalizarNombre = normalizar(rolDto.getNombre());
+
+        if (normalizarNombre == null) {
+            throw new IllegalArgumentException("El nombre normalizado del rol no puede ser nulo");
         }
 
-        else
-            return null;
+        List<Rol> roles = (List<Rol>) repositorioRol.findAll();
+        for (Rol rol : roles) {
+            String normalizarExisteNombre = normalizar(rol.getNombre());
+            if (normalizarNombre.equals(normalizarExisteNombre)) {
+                return null;
+            }
+        }
+
+        Rol rol = modelMapper.map(rolDto, Rol.class);
+        rol = repositorioRol.save(rol);
+        return modelMapper.map(rol, RolDto.class);
     }
 
     @Override

@@ -19,8 +19,10 @@ public class ServiciosMedico implements OperacionesMedico {
     RepositorioSede repositorioSede;
     RepositorioConsultorio repositorioConsultorio;
     RepositorioRol repositorioRol;
+    RepositorioAfiliado repositorioAfiliado;
+    RepositorioConsultor repositorioConsultor;
 
-    public ServiciosMedico(ModelMapper modelMapper, RepositorioMedico repositorioMedico, RepositorioRegistro repositorioRegistro, RepositorioEspecialidad repositorioEspecialidad, RepositorioSede repositorioSede, RepositorioConsultorio repositorioConsultorio, RepositorioRol repositorioRol) {
+    public ServiciosMedico(ModelMapper modelMapper, RepositorioMedico repositorioMedico, RepositorioRegistro repositorioRegistro, RepositorioEspecialidad repositorioEspecialidad, RepositorioSede repositorioSede, RepositorioConsultorio repositorioConsultorio, RepositorioRol repositorioRol, RepositorioAfiliado repositorioAfiliado, RepositorioConsultor repositorioConsultor) {
         this.modelMapper = modelMapper;
         this.repositorioMedico = repositorioMedico;
         this.repositorioRegistro = repositorioRegistro;
@@ -28,10 +30,27 @@ public class ServiciosMedico implements OperacionesMedico {
         this.repositorioSede = repositorioSede;
         this.repositorioConsultorio = repositorioConsultorio;
         this.repositorioRol = repositorioRol;
+        this.repositorioAfiliado = repositorioAfiliado;
+        this.repositorioConsultor = repositorioConsultor;
     }
 
     @Override
     public MedicoDto crear(MedicoDto medicoDto) {
+
+        if (medicoDto == null) {
+            return null;
+        }
+
+        Consultor consultor = repositorioConsultor.findByIdentificacion(medicoDto.getIdentificacion());
+        Afiliado afiliado = repositorioAfiliado.findByIdentificacion(medicoDto.getIdentificacion());
+
+        if (consultor != null || afiliado != null ) {
+            return null;
+        }
+
+        if (repositorioMedico.existsByIdentificacion(medicoDto.getIdentificacion())) {
+            return null;
+        }
 
         Consultorio consultorio = repositorioConsultorio.findByIdConsultorio(medicoDto.getConsultorio().getIdConsultorio());
         Especialidad especialidad = repositorioEspecialidad.findById(medicoDto.getEspecialidad().getIdEspecialidad()).orElse(null);

@@ -18,7 +18,7 @@
 <div class="card-body">
     <h1>EPS Nuestra Salud SAS</h1>
     <h2>Registro de Consultores</h2>
-    <form th:action="@{/crearconsultor}" method="post" th:object="${elconsultor}">
+    <form th:action="@{/crearconsultor/{identificacion}(identificacion=${identificacion})}" method="post" th:object="${elconsultor}">
         <div class="form-group">
             <label class="control-label" for="identificacion">Identificación: </label> <input
                 id="identificacion" type="number" class="form-control" th:field="*{identificacion}"
@@ -40,7 +40,7 @@
         <br>
         <div class="form-group">
             <button type="submit" class="btn btn-success">Registrar</button>
-            <a class="btn btn-primary" href="#" th:href="@{/inicioConsultor}">Volver</a>
+            <a class="btn btn-primary" href="#" th:href="@{/consultor/{identificacion}(identificacion=${identificacion})}">Volver</a>
         </div>
     </form>
 </div>

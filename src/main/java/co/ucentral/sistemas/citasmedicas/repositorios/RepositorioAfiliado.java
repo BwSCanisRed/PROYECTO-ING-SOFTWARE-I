@@ -8,4 +8,6 @@ public interface RepositorioAfiliado extends CrudRepository<Afiliado, Integer>, 
 
     Afiliado findByIdentificacion(Integer identificacion);
 
+
+    boolean existsByIdentificacion(int identificacion);
 }

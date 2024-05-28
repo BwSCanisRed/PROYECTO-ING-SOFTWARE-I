@@ -29,11 +29,13 @@ public class ServiciosConsultorio implements OperacionesConsultorio {
     public ConsultorioDto crear(ConsultorioDto consultorioDto) {
 
         Sede sede = repositorioSede.findById(consultorioDto.getSede().getIdSede()).orElse(new Sede());
-        if (sede != null){
+        if (sede == null || repositorioConsultorio.existsById(consultorioDto.getIdConsultorio()) ){
+            return null;
+        } else{
             Consultorio consultorio = repositorioConsultorio.save(modelMapper.map(consultorioDto, Consultorio.class));
             return modelMapper.map(consultorio, ConsultorioDto.class);
-        } else
-            return null;
+        }
+
     }
 
     @Override

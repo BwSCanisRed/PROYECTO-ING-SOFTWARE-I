@@ -26,15 +26,17 @@ public class ControladoresEspecialidad {
         return "especialidad";
     }
 
-    @GetMapping("/especialidad/nuevo")
-    public String mostrarFormulario(Model model){
+    @GetMapping("/especialidad/nuevo/{identificacion}")
+    public String mostrarFormulario(Model model, @PathVariable int identificacion) {
+        model.addAttribute("identificacion", identificacion);
         EspecialidadDto especialidadDto = new EspecialidadDto();
         model.addAttribute("laespecialidad", especialidadDto);
         return "form_especialidad";
     }
-    @PostMapping("/crearespecialidad")
-    public String registrarEspecialidad(@ModelAttribute("laespecialidad") EspecialidadDto especialidadDto) {
+    @PostMapping("/crearespecialidad/{identificacion}")
+    public String registrarEspecialidad(@ModelAttribute("laespecialidad") EspecialidadDto especialidadDto, Model model, @PathVariable int identificacion) {
+        model.addAttribute("identificacion", identificacion);
         serviciosEspecialidad.crear(especialidadDto);
-        return "redirect:/especialidades";
+        return "redirect:/especialidad/{identificacion}";
     }
 }

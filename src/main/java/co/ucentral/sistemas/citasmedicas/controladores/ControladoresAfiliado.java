@@ -56,15 +56,18 @@ public class ControladoresAfiliado {
         model.addAttribute("listaafiliados",listaafiliados);
         return "afiliado";
     }
-    @GetMapping("/afiliado/nuevo")
-    public String mostrarFormulario(Model model){
+    @GetMapping("/afiliado/nuevo/{identificacion}")
+    public String mostrarFormulario(Model model, @PathVariable int identificacion) {
+        model.addAttribute("identificacion", identificacion);
         AfiliadoDto afiliadoDto = new AfiliadoDto();
         model.addAttribute("elafiliado", afiliadoDto);
         return "form_afiliado";
     }
-    @PostMapping("/crearafiliado")
-    public String registrarAfiliado(@ModelAttribute("elafiliado") AfiliadoDto afiliadoDto) {
+
+    @PostMapping("/crearafiliado/{identificacion}")
+    public String registrarAfiliado(@ModelAttribute("elafiliado") AfiliadoDto afiliadoDto, Model model, @PathVariable int identificacion) {
+        model.addAttribute("identificacion", identificacion);
         serviciosAfiliado.crear(afiliadoDto);
-        return "redirect:/afiliados";
+        return "redirect:/afiliado/{identificacion}";
     }
 }

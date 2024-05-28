@@ -6,4 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface RepositorioMedico extends CrudRepository<Medico, Integer>, JpaSpecificationExecutor<Medico> {
     Medico findByIdentificacionAndNombre(int identificacion, String nombre);
     Medico findByIdentificacion(Integer identificacion);
+
+    boolean existsByIdentificacion(Integer identificacion);
 }

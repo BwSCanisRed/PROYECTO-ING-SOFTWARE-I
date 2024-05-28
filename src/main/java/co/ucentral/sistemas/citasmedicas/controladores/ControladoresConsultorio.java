@@ -34,8 +34,9 @@ public class ControladoresConsultorio{
         return "consultorio";
     }
 
-    @GetMapping("/consultorio/nuevo")
-    public String mostrarFormulario(Model model){
+    @GetMapping("/consultorio/nuevo/{identificacion}")
+    public String mostrarFormulario(Model model, @PathVariable int identificacion) {
+        model.addAttribute("identificacion", identificacion);
         ConsultorioDto consultorioDto = new ConsultorioDto();
         List<SedeDto> listasede = serviciosSede.buscarTodos();
         model.addAttribute("listasede", listasede);
@@ -43,9 +44,10 @@ public class ControladoresConsultorio{
         model.addAttribute("elconsultorio", consultorioDto);
         return "form_consultorio";
     }
-    @PostMapping("/crearconsultorio")
-    public String registrarConsultorio(@ModelAttribute("elconsultorio") ConsultorioDto consultorioDto) {
+    @PostMapping("/crearconsultorio/{identificacion}")
+    public String registrarConsultorio(@ModelAttribute("elconsultorio") ConsultorioDto consultorioDto, Model model, @PathVariable int identificacion) {
+        model.addAttribute("identificacion", identificacion);
         serviciosConsultorio.crear(consultorioDto);
-        return "redirect:/consultorios";
+        return "redirect:/consultorio/{identificacion}";
     }
 }

@@ -6,8 +6,8 @@ import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioSede;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+import static co.ucentral.sistemas.citasmedicas.servicios.ServiciosEspecialidad.normalizar;
 
 @Service
 public class ServiciosSede implements OperacionesSede {
@@ -21,13 +21,23 @@ public class ServiciosSede implements OperacionesSede {
 
     @Override
     public SedeDto crear(SedeDto sedeDto) {
-        if (sedeDto != null){
-            Sede sede =   repositorioSede.save(modelMapper.map(sedeDto, Sede.class));
-            return modelMapper.map(sede, SedeDto.class);
+        String normalizarNombre = normalizar(sedeDto.getNombre());
+
+        if (normalizarNombre == null) {
+            throw new IllegalArgumentException("El nombre normalizado de la sede no puede ser nulo");
         }
 
-        else
-            return null;
+        List<Sede> sedes = repositorioSede.findAll();
+        for (Sede sede : sedes) {
+            String normalizarExisteNombre = normalizar(sede.getNombre());
+            if (normalizarNombre.equals(normalizarExisteNombre)) {
+                return null;
+            }
+        }
+
+        Sede sede = modelMapper.map(sedeDto, Sede.class);
+        sede = repositorioSede.save(sede);
+        return modelMapper.map(sede, SedeDto.class);
     }
 
     @Override

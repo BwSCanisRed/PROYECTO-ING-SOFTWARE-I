@@ -28,8 +28,6 @@
             <th>Tipo de Identificación</th>
             <th>Identificación</th>
             <th>Nombre Completo</th>
-            <!--<th>Soporte Identificación</th>-->
-            <!--<th>Carta</th>-->
             <th>Celular</th>
             <th>Dirección</th>
             <th>Correo</th>
@@ -43,18 +41,51 @@
             <td th:text="${dato.tipoAfiliacion}">Tipo de Afiliación</td>
             <td th:text="${dato.tipoId}">Tipo de Identificación</td>
             <td th:text="${dato.idAfiliado}">Identificación</td>
-            <!--<td> <a th:href="@{'/uploads/' + ${dato.imgDocumento}}" target="_blank">Ver documento</a>Soporte Identificación</td>-->
             <td th:text="${dato.nombre}">Nombre Completo</td>
-            <!--<td> <a th:href="@{'/uploads/' + ${dato.cartaSolicitud}}" target="_blank">Ver carta</a>Carta</td>-->
             <td th:text="${dato.celular}">Celular</td>
             <td th:text="${dato.direccion}">Dirección</td>
             <td th:text="${dato.correo}">Correo</td>
             <td th:text="${dato.estadoSolicitud}">Estado</td>
+            <!--<td>
+                <select class="form-select" th:attr="onchange='actualizarEstado([[${dato.idAfiliacion}]], [[${dato.idAfiliado}]], [[${dato.nombre}]], this.value)'">
+                    <option th:value="Pendiente" th:text="'Pendiente'" th:selected="${dato.estadoSolicitud == 'Pendiente'}">Pendiente</option>
+                    <option th:value="Aprobado" th:text="'Aprobado'" th:selected="${dato.estadoSolicitud == 'Aprobado'}">Aprobado</option>
+                    <option th:value="No Aprobado" th:text="'No Aprobado'" th:selected="${dato.estadoSolicitud == 'No Aprobado'}">No Aprobado</option>
+                </select>
+            </td>-->
         </tr>
         </tbody>
     </table>
 </div>
 <script>
+    function actualizarEstado(idAfiliacion, idAfiliado, nombre, nuevoEstado) {
+        fetch(`/actualizarEstado`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': [[${_csrf.token}]] // Esto es para protección CSRF en Spring
+            },
+            body: JSON.stringify({
+                idAfiliacion: idAfiliacion,
+                idAfiliado: idAfiliado,
+                estadoSolicitud: nuevoEstado,
+                nombre: nombre,
+                motivo: 'nueva solicitud'
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Estado actualizado exitosamente');
+                } else {
+                    alert('Error al actualizar el estado');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al actualizar el estado');
+            });
+    }
 </script>
 </body>
 </html>

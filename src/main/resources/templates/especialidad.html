@@ -16,7 +16,7 @@
 <body>
 <div class="container" style="width : 90%">
     <br>
-    <a class="btn btn-primary" href="#" th:href="@{/especialidad/nuevo}">Adicionar Especialidad</a>
+    <a class="btn btn-primary" href="#" th:href="@{/especialidad/nuevo/{identificacion}(identificacion=${identificacion})}">Adicionar Especialidad</a>
     <a class="btn btn-primary" href="#" th:href="@{/inicioConsultor/{identificacion}(identificacion=${identificacion})}">Volver</a>
 
     <br> <br>

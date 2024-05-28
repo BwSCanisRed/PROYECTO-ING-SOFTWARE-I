@@ -51,8 +51,9 @@ public class ControladoresMedico {
         return "medico";
     }
 
-    @GetMapping("/medico/nuevo")
-    public String mostrarFormulario(Model model) {
+    @GetMapping("/medico/nuevo/{identificacion}")
+    public String mostrarFormulario(Model model, @PathVariable int identificacion) {
+        model.addAttribute("identificacion", identificacion);
         MedicoDto medicoDto = new MedicoDto();
 
         List<SedeDto> listasede = serviciosSede.buscarTodos();
@@ -65,8 +66,9 @@ public class ControladoresMedico {
         model.addAttribute("elmedico", medicoDto);
         return "form_medico";
     }
-    @PostMapping("/crearmedico")
-    public String registrarMedico(@ModelAttribute("elmedico") MedicoDto medicoDto) {
+    @PostMapping("/crearmedico/{identificacion}")
+    public String registrarMedico(@ModelAttribute("elmedico") MedicoDto medicoDto, Model model, @PathVariable int identificacion) {
+        model.addAttribute("identificacion", identificacion);
 
         ConsultorioDto consultorio = medicoDto.getConsultorio();
         SedeDto sede = medicoDto.getSede();
@@ -86,7 +88,7 @@ public class ControladoresMedico {
                 medicoDto.setSede(sedeExistente);
 
                 serviciosMedico.crear(medicoDto);
-                return "redirect:/medicos";
+                return "redirect:/medico/{identificacion}";
             } else {
                 return null;
             }

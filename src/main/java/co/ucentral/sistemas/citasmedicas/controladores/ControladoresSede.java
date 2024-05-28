@@ -13,27 +13,29 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class ControladoresSede{
     ServiciosSede serviciosSede;
-
+    private static final String IDENTIFICACION = "identificacion";
     public ControladoresSede(ServiciosSede serviciosSede) {
         this.serviciosSede = serviciosSede;
     }
 
     @GetMapping({  "/sede/{identificacion}"})
     public String consultarTodos(Model model, @PathVariable int identificacion) {
-        model.addAttribute("identificacion", identificacion);
+        model.addAttribute(IDENTIFICACION, identificacion);
         model.addAttribute("listasede",this.serviciosSede.buscarTodos());
         return "sede";
     }
 
-    @GetMapping("/sede/nuevo")
-    public String mostrarFormulario(Model model){
+    @GetMapping("/sede/nueva/{identificacion}")
+    public String mostrarFormulario(Model model, @PathVariable int identificacion) {
+        model.addAttribute(IDENTIFICACION, identificacion);
         SedeDto sedeDto = new SedeDto();
         model.addAttribute("lasede", sedeDto);
         return "form_sede";
     }
-    @PostMapping("/crearsede")
-    public String registrarSede(@ModelAttribute("lasede") SedeDto sedeDto) {
+    @PostMapping("/crearsede/{identificacion}")
+    public String registrarSede(@ModelAttribute("lasede") SedeDto sedeDto, Model model, @PathVariable int identificacion) {
+        model.addAttribute(IDENTIFICACION, identificacion);
         serviciosSede.crear(sedeDto);
-        return "redirect:/sedes";
+        return "redirect:/sede/{identificacion}";
     }
 }

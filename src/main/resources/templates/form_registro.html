@@ -41,7 +41,7 @@
                         <a class="nav-link" href="#" th:href="@{/iniciosesion}">Iniciar Sesión</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" th:href="@{/afiliacion}">Solicitar afiliación</a>
+                        <a class="nav-link" href="#" th:href="@{/afiliacion/nueva}">Solicitar afiliación</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" th:href="@{/}">Volver</a>
@@ -59,7 +59,7 @@
         <div class="alert alert-info">Se ha registrado exitosamente</div>
     </div>
     <div th:if="${param.error}">
-        <div class="alert alert-warning">Datos no encontrados, debe <a style="color: #0037B6;" th:href="@{/solicitud/afiliaciones}">Solicitar la afiliacion a la EPS</a></div>
+        <div class="alert alert-warning">Datos no encontrados, debe <a style="color: #0037B6;" th:href="@{/afiliacion/nueva}">Solicitar la afiliacion a la EPS</a></div>
     </div>
     <div th:if="${param.errorRegistro}">
         <div class="alert alert-warning">Este usuario ya existe, por favor <a style="color: #0037B6;" th:href="@{/iniciosesion}">Inicie Sesión</a></div>

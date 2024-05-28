@@ -11,14 +11,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @SpringBootApplication
 @Log4j2
 public class CitasmedicasApplication implements CommandLineRunner {
-
+	private static final Logger logger = Logger.getLogger(CitasmedicasApplication.class.getName());
 	public static void main(String[] args) {
 		SpringApplication.run(CitasmedicasApplication.class, args);
-		System.out.println("Cargado exitosamente");
+		logger.info("Cargado exitosamente");
 	}
 
 	RepositorioRol repositorioRol;
@@ -91,7 +92,7 @@ public class CitasmedicasApplication implements CommandLineRunner {
 		repositorioConsultorio.save(consultorio4);
 		Consultorio consultorio5 = new Consultorio(5,"Radiologia",sede5);
 		repositorioConsultorio.save(consultorio5);
-		Consultorio consultorio6 = new Consultorio(5,"Pedriatia",sede6);
+		Consultorio consultorio6 = new Consultorio(5,"Pediatria",sede6);
 		repositorioConsultorio.save(consultorio6);
 
 		Consultor consultor1 = new Consultor(1001346667,"Jennifer Lopez Vanegas",true);
@@ -158,6 +159,7 @@ public class CitasmedicasApplication implements CommandLineRunner {
 		// Definir la hora de inicio de las citas
 		LocalDateTime horaInicio = LocalDateTime.parse("2024-05-29 08:00:00", formatter);
 
+		final String proceso = "Proceso";
 		// Crear 10 citas con 20 minutos de diferencia entre cada una
 		for (int i = 0; i < 20; i++) {
 			// Agregar el desplazamiento de tiempo (20 minutos * i) a la hora de inicio
@@ -165,13 +167,13 @@ public class CitasmedicasApplication implements CommandLineRunner {
 
 			// Crear la cita y agregarla a la lista
 			if (i % 2 == 0) {
-				Cita cita = new Cita(i + 1, fechaCita, especialidad1, "Proceso",medico1,null);
+				Cita cita = new Cita(i + 1, fechaCita, especialidad1, proceso,medico1,null);
 				repositorioCita.save(cita);
 			} else if (i % 3 == 0) {
-				Cita cita = new Cita(i + 1, fechaCita, especialidad2, "Proceso",medico2,null);
+				Cita cita = new Cita(i + 1, fechaCita, especialidad2, proceso,medico2,null);
 				repositorioCita.save(cita);
 			}else{
-				Cita cita = new Cita(i + 1, fechaCita,especialidad3, "Proceso",medico3,null);
+				Cita cita = new Cita(i + 1, fechaCita,especialidad3, proceso,medico3,null);
 				repositorioCita.save(cita);
 			}
 
@@ -184,7 +186,7 @@ public class CitasmedicasApplication implements CommandLineRunner {
 
 		Afiliacion afiliacion1 = new Afiliacion("Pensionado",CC,78945612,"Alvaro Castañeda","3114785622","alvaro@gmail.com","Calle 102","Nuevo",1010101010);
 		repositorioAfiliacion.save(afiliacion1);
-		Afiliacion afiliacion2 = new Afiliacion("Pensionado",CC,54789641,"Camila Acuña Soler","3133336202","xami@gmail.com","Calle 12","Nuevo",1010101010);
+		Afiliacion afiliacion2 = new Afiliacion("Pensionado",CC,54789641,"Camila Acuña Soler","3133336202","xami@gmail.com","Calle 12","Nuevo",1001346667);
 		repositorioAfiliacion.save(afiliacion2);
 
 	}

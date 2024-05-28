@@ -4,15 +4,9 @@ import co.ucentral.sistemas.citasmedicas.dto.AfiliacionDto;
 import co.ucentral.sistemas.citasmedicas.dto.AfiliadoDto;
 import co.ucentral.sistemas.citasmedicas.dto.RegistroDto;
 import co.ucentral.sistemas.citasmedicas.dto.RolDto;
-import co.ucentral.sistemas.citasmedicas.entidades.Afiliacion;
-import co.ucentral.sistemas.citasmedicas.entidades.Afiliado;
-import co.ucentral.sistemas.citasmedicas.entidades.Registro;
-import co.ucentral.sistemas.citasmedicas.entidades.Rol;
+import co.ucentral.sistemas.citasmedicas.entidades.*;
 import co.ucentral.sistemas.citasmedicas.operaciones.OperacionesAfiliado;
-import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioAfiliacion;
-import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioAfiliado;
-import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioRegistro;
-import co.ucentral.sistemas.citasmedicas.repositorios.RepositorioRol;
+import co.ucentral.sistemas.citasmedicas.repositorios.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
@@ -26,37 +20,55 @@ public  class ServiciosAfiliado implements OperacionesAfiliado {
     RepositorioRegistro repositorioRegistro;
     RepositorioRol repositorioRol;
     RepositorioAfiliacion repositorioAfiliacion;
+    RepositorioConsultor repositorioConsultor;
+    RepositorioMedico repositorioMedico;
 
-    public ServiciosAfiliado(ModelMapper modelMapper, RepositorioAfiliado repositorioAfiliado, RepositorioRegistro repositorioRegistro, RepositorioRol repositorioRol, RepositorioAfiliacion repositorioAfiliacion) {
+    public ServiciosAfiliado(ModelMapper modelMapper, RepositorioAfiliado repositorioAfiliado, RepositorioRegistro repositorioRegistro, RepositorioRol repositorioRol, RepositorioAfiliacion repositorioAfiliacion, RepositorioConsultor repositorioConsultor, RepositorioMedico repositorioMedico) {
         this.modelMapper = modelMapper;
         this.repositorioAfiliado = repositorioAfiliado;
         this.repositorioRegistro = repositorioRegistro;
         this.repositorioRol = repositorioRol;
         this.repositorioAfiliacion = repositorioAfiliacion;
+        this.repositorioConsultor = repositorioConsultor;
+        this.repositorioMedico = repositorioMedico;
     }
+
 
     @Override
     public AfiliadoDto crear(AfiliadoDto afiliadoDto) {
+
         if (afiliadoDto == null) {
             return null;
         }
-        Rol rol = repositorioRol.findById(2).orElse(null);
 
+        Consultor consultor = repositorioConsultor.findByIdentificacion(afiliadoDto.getIdentificacion());
+        Medico medico = repositorioMedico.findByIdentificacion(afiliadoDto.getIdentificacion());
+
+        if (consultor != null || medico != null) {
+            return null;
+        }
+
+        Rol rol = repositorioRol.findById(2).orElse(null);
         if (rol == null) {
             return afiliadoDto;
         }
+
         RolDto rolDto = new RolDto();
         rolDto.setIdRol(rol.getIdRol());
         afiliadoDto.setRol(rolDto);
 
         Afiliacion afiliacion = repositorioAfiliacion.findByIdAfiliado(afiliadoDto.getIdentificacion());
-        if(afiliacion == null){
+        if (afiliacion == null) {
             afiliadoDto.setMotivo("Traslado");
-        }else{
+        } else {
             afiliadoDto.setMotivo("Afiliación");
         }
 
-        Afiliado afiliado =   repositorioAfiliado.save(modelMapper.map(afiliadoDto, Afiliado.class));
+        if (repositorioAfiliado.existsByIdentificacion(afiliadoDto.getIdentificacion())) {
+            return null;
+        }
+
+        Afiliado afiliado = repositorioAfiliado.save(modelMapper.map(afiliadoDto, Afiliado.class));
         return modelMapper.map(afiliado, AfiliadoDto.class);
     }
 
