@@ -23,7 +23,6 @@
         <thead class="table-dark">
         <tr>
             <th>Número de solicitud</th>
-            <th>Fecha</th>
             <th>Tipo de Afiliación</th>
             <th>Tipo de Identificación</th>
             <th>Identificación</th>
@@ -37,7 +36,6 @@
         <tbody>
         <tr th:each="dato : ${afiliaciones}">
             <td th:text="${dato.idAfiliacion}">Número de solicitud</td>
-            <td th:text="${#dates.format(dato.fecha, 'yyyy-MM-dd HH:mm:ss')}">Fecha</td>
             <td th:text="${dato.tipoAfiliacion}">Tipo de Afiliación</td>
             <td th:text="${dato.tipoId}">Tipo de Identificación</td>
             <td th:text="${dato.idAfiliado}">Identificación</td>

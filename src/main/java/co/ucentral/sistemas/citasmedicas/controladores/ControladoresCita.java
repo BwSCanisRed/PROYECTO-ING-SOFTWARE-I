@@ -24,6 +24,7 @@ public class ControladoresCita {
     private final ServiciosCita serviciosCita;
     private final ServiciosAfiliado serviciosAfiliado;
     private final ModelMapper modelMapper;
+    private static final String ERROR = "error";
     @Autowired
     public ControladoresCita(ServiciosCita serviciosCita, ServiciosAfiliado serviciosAfiliado, ModelMapper modelMapper) {
         this.serviciosCita = serviciosCita;
@@ -41,7 +42,7 @@ public class ControladoresCita {
             return "agendarcitas";
        } else {
            // Manejar el caso en el que no se encuentre el afiliado con el ID dado
-            return "error"; // Por ejemplo, redirigir a una página de error
+            return ERROR; // Por ejemplo, redirigir a una página de error
         }
    }
 
@@ -61,10 +62,10 @@ public class ControladoresCita {
                model.addAttribute("afiliado", afiliado);
                return "confirmacion";
            } else {
-               return "error";
+               return ERROR;
            }
         } else {
-           return "error";
+           return ERROR;
        }
     }
 
@@ -96,7 +97,7 @@ public class ControladoresCita {
             return "redirect:/MisCitas/" + cita.getAfiliado().getIdentificacion();
         } else {
             // Si la cita no está en estado "Programada", agrega un mensaje de error
-            model.addAttribute("error", "No se puede cancelar una cita que no está programada.");
+            model.addAttribute(ERROR, "No se puede cancelar una cita que no está programada.");
             return "redirect:/MisCitas/" + cita.getAfiliado().getIdentificacion();
         }
     }
@@ -111,7 +112,7 @@ public class ControladoresCita {
                 serviciosCita.modificar(cita);
             } else {
                 // Si la cita ya está finalizada, agrega un mensaje de error
-                redirectAttributes.addFlashAttribute("error", "No se puede agregar una observación a una cita que ya está finalizada.");
+                redirectAttributes.addFlashAttribute(ERROR, "No se puede agregar una observación a una cita que ya está finalizada.");
             }
         // Redirige al usuario a la página de citas
         return "redirect:/MisCitasMedico/" + cita.getMedico().getIdentificacion();

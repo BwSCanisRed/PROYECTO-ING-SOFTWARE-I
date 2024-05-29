@@ -23,7 +23,6 @@
         <thead class="table-dark">
         <tr>
             <th>Número de registro</th>
-            <th>Fecha de Registro</th>
             <th>Tipo de Identificación</th>
             <th>Identificación</th>
             <th>Fecha de Nacimiento</th>
@@ -38,7 +37,6 @@
         <tbody>
         <tr th:each="dato : ${listaregistro}">
             <td th:text="${dato.idRegistro}">Número de registro</td>
-            <td th:text="${#dates.format(dato.getFechaRegistro(), 'yyyy-MM-ddTHH:mm:ss')}">Fecha</td>
             <td th:text="${dato.tipoIdentificacion}">Tipo de Identificación</td>
             <td th:text="${dato.idUsuario}">Identificación</td>
             <td th:text="${#dates.format(dato.fechaNacimiento, 'yyyy-MM-dd')}">Fecha de Nacimiento</td>

@@ -19,7 +19,7 @@ public class Factura {
 
     @Id
     @Column(name = "fac_id", nullable = false)
-    private int id_factura;
+    private int idFactura;
 
     @Column(name = "fac_fecha", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime fecha;

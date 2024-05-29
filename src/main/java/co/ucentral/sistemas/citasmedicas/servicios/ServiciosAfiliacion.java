@@ -75,8 +75,8 @@ public class ServiciosAfiliacion implements OperacionesAfiliacion {
         if (consultores.isEmpty()) {
             return null;
         }
-        int Aleatorio = new Random().nextInt(consultores.size());
-        return consultores.get(Aleatorio);
+        int aleatorio = new Random().nextInt(consultores.size());
+        return consultores.get(aleatorio);
     }
 
     @Override

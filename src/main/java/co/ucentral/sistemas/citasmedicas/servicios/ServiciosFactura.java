@@ -32,7 +32,7 @@ public class ServiciosFactura implements OperacionesFactura {
 
     @Override
     public FacturaDto modificar(FacturaDto facturaDto) {
-        if (this.repositorioFactura.existsById(facturaDto.getId_factura()))
+        if (this.repositorioFactura.existsById(facturaDto.getIdFactura()))
             return this.crear(facturaDto);
         else
             return null;

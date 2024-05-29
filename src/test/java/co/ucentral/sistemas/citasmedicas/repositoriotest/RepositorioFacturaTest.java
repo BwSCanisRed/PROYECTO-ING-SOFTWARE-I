@@ -24,6 +24,6 @@ class RepositorioFacturaTest {
         Factura factura1 = repositorioFactura.save(factura);
         assertThat(factura1).isNotNull();
         assertThat(factura1).isNull();
-        assertThat(factura1.getId_factura()).isPositive();
+        assertThat(factura1.getIdFactura()).isPositive();
     }
 }

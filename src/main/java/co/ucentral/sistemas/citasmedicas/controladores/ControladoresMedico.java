@@ -32,6 +32,7 @@ public class ControladoresMedico {
     RepositorioRegistro repositorioRegistro;
     RepositorioConsultorio repositorioConsultorio;
     RepositorioMedico repositorioMedico;
+    private static final String IDENTIFICACION = "identificacion";
 
     public ControladoresMedico(ServiciosMedico serviciosMedico, ServiciosEspecialidad serviciosEspecialidad, ServiciosSede serviciosSede, ServiciosConsultorio serviciosConsultorio, RepositorioRegistro repositorioRegistro, RepositorioConsultorio repositorioConsultorio, RepositorioMedico repositorioMedico) {
         this.serviciosMedico = serviciosMedico;
@@ -45,7 +46,7 @@ public class ControladoresMedico {
 
     @GetMapping({  "/medico/{identificacion}"})
     public String consultarTodos(Model model, @PathVariable int identificacion) {
-        model.addAttribute("identificacion", identificacion);
+        model.addAttribute(IDENTIFICACION, identificacion);
         List<MedicoDto> listamedicos = this.serviciosMedico.buscarTodos();
         model.addAttribute("listamedicos", listamedicos);
         return "medico";
@@ -53,7 +54,7 @@ public class ControladoresMedico {
 
     @GetMapping("/medico/nuevo/{identificacion}")
     public String mostrarFormulario(Model model, @PathVariable int identificacion) {
-        model.addAttribute("identificacion", identificacion);
+        model.addAttribute(IDENTIFICACION, identificacion);
         MedicoDto medicoDto = new MedicoDto();
 
         List<SedeDto> listasede = serviciosSede.buscarTodos();
@@ -68,7 +69,7 @@ public class ControladoresMedico {
     }
     @PostMapping("/crearmedico/{identificacion}")
     public String registrarMedico(@ModelAttribute("elmedico") MedicoDto medicoDto, Model model, @PathVariable int identificacion) {
-        model.addAttribute("identificacion", identificacion);
+        model.addAttribute(IDENTIFICACION, identificacion);
 
         ConsultorioDto consultorio = medicoDto.getConsultorio();
         SedeDto sede = medicoDto.getSede();
@@ -99,13 +100,13 @@ public class ControladoresMedico {
 
     @GetMapping("/inicioMedico/{identificacion}")
     public String inicioMedico(@PathVariable int identificacion, Model model, RedirectAttributes redirectAttributes) {
-        redirectAttributes.addAttribute("identificacion", identificacion);
+        redirectAttributes.addAttribute(IDENTIFICACION, identificacion);
         return "inicioMedico";
     }
 
     @GetMapping({"/AgendaMedico/{identificacion}"})
     public String agendaDeMedico(@PathVariable int identificacion, RedirectAttributes redirectAttributes) {
-        redirectAttributes.addAttribute("identificacion", identificacion);
+        redirectAttributes.addAttribute(IDENTIFICACION, identificacion);
         return "redirect:/MisCitasMedico/{identificacion}";
     }
 }

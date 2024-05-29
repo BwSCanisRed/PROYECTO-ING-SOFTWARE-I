@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class ControladoresRol{
 
     ServiciosRol serviciosRol;
+    private static final String IDENTIFICACION = "identificacion";
 
     public ControladoresRol(ServiciosRol serviciosRol) {
         this.serviciosRol = serviciosRol;
@@ -21,21 +22,21 @@ public class ControladoresRol{
 
     @GetMapping({  "/rol/{identificacion}"})
     public String consultarTodos(Model model, @PathVariable int identificacion) {
-        model.addAttribute("identificacion", identificacion);
+        model.addAttribute(IDENTIFICACION, identificacion);
         model.addAttribute("listarol",this.serviciosRol.buscarTodos());
         return "rol";
     }
 
     @GetMapping("/rol/nuevo/{identificacion}")
     public String mostrarFormulario(Model model, @PathVariable int identificacion) {
-        model.addAttribute("identificacion", identificacion);
+        model.addAttribute(IDENTIFICACION, identificacion);
         RolDto rolDto = new RolDto();
         model.addAttribute("elrol", rolDto);
         return "form_rol";
     }
     @PostMapping("/crearol/{identificacion}")
     public String registrarRol(@ModelAttribute("elrol") RolDto rolDto, Model model, @PathVariable int identificacion) {
-        model.addAttribute("identificacion", identificacion);
+        model.addAttribute(IDENTIFICACION, identificacion);
         serviciosRol.crear(rolDto);
         return "redirect:/rol/{identificacion}";
     }

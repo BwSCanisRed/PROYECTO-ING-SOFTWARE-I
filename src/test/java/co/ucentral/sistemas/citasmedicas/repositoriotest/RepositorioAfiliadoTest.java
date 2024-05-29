@@ -23,10 +23,10 @@ class RepositorioAfiliadoTest {
         afiliado = repositorioAfiliado.save(afiliado);
 
         // Busca el afiliado
-      /*  Afiliado afiliadoBuscado = repositorioAfiliado.findById(afiliado.getId()).orElse(null);
+         Afiliado afiliadoBuscado = repositorioAfiliado.findByIdentificacion(afiliado.getIdentificacion());
 
         // Verifica que el afiliado guardado y el afiliado buscado sean iguales
-        assertEquals(afiliado, afiliadoBuscado);*/
+        assertEquals(afiliado, afiliadoBuscado);
     }
 
     @Test

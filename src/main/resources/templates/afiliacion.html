@@ -23,13 +23,10 @@
         <thead class="table-dark">
         <tr>
             <th>Número de solicitud</th>
-            <th>Fecha</th>
             <th>Tipo de Afiliación</th>
             <th>Tipo de Identificación</th>
             <th>Identificación</th>
             <th>Nombre Completo</th>
-            <!--<th>Soporte Identificación</th>-->
-            <!--<th>Carta</th>-->
             <th>Celular</th>
             <th>Dirección</th>
             <th>Correo</th>
@@ -40,13 +37,9 @@
         <tbody>
         <tr th:each="dato : ${listafiliacion}">
             <td th:text="${dato.idAfiliacion}">Número de solicitud</td>
-            <td th:text="${#dates.format(dato.fecha, 'yyyy-MM-dd HH:mm:ss')}">Fecha</td>
             <td th:text="${dato.tipoAfiliacion}">Tipo de Afiliación</td>
             <td th:text="${dato.tipoId}">Tipo de Identificación</td>
             <td th:text="${dato.idAfiliado}">Identificación</td>
-            <!--<td> <a th:href="@{'/uploads/' + ${dato.imgDocumento}}" target="_blank">Ver documento</a>Soporte Identificación</td>-->
-            <td th:text="${dato.nombre}">Nombre Completo</td>
-            <!--<td> <a th:href="@{'/uploads/' + ${dato.cartaSolicitud}}" target="_blank">Ver carta</a>Carta</td>-->
             <td th:text="${dato.celular}">Celular</td>
             <td th:text="${dato.direccion}">Dirección</td>
             <td th:text="${dato.correo}">Correo</td>

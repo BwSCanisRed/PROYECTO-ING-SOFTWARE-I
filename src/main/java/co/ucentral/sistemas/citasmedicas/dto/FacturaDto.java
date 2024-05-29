@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class FacturaDto {
 
-    private int id_factura;
+    private int idFactura;
     private LocalDateTime fecha;
     private BigDecimal valor;
     private Boolean estado;
